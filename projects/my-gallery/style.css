@@ -1,0 +1,178 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #9f969f;
+    padding: 20px;
+    color: #333;
+}
+
+/* HEADER */
+header{
+    text-align: center;
+    margin-bottom: 30px;
+    color:rgb(39, 43, 54)
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+/* HIDE RADIO BUTTONS */
+.filters input{
+    display: none;
+}
+
+/* FILTER BUTTON SECTION */
+.filter-buttons {
+
+    /* FLEXBOY */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* BUTTON STYLE */
+.filter-buttons label {
+    background-color: #496c86;
+    color: rgb(182, 217, 229);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-buttons label:hover {
+    background-color: #1f374d;
+    color: rgb(149, 189, 243);
+}
+
+/* ACTIVE BUTTONS */
+#all:checked ~ .filter-buttons label[for="all"],
+#landscape:checked ~ .filter-buttons label[for="landscape"],
+#portrait:checked ~ .filter-buttons label[for="portrait"],
+#architecture:checked ~ .filter-buttons label[for="architecture"] {
+    background-color: #1f374d;
+    color: rgb(74, 152, 255);
+}
+
+/*  GALLERY GRID */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* GALLERY CARD 8 */
+.gallery-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* CARD */
+.gallery-card {
+    background-color: white;
+    border-radius:  10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+/* CARD HOVER */
+.gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* IMAGE CONTAINER */
+.image-container {
+    position: relative;   
+}
+
+/* IMAGES */
+.image-container img {
+    width: 100%;
+    display: block;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* OVERLAY */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h2 {
+    margin-bottom: 10px;
+}
+
+/* CATEGORY TAG */
+.category {
+    display: inline-block;
+    background-color: rgb(236, 192, 227);
+    color: #263044;
+    padding: 5px 10px;
+    border-radius: 100px;
+    font-size: 14px;
+}
+
+/* FILTER LANDSCAPE */
+#landscape:checked ~ .gallery-grid .gallery-card:not(.landscape) {
+    display: none;
+}
+
+/* FILTER PORTRAIT */
+#portrait:checked ~ .gallery-grid .gallery-card:not(.portrait) {
+    display: none;
+}
+
+/* FILTER ARCHITECTURE */
+#architecture:checked ~ .gallery-grid .gallery-card:not(.architecture) {
+    display: none;
+}
+
+
+/* TABLET */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
