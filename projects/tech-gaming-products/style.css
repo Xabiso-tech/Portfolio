@@ -1,0 +1,402 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    background:
+    linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #1e3a8a,
+        #475569
+    );
+
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* LOADER */
+.loader-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.loader {
+    width: 70px;
+    height: 70px;
+    border: 7px solid #334155;
+    border-top: 7px solid #38bdf8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* SPIN */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* LOGO */
+.logo {
+    font-size: 2.3rem;
+    color: white;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+/* NAV LINKS */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li {
+    animation: slideDown 1s ease forwards;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #38bdf8;
+    transform: translateY(-4px);
+}
+
+/* HERO */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* HERO CONTENT */
+.hero-content {
+    z-index: 2;
+    animation: slideUp 1.2s ease forwards;
+}
+
+.hero-content h2 {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(56,189,248,0.5);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    color: #dbeafe;
+    margin-bottom: 35px;
+}
+
+/* CTA */
+.cta-btn {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    background:
+    linear-gradient(
+        90deg,
+        #2563eb,
+        #38bdf8
+    );
+
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* BUTTON HOVER */
+.cta-btn:hover {
+    animation-play-state: paused;
+    transform: scale(1.08);
+    box-shadow:
+    0 0 30px rgba(56,189,248,0.6);
+}
+
+/* PULSE */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* DECORATIVE SHAPE */
+.skew-box {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background:
+    rgba(56,189,248,0.08);
+    transform:
+    skew(-25deg)
+    rotate(20deg);
+    top: 100px;
+    right: -100px;
+}
+
+/* SECTION TITLE */
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 60px;
+}
+
+/* PRODUCTS */
+.products-section {
+    padding: 50px 0 100px;
+}
+
+.products-container {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns:
+    repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+}
+
+/* CARD */
+.product-card {
+    background:
+    rgba(255,255,255,0.08);
+    border:
+    1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(14px);
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    animation:
+    slideIn 1s ease forwards;
+    transition:
+    transform 0.4s ease,
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* DELAYS */
+.product-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.product-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.product-card:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.product-card:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.product-card:nth-child(5) {
+    animation-delay: 1s;
+}
+
+.product-card:nth-child(6) {
+    animation-delay: 1.2s;
+}
+
+/* CARD HOVER */
+.product-card:hover {
+    transform:
+    translateY(-12px)
+    scale(1.03);
+    background:
+    rgba(255,255,255,0.12);
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* ICON */
+.icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    transition:
+    transform 0.5s ease;
+}
+
+/* ROTATE */
+.product-card:hover .icon {
+    transform:
+    rotate(15deg)
+    scale(1.2);
+}
+
+/* IMAGES */
+.product-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+
+/* IMAGE HOVER */
+.product-card:hover img {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* TITLE */
+.product-card h3 {
+    font-size: 1.7rem;
+    margin-bottom: 15px;
+}
+
+/* TEXT */
+.product-card p {
+    color: #dbeafe;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* BUTTON */
+.product-card button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background:
+    linear-gradient(
+        90deg,
+        #2563eb,
+        #38bdf8
+    );
+
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* BUTTON HOVER */
+.product-card button:hover {
+    transform: translateY(-4px);
+    box-shadow:
+    0 0 20px rgba(56,189,248,0.5);
+}
+
+/* SLIDE UP */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* SLIDE IN */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* NAV DROP */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* BG MOVE */
+@keyframes gradientMove {
+    0% {
+        background-position: left;
+    }
+    50% {
+        background-position: right;
+    }
+    100% {
+        background-position: left;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.3rem;
+    }
+}
