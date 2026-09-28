@@ -26,6 +26,11 @@ html {
     --ink: #1f1f1f;
     --soft-ink: rgba(31,31,31,0.15);
     --fade: rgba(255,255,255,0.4);
+
+    /* motion easings */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-soft: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 
@@ -380,7 +385,7 @@ th, td {
 }
 
 /* subtle moving grain */
-d::before {
+.site-footer::before {
     content: "";
 
     position: absolute;
@@ -615,151 +620,586 @@ d::before {
     }
 }
 
+/* =========================================================
+   LANDING PAGE CINEMATIC SYSTEM
+   (curtain -> hero choreography -> ambient -> scroll reveal)
+   ========================================================= */
+
+/* The body/hero reveal is owned by this timeline on the landing page,
+   so the generic page-load fades are suppressed there only. */
+body.portfolio-body {
+    animation: none;
+}
+
+body.portfolio-body section {
+    animation: none;
+}
+
+
 /* =========================
-   CINEMATIC INTRO
-========================= */
+   AMBIENT BACKDROP
+   ========================= */
+.hero-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
 
-#intro-overlay{
-    position:fixed;
-    inset:0;
+.backdrop-wash {
+    position: absolute;
+    inset: -20%;
 
-    background:#f6f1e8;
+    background:
+        radial-gradient(42% 38% at 18% 20%, rgba(31,31,31,0.06), transparent 70%),
+        radial-gradient(38% 42% at 84% 66%, rgba(31,31,31,0.05), transparent 70%),
+        radial-gradient(34% 34% at 54% 8%,  rgba(255,255,255,0.6),  transparent 70%);
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    will-change: transform;
+    animation: washDrift 26s var(--ease-soft) infinite alternate;
+}
 
-    z-index:99999;
+@keyframes washDrift {
+    from { transform: translate3d(-2%, -1%, 0) scale(1); }
+    to   { transform: translate3d(2%, 3%, 0) scale(1.07); }
+}
 
-    animation:introExit 5s forwards;
+.backdrop-grain {
+    position: absolute;
+    inset: 0;
+
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.02) 0 1px,
+        transparent 1px 4px
+    );
+
+    opacity: 0.55;
+    will-change: transform;
+    animation: grainDrift 9s linear infinite;
+}
+
+@keyframes grainDrift {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(0, 4px, 0); }
+}
+
+/* keep real content above the ambient layer */
+body.portfolio-body header,
+body.portfolio-body main,
+body.portfolio-body .artist-footer {
+    position: relative;
+    z-index: 1;
 }
 
 
-.intro-content{
-    text-align:center;
+/* =========================
+   INTRO CURTAIN
+   Never intercepts pointer events, so it can not block navigation.
+   ========================= */
+#intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
 
-    animation:introZoom 4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--paper);
+    overflow: hidden;
+    pointer-events: none;
+
+    will-change: transform;
+    animation: introCurtain 3s var(--ease-soft) forwards;
+}
+
+@keyframes introCurtain {
+    0%   { transform: translate3d(0, 0, 0); }
+    76%  { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, -100%, 0); }
+}
+
+/* page-edge shading so the lift reads as paper turning */
+#intro-overlay::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 140px;
+
+    background: linear-gradient(180deg, transparent, rgba(31,31,31,0.12));
+
+    opacity: 0;
+    pointer-events: none;
+
+    animation: introEdge 3s var(--ease-soft) forwards;
+}
+
+@keyframes introEdge {
+    0%, 76% { opacity: 0; }
+    92%     { opacity: 1; }
+    100%    { opacity: 0; }
+}
+
+/* progress hairline */
+.intro-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+
+    background: rgba(31,31,31,0.07);
+}
+
+.intro-progress-bar {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+
+    will-change: transform;
+    animation: drawLine 3s var(--ease-out-quint) forwards;
+}
+
+/* sketchbook frame that draws itself in */
+.intro-frame {
+    position: absolute;
+    top: 30px;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    pointer-events: none;
+}
+
+.intro-frame-top,
+.intro-frame-bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(31,31,31,0.32),
+        transparent
+    );
+}
+
+.intro-frame-top {
+    top: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    animation: drawLine 0.9s var(--ease-out-expo) 0.15s forwards;
+}
+
+.intro-frame-bottom {
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: 100% 50%;
+    animation: drawLine 0.9s var(--ease-out-expo) 0.35s forwards;
+}
+
+@keyframes drawLine {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+.intro-content {
+    text-align: center;
+    padding: 0 24px;
+    max-width: 900px;
+}
+
+.intro-quote {
+    font-family: "Shadows Into Light", cursive;
+
+    font-size: clamp(1.9rem, 5.2vw, 3.3rem);
+    line-height: 1.32;
+
+    margin: 0;
+
+    opacity: 0;
+    will-change: transform, opacity;
+
+    animation: quoteCinematic 1.35s var(--ease-out-expo) 0.28s forwards;
+}
+
+@keyframes quoteCinematic {
+    from {
+        opacity: 0;
+        letter-spacing: 0.18em;
+        filter: blur(5px);
+        transform: translate3d(0, 14px, 0);
+    }
+    to {
+        opacity: 1;
+        letter-spacing: normal;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* charcoal rule drawn under the quote */
+.intro-stroke {
+    display: block;
+    width: min(240px, 42vw);
+    height: 2px;
+
+    margin: 26px auto 0;
+
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+
+    animation: drawLine 0.75s var(--ease-out-expo) 1.5s forwards;
+}
+
+.intro-author {
+    font-family: "Playfair Display", serif;
+
+    margin: 22px 0 0;
+
+    color: rgba(31,31,31,0.72);
+
+    opacity: 0;
+    letter-spacing: 0.85em;
+    text-indent: 0.85em; /* balance the trailing letter-space */
+
+    will-change: transform, opacity;
+
+    animation: authorCinematic 0.95s var(--ease-out-expo) 1.85s forwards;
+}
+
+@keyframes authorCinematic {
+    from {
+        opacity: 0;
+        letter-spacing: 0.85em;
+        transform: translate3d(0, 16px, 0);
+    }
+    to {
+        opacity: 1;
+        letter-spacing: 0.18em;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.intro-skip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 7%;
+
+    text-align: center;
+
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+
+    color: rgba(31,31,31,0.38);
+
+    opacity: 0;
+    animation: skipIn 0.7s ease 1.1s forwards;
+}
+
+@keyframes skipIn {
+    to { opacity: 1; }
 }
 
 
-.intro-quote{
-    font-family:"Shadows Into Light", cursive;
+/* =========================
+   HERO CHOREOGRAPHY
+   Runs behind the curtain so the page is revealed mid-entrance.
+   ========================= */
+.hero-title {
+    font-size: clamp(2.05rem, 7vw, 52px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
 
-    font-size:3rem;
+.hero-line {
+    display: block;
+    overflow: hidden;
 
-    max-width:900px;
+    padding-bottom: 0.08em;  /* stop descenders clipping */
+    margin-bottom: -0.04em;
+}
 
-    padding:20px;
+.hero-line-inner {
+    display: block;
+    will-change: transform;
+}
 
-    opacity:0;
+html.js-motion .hero-line-inner {
+    transform: translate3d(0, 110%, 0);
+}
 
-    animation:quoteAppear 1.5s ease forwards;
+html.js-motion.reveal-on .hero-line-inner {
+    animation: heroLineIn 0.95s var(--ease-out-expo) both;
+}
+
+html.js-motion.reveal-on .hero-line:nth-child(1) .hero-line-inner {
+    animation-delay: 1.70s;
+}
+
+html.js-motion.reveal-on .hero-line:nth-child(2) .hero-line-inner {
+    animation-delay: 1.86s;
+}
+
+@keyframes heroLineIn {
+    from { transform: translate3d(0, 110%, 0); }
+    to   { transform: translate3d(0, 0, 0); }
+}
+
+.hero-tagline {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
+
+html.js-motion .hero-tagline,
+html.js-motion .hero-fade {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+}
+
+html.js-motion.reveal-on .hero-tagline,
+html.js-motion.reveal-on .hero-fade {
+    animation: heroFadeIn 0.8s var(--ease-out-expo) both;
+}
+
+html.js-motion.reveal-on .hero-tagline   { animation-delay: 2.30s; }
+html.js-motion.reveal-on .hero-fade-1    { animation-delay: 2.44s; }
+html.js-motion.reveal-on .hero-fade-2    { animation-delay: 2.56s; }
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(3px);
+        transform: translate3d(0, 16px, 0);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* nav drops in just before the curtain lifts */
+html.js-motion .portfolio-body nav {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+}
+
+html.js-motion.reveal-on .portfolio-body nav {
+    animation: navDrop 0.7s var(--ease-out-expo) 2.15s both;
+}
+
+@keyframes navDrop {
+    from { opacity: 0; transform: translate3d(0, -100%, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Skipping the curtain collapses the whole timeline to immediate. */
+html.js-motion.intro-skipped .hero-line-inner,
+html.js-motion.intro-skipped .hero-tagline,
+html.js-motion.intro-skipped .hero-fade,
+html.js-motion.intro-skipped .portfolio-body nav {
+    animation-delay: 0s !important;
+}
+
+/* fast, clean paper lift instead of the full 3s hold */
+html.intro-skipped #intro-overlay {
+    animation: introCurtainFast 0.45s var(--ease-out-expo) forwards;
+}
+
+html.intro-skipped #intro-overlay::after,
+html.intro-skipped .intro-progress-bar,
+html.intro-skipped .intro-frame-top,
+html.intro-skipped .intro-frame-bottom,
+html.intro-skipped .intro-quote,
+html.intro-skipped .intro-stroke,
+html.intro-skipped .intro-author,
+html.intro-skipped .intro-skip {
+    animation: none !important;
+}
+
+html.intro-skipped .intro-skip {
+    opacity: 0;
+}
+
+@keyframes introCurtainFast {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(0, -100%, 0); }
 }
 
 
-.intro-author{
-    font-family:"Playfair Display", serif;
+/* =========================
+   SCROLL REVEAL
+   ========================= */
+html.js-motion [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
 
-    margin-top:20px;
+    transition:
+        opacity 0.75s var(--ease-out-expo) var(--reveal-delay, 0ms),
+        transform 0.75s var(--ease-out-expo) var(--reveal-delay, 0ms);
 
-    letter-spacing:2px;
+    will-change: opacity, transform;
+}
 
-    opacity:0;
+html.js-motion [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+}
 
-    animation:authorAppear 1s ease forwards;
-    animation-delay:1.2s;
+/* safety net if motion.js is unavailable */
+html.js-motion.reveal-fallback .hero-line-inner,
+html.js-motion.reveal-fallback .hero-tagline,
+html.js-motion.reveal-fallback .hero-fade,
+html.js-motion.reveal-fallback .portfolio-body nav,
+html.js-motion.reveal-fallback [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
 }
 
 
-@keyframes quoteAppear{
+/* =========================
+   HOVER / INTERACTION POLISH
+   ========================= */
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
 
-    from{
-        opacity:0;
-        transform:scale(1.15);
-        filter:blur(8px);
+    padding: 10px 18px;
+
+    border: 1px solid var(--soft-ink);
+    border-radius: 100px;
+
+    background: rgba(255,255,255,0.4);
+
+    transition:
+        transform 0.3s var(--ease-out-expo),
+        box-shadow 0.3s var(--ease-out-expo),
+        border-color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(31,31,31,0.35);
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+
+    text-decoration: none;
+    opacity: 1;
+}
+
+.social-links a i {
+    transition: transform 0.35s var(--ease-out-expo);
+}
+
+.social-links a:hover i {
+    transform: rotate(-8deg) scale(1.12);
+}
+
+.quote-block {
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.quote-block:hover {
+    border-left-color: rgba(31,31,31,0.45);
+    box-shadow: inset 0 0 0 1px rgba(31,31,31,0.04);
+}
+
+.social-title {
+    animation: fadeFloat 6s ease-in-out infinite;
+}
+
+@keyframes fadeFloat {
+    0%   { transform: translate3d(0, 0, 0); }
+    50%  { transform: translate3d(0, -5px, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+
+/* =========================
+   RESPONSIVE (landing)
+   ========================= */
+@media (max-width: 768px) {
+    .intro-frame {
+        top: 18px;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
     }
 
-    to{
-        opacity:1;
-        transform:scale(1);
-        filter:blur(0);
+    .intro-stroke {
+        margin-top: 20px;
+    }
+
+    .intro-author {
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+        font-size: 0.9rem;
+    }
+
+    .hero-tagline {
+        font-size: 0.95rem;
+        letter-spacing: 1.4px;
+    }
+
+    .social-links {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
 
-@keyframes authorAppear{
+/* =========================
+   REDUCED MOTION
+   ========================= */
+@media (prefers-reduced-motion: reduce) {
 
-    from{
-        opacity:0;
-        transform:translateY(20px);
+    html {
+        scroll-behavior: auto;
     }
 
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-
-@keyframes introZoom{
-
-    0%{
-        transform:scale(1);
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
     }
 
-    70%{
-        transform:scale(1);
+    #intro-overlay,
+    .hero-backdrop {
+        display: none !important;
     }
 
-    100%{
-        transform:scale(0.75);
-    }
-}
-
-
-@keyframes introExit{
-
-    0%,85%{
-        opacity:1;
-        visibility:visible;
-    }
-
-    100%{
-        opacity:0;
-        visibility:hidden;
-        pointer-events:none;
+    html.js-motion .hero-line-inner,
+    html.js-motion .hero-tagline,
+    html.js-motion .hero-fade,
+    html.js-motion [data-reveal],
+    html.js-motion .portfolio-body nav {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
     }
 }
- /* Hero Animation */
 
-.hero-tagline{
-
-    font-size:1.1rem;
-
-    letter-spacing:2px;
-
-    opacity:0.8;
-
-    margin-bottom:25px;
-
-    animation:fadeFloat 4s ease-in-out infinite;
-}
-
-
-@keyframes fadeFloat{
-
-    0%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-5px);
-    }
-
-    100%{
-        transform:translateY(0);
-    }
-}
 
 /* Quick Sketch */
 .artist-info h3{
@@ -892,6 +1332,23 @@ d::before {
     margin-bottom: 15px;
 
     animation: pencilWrite 2s ease forwards;
+}
+
+/* handwriting-on reveal: the line writes in, then settles */
+@keyframes pencilWrite {
+    from {
+        opacity: 0;
+        transform: translateY(14px) rotate(-1.2deg);
+        clip-path: inset(0 100% 0 0);
+    }
+    70% {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+        clip-path: inset(0 0 0 0);
+    }
 }
 
 .toolkit-intro {
@@ -1284,4 +1741,200 @@ article a:hover {
         transform:translateY(0px);
     }
 }
+
+
+
+/* =========================
+   MISSING LAYOUT BLOCKS
+   Classes used in markup that previously had no rules at all.
+   ========================= */
+
+/* FOOTER LINK ROW */
+.footer-links{
+    position: relative;
+    z-index: 2;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:26px;
+
+    margin: 0 0 24px;
+}
+
+.footer-links a{
+    position:relative;
+
+    font-size:0.9rem;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+
+    color:#f6f1e8;
+    opacity:0.78;
+
+    transition: opacity 0.3s ease, transform 0.3s var(--ease-out-expo);
+}
+
+.footer-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+
+    width:0;
+    height:1px;
+    background:#f6f1e8;
+
+    transition: width 0.3s var(--ease-out-expo);
+}
+
+.footer-links a:hover{
+    text-decoration:none;
+    opacity:1;
+    transform:translateY(-2px);
+}
+
+.footer-links a:hover::after{
+    width:100%;
+}
+
+.footer-signature{
+    position:relative;
+    z-index:2;
+
+    font-size:0.92rem;
+    font-style:italic;
+    letter-spacing:0.6px;
+
+    opacity:0.65;
+
+    margin-bottom:30px;
+}
+
+.footer-divider{
+    opacity:0.4;
+}
+
+
+/* STORY PAGE HEADINGS */
+.story-heading{
+    font-size: clamp(2.1rem, 6vw, 3.1rem);
+    line-height:1.15;
+    margin-bottom:6px;
+}
+
+.story-subtitle{
+    font-family:"Shadows Into Light", cursive;
+    font-size:1.6rem;
+
+    opacity:0.75;
+    margin-bottom:30px;
+}
+
+.journey-path .timeline-item:last-child{
+    margin-bottom:0;
+}
+
+
+/* CONTACT LAYOUT (form + info) */
+.contact-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap:28px;
+    align-items:start;
+}
+
+.contact-form-card,
+.contact-info-card{
+    position:relative;
+
+    padding:28px;
+    border-radius:14px;
+
+    background:rgba(255,255,255,0.5);
+    border:1px solid var(--soft-ink);
+    box-shadow:0 12px 30px rgba(0,0,0,0.06);
+
+    overflow:hidden;
+    transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s ease;
+}
+
+.contact-form-card:hover,
+.contact-info-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(0,0,0,0.1);
+}
+
+.contact-form-card h3,
+.contact-info-card h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:8px;
+}
+
+.contact-form-card p,
+.contact-info-card p{
+    font-size:0.94rem;
+    opacity:0.8;
+    margin-bottom:16px;
+}
+
+/* paper grain */
+.contact-form-card::after,
+.contact-info-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 12px,
+        rgba(0,0,0,0.014) 13px,
+        rgba(0,0,0,0.014) 14px
+    );
+
+    pointer-events:none;
+}
+
+.contact-form-card > *,
+.contact-info-card > *{
+    position:relative;
+    z-index:1;
+}
+
+.mini-divider{
+    height:1px;
+    margin:22px 0;
+
+    background:linear-gradient(90deg, var(--soft-ink), transparent);
+}
+
+/* FORM LABELS */
+form label{
+    font-size:0.76rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+
+    opacity:0.65;
+    margin-bottom:-6px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    outline:none;
+    border-color:rgba(31,31,31,0.5);
+    background:rgba(255,255,255,0.55);
+}
+
+@media (max-width: 900px) {
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+}
+
 

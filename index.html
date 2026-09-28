@@ -1,21 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Xabiso Phendu | Drawn by Hand, Built with Code</title>
 
+    <meta name="description"
+    content="Portfolio of Xabiso Phendu, front-end developer in training and graphite artist. Built with HTML, CSS, JavaScript and Python.">
+
     <link rel="stylesheet" href="style.css">
 
     <!-- Icons -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
+
+    <!-- Progressive enhancement: only hide reveal targets when scripting is available -->
+    <script>
+        document.documentElement.classList.add("js-motion");
+
+        /* Failsafe: if motion.js is missing or throws, reveal everything. */
+        window.__motionFailsafe = window.setTimeout(function () {
+            document.documentElement.classList.add("reveal-on", "reveal-fallback");
+        }, 4000);
+    </script>
 </head>
 
 <body class="portfolio-body">
-    <div id="intro-overlay">
+
+<!-- AMBIENT BACKDROP (pointer-events:none, decorative) -->
+<div class="hero-backdrop" aria-hidden="true">
+    <span class="backdrop-wash"></span>
+    <span class="backdrop-grain"></span>
+</div>
+
+<!-- =========================
+     CINEMATIC INTRO CURTAIN
+     Pointer-events:none, so it can never block navigation.
+     Dismissible via click / Esc / any key, or simply left to finish.
+========================== -->
+<div id="intro-overlay" aria-hidden="true">
+
+    <div class="intro-progress" aria-hidden="true">
+        <span class="intro-progress-bar"></span>
+    </div>
+
+    <div class="intro-frame" aria-hidden="true">
+        <span class="intro-frame-top"></span>
+        <span class="intro-frame-bottom"></span>
+    </div>
 
     <div class="intro-content">
 
@@ -24,16 +61,22 @@
             What stands in the way becomes the way."
         </p>
 
+        <span class="intro-stroke" aria-hidden="true"></span>
+
         <p class="intro-author">
             — Marcus Aurelius
         </p>
 
     </div>
 
+    <p class="intro-skip" aria-hidden="true">
+        Click or press Esc to skip
+    </p>
+
 </div>
 
 
-<header>
+<header id="top">
     <nav>
         <h1><i class="fa-solid fa-pen-nib"></i> Xabiso Phendu</h1>
 
@@ -77,27 +120,31 @@
     <!-- HERO -->
     <section id="home">
 
-        <h2>
-            Drawn by Hand.<br>
-            Built with code.
+        <h2 class="hero-title">
+            <span class="hero-line">
+                <span class="hero-line-inner">Drawn by Hand.</span>
+            </span>
+            <span class="hero-line">
+                <span class="hero-line-inner">Built with code.</span>
+            </span>
         </h2>
 
-        <p class="heo-tagline">
+        <p class="hero-tagline">
             Web developer in Training •
             Graphite Artist •
             Lifelong Builder
         </p>
-        
-        <p>
+
+        <p class="hero-fade hero-fade-1">
             A digital sketchbook where ideas are drafted, erased, refined, and built into working systems.
         </p>
 
-        <p>
+        <p class="hero-fade hero-fade-2">
             Each project reflects repetition, correction, and iteration — the actual process behind learning to build.
         </p>
 
         <!-- CENTERPIECE QUOTE -->
-        <div class="quote-block">
+        <div class="quote-block" data-reveal>
             <p class="quote-text">
                 Impediment to action advances action. What stands in the way becomes the way.
             </p>
@@ -107,13 +154,13 @@
             </p>
         </div>
 
-        <h2>Why This Exists</h2>
+        <h2 data-reveal>Why This Exists</h2>
 
-        <p>
+        <p data-reveal>
             This portfolio is a record of progress through structured practice, experimentation, and rebuilding.
         </p>
 
-        <p>
+        <p data-reveal>
             The focus is not appearance alone, but the accumulation of functional, improving work over time.
         </p>
 
@@ -121,7 +168,7 @@
 
 
     <!-- SOCIALS -->
-    <section class="socials">
+    <section class="socials" data-reveal>
 
         <h3 class="social-title">
             <i class="fa-solid fa-compass"></i> Find Me Online
@@ -133,11 +180,15 @@
 
         <div class="social-links">
 
-            <a href="https://github.com/" target="_blank">
+            <a href="https://github.com/Xabiso-tech"
+               target="_blank"
+               rel="noopener noreferrer">
                 <i class="fa-brands fa-github"></i> GitHub
             </a>
 
-            <a href="https://www.linkedin.com/" target="_blank">
+            <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/"
+               target="_blank"
+               rel="noopener noreferrer">
                 <i class="fa-brands fa-linkedin"></i> LinkedIn
             </a>
 
@@ -185,9 +236,7 @@
 
 </footer>
 
-
-
+<script src="motion.js" defer></script>
 
 </body>
 </html>
-
