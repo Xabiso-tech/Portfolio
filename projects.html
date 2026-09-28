@@ -8,7 +8,7 @@
     <title>The Workshop | Xabiso Phendu</title>
 
     <meta name="description"
-          content="Projects by Xabiso Phendu: a full-stack HR system built in Express and MySQL with a team of four, plus front-end studies in galleries, product layouts, gaming hardware and form design.">
+          content="Projects by Xabiso Phendu: two full-stack team projects, an HR system in Express and MySQL and the WeConnect B2B marketplace in Vue 3, plus front-end studies in galleries, product layouts, gaming hardware and form design.">
 
     <link rel="stylesheet" href="style.css">
 
@@ -55,9 +55,9 @@
     <h2>The workshop</h2>
 
     <p class="toolkit-intro">
-        A team project where I wrote part of the back end, then the smaller front-end studies
-        that taught me why that back end was worth building. None of them are finished. All
-        of them taught me something I could not have read.
+        Two team projects where I was responsible for the back end and the pages that read
+        from it, then the smaller front-end studies that taught me why that back end was
+        worth building. Every one of them taught me something I could not have read.
     </p>
 
 </section>
@@ -129,7 +129,57 @@
             </a>
         </article>
 
-        <!-- WECONNECT: slot reserved, pending verified repository details -->
+        <!-- WECONNECT — verified full-stack contribution -->
+        <article class="card">
+            <h3><i class="fa-solid fa-handshake"></i> WeConnect</h3>
+
+            <p class="card-meta">
+                <span>Team of 4</span>
+                <span>My role: delivery &amp; tracking</span>
+                <span>2026</span>
+            </p>
+
+            <p>
+                A B2B marketplace where small businesses order stock from wholesalers. It is
+                the largest thing I have worked on: 608 commits across 24 tables, and by far
+                the most code I have had to read before I could change anything.
+            </p>
+
+            <ul class="card-list">
+                <li><strong>My work:</strong> the delivery and logistics layer, end to end.
+                    I wrote the orders, deliveries and payments back end, the GPS tracking
+                    API, and the front-end pages that render them.</li>
+                <li>The delivery query joins orders, buyers, suppliers and payments in one
+                    pass, and returns pickup and destination coordinates, route distance and
+                    estimated duration for the map to draw.</li>
+                <li>Every query is parameterised through <code>mysql2</code> placeholders,
+                    never string concatenation, and the model layer is split from routes
+                    and controllers.</li>
+                <li>Location setup as its own step: coordinates and a route snapshot are
+                    confirmed and saved before a delivery is dispatched.</li>
+                <li>Connected the Vue 3 front end to the real API, replacing the sample data
+                    the pages had been reading from, then added the cart and reviews
+                    endpoints to support that.</li>
+                <li>Wired the Leaflet map to stream the latest recorded position for a
+                    delivery and mark where the courier actually is.</li>
+            </ul>
+
+            <p class="evidence">
+                <b>Stack:</b> Express 5, MySQL over SSL, jsonwebtoken, bcryptjs, multer,
+                cors, dotenv &middot; Vue 3, Vite, vue-router, Vuex, Leaflet, SweetAlert2.
+                The database sits behind a managed host, so the connection verifies a CA
+                certificate rather than trusting the network. No real credentials are in
+                the repository, only <code>.env.example</code> placeholders.
+                <b>Team:</b> Zanda Kumsha, Zahra Moerat, Phelisa Fani and me.
+            </p>
+
+            <a class="card-link is-external"
+               href="https://github.com/zahraamoerat/Project-3-E-Commerce1"
+               target="_blank"
+               rel="noopener noreferrer">
+                See the repository
+            </a>
+        </article>
 
     </div>
 
@@ -298,7 +348,7 @@
     </h3>
 
     <p class="social-label">
-        Small exercises, the broken versions, and the group project, all public.
+        Small exercises, the broken versions, and both group projects, all public.
     </p>
 
     <div class="social-links">
@@ -313,6 +363,12 @@
            target="_blank"
            rel="noopener noreferrer">
             <i class="fa-solid fa-users"></i> HR System
+        </a>
+
+        <a href="https://github.com/zahraamoerat/Project-3-E-Commerce1"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fa-solid fa-handshake"></i> WeConnect
         </a>
 
     </div>

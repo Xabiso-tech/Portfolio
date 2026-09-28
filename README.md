@@ -23,7 +23,7 @@ Static HTML, CSS and vanilla JavaScript. No build step, no framework, no bundler
 | `index.html` | Home. A ~4.2 second pencil-drawing entrance, then who I am and where to go next. |
 | `about.html` | My Story. Where I started, what I actually work on, and what I care about outside it. |
 | `skills.html` | The Toolkit. Skills at honest levels, each one tied to something I built. |
-| `projects.html` | The Workshop. The HR system, then the smaller front-end studies. |
+| `projects.html` | The Workshop. Two full-stack team projects, then the smaller front-end studies. |
 | `contact.html` | Let's Connect. How to reach me, and which repository to read first. |
 
 Nested inside `projects/`:
@@ -50,7 +50,7 @@ Nested inside `projects/`:
 
 ## Featured Work
 
-**HR Tech Solutions** — the one that matters
+**HR Tech Solutions**
 
 A four-person team project: an HR system covering employee records, attendance, time off
 and payroll. I built the employee and performance review back end, then rewired the
@@ -58,6 +58,16 @@ matching front-end pages to read from it. Express 5, MySQL via `mysql2`, JWT, bc
 routes, controllers, models and middleware kept in separate layers.
 
 Repository: [nikitamullerr/Group-4_HRSystem_Project2](https://github.com/nikitamullerr/Group-4_HRSystem_Project2)
+
+**WeConnect**
+
+A B2B marketplace where small businesses order stock from wholesalers: 608 commits, 24
+tables, four contributors. I owned delivery — the orders, payments and GPS tracking back
+end, the Leaflet map that draws a courier's last known position, and the location setup
+workflow that confirms pickup and destination before dispatch. Express 5 and MySQL over
+SSL behind a managed host, with a Vue 3 and Vite front end.
+
+Repository: [zahraamoerat/Project-3-E-Commerce1](https://github.com/zahraamoerat/Project-3-E-Commerce1)
 
 ---
 
