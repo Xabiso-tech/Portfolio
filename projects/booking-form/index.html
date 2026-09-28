@@ -1,89 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Booking Form | Xabiso Phendu</title>
+
+    <meta name="description"
+          content="A booking form and availability schedule study, built to understand how a browser sends information and how a form should be labelled and laid out.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 
-    <title>Contact Page</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
 </head>
+
 <body>
+<div class="grain" aria-hidden="true"></div>
 
-    <header>
-        <h1>Contact Us</h1>
-        <p>We'd like to hear from you!</p>
-    </header>
+<a class="back-link" href="../../index.html">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to the portfolio
+</a>
 
-    <div class="container">
-        <section class="contact-form">
-            <h2>Get in Touch</h2>
-            <form>
-             <label for="name">Full Name</label>
-             <input type="text" id="name" placeholder="Enter your name">
+<header>
+    <h1>Booking form</h1>
+    <p>A form and a schedule, built while I was still learning how a browser sends information.</p>
+</header>
 
-        <label for="email">Email Address</label>
-        <input type="'email" id="email" placeholder="Enter your email">
+<div class="container">
 
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" placeholder="Enter your phone number"> 
+    <section class="form-section">
+        <h2>Get in touch</h2>
+        <p class="section-note">
+            This is a front-end study. There is no server behind it, so the form does not
+            submit anywhere yet.
+        </p>
 
-        <label for="subject">Subject</label>
-        <select id="subject" name="subject">
-            <option>General Inquiry</option>
-            <option>Booking</option>
-            <option>Support</option>
-            <option>Feedback</option>
-        </select>
-         
-        <label for="message">Message</label>
-        <textarea id="message" rows="5" placeholder="Write your message..."></textarea>
+        <!-- No action and novalidate: the form deliberately does not
+             pretend to send anything. -->
+        <form action="#" method="get" novalidate>
 
-        <button type="submit">Send Message</button>
-    </form>
-</section>
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name">
 
-<section class="table-section">
-    <h2>Available Appointment Times</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Monday</td>
-                    <td>09:00 AM</td>
-                    <td>Available</td>
-                </tr>
-                <tr>
-                    <td>Tuesday</td>
-                    <td>11:00 PM</td>
-                    <td>Available</td>
-                </tr>
-                <tr>
-                    <td>Wednesday</td>
-                    <td>09:30 AM</td>
-                    <td>Booked</td>
-                </tr>
-                <tr>
-                    <td>Thursday</td>
-                    <td>03:00 PM</td>
-                    <td>Available</td>
-                </tr>
-                <tr>
-                    <td>Friday</td>
-                    <td>08:30 AM</td>
-                    <td>Available</td>
-                </tr>
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email">
 
-            </tbody>
-         </table>
-      </div>    
-</section>
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" autocomplete="tel">
+
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+                <option>General enquiry</option>
+                <option>Booking</option>
+                <option>Support</option>
+                <option>Feedback</option>
+            </select>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message..."></textarea>
+
+            <button type="submit">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send message
+            </button>
+
+        </form>
+    </section>
+
+    <section class="table-section">
+        <h2>Available appointment times</h2>
+        <p class="section-note">Weekday slots and their current status.</p>
+
+        <div class="table-container">
+            <table>
+                <caption class="section-note" style="text-align: left; margin: 0;">
+                    Appointment availability by weekday.
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Monday</th>
+                        <td>09:00</td>
+                        <td><span class="status is-open">Available</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tuesday</th>
+                        <td>11:00</td>
+                        <td><span class="status is-open">Available</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Wednesday</th>
+                        <td>09:30</td>
+                        <td><span class="status is-booked">Booked</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Thursday</th>
+                        <td>15:00</td>
+                        <td><span class="status is-open">Available</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Friday</th>
+                        <td>08:30</td>
+                        <td><span class="status is-open">Available</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="footnote">
+            What this study actually taught me: labels have to be tied to their inputs, the
+            browser already knows what a tel field is, and reading the DOM beats assuming.
+            Earlier versions of this page had a malformed email input and rows sitting outside
+            the table body, which is exactly the kind of thing you only find by looking.
+            &mdash; <a href="../../projects.html">Back to the Workshop</a>
+        </p>
+    </section>
+
+</div>
 </body>
 </html>

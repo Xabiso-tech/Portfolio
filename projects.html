@@ -5,19 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>The Workshop | Portfolio</title>
+    <title>The Workshop | Xabiso Phendu</title>
+
+    <meta name="description"
+          content="Projects by Xabiso Phendu: a full-stack HR system built in Express and MySQL with a team of four, plus front-end studies in galleries, product layouts, gaming hardware and form design.">
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Icons -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
+
+    <script>
+        document.documentElement.classList.add("js-motion");
+    </script>
 </head>
 
 <body id="top">
+
+<div class="grain" aria-hidden="true"></div>
 
 <header>
     <nav>
@@ -27,35 +35,11 @@
         </h1>
 
         <ul>
-            <li>
-                <a href="index.html">
-                    <i class="fa-solid fa-house"></i> Home
-                </a>
-            </li>
-
-            <li>
-                <a href="about.html">
-                    <i class="fa-solid fa-book-open"></i> My Story
-                </a>
-            </li>
-
-            <li>
-                <a href="skills.html">
-                    <i class="fa-solid fa-screwdriver-wrench"></i> Toolkit
-                </a>
-            </li>
-
-            <li>
-                <a href="projects.html">
-                    <i class="fa-solid fa-palette"></i> Workshop
-                </a>
-            </li>
-
-            <li>
-                <a href="contact.html">
-                    <i class="fa-solid fa-envelope"></i> Connect
-                </a>
-            </li>
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
+            <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
+            <li><a href="projects.html" aria-current="page"><i class="fa-solid fa-palette"></i> Workshop</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
         </ul>
 
     </nav>
@@ -64,112 +48,305 @@
 
 <main>
 
-    <section>
+<section class="workshop-hero" data-reveal>
 
-        <h2>Inside the Workshop</h2>
+    <span class="eyebrow">Everything I have built</span>
 
-        <p>
-            Ideas become skills through practice. Projects are where those skills are tested, corrected, and refined.
-        </p>
+    <h2>The workshop</h2>
 
-        <p>
-            Each project here represents iteration — not perfection — and tracks progress across different stages of learning web development.
-        </p>
-
-<section class="workshop-hero">
-    <h2>The Workshop of Imperfect Things</h2>
-    <p>
-        Every project is a sketch before it becomes structure.
+    <p class="toolkit-intro">
+        A team project where I wrote part of the back end, then the smaller front-end studies
+        that taught me why that back end was worth building. None of them are finished. All
+        of them taught me something I could not have read.
     </p>
+
 </section>
 
 
-        <!-- PROJECTS -->
+<hr class="sketch-rule">
 
-        <article>
+
+<!-- =========================================================
+     GROUP PROJECTS
+     ========================================================= -->
+<section data-reveal>
+
+    <span class="eyebrow">Group work</span>
+
+    <h2>Built with other people</h2>
+
+    <p>
+        Team projects are where I stopped being able to hide behind my own code. Someone else
+        writes a route, or renames a field, or merges at the wrong moment, and suddenly your
+        work has to survive contact with everybody else's.
+    </p>
+
+    <div class="workshop-grid">
+
+        <!-- HR TECH SOLUTIONS — verified full-stack contribution -->
+        <article class="card">
+            <h3><i class="fa-solid fa-users-gear"></i> HR Tech Solutions</h3>
+
+            <p class="card-meta">
+                <span>Team of 4</span>
+                <span>My role: back end</span>
+                <span>2026</span>
+            </p>
+
+            <p>
+                A working human resources system for employee records, performance reviews,
+                attendance, time off and payroll. Four developers built it together, and it
+                is the project that moved me from front-end exercises into real back-end work.
+            </p>
+
+            <ul class="card-list">
+                <li><strong>My work:</strong> built the employee and performance review
+                    back end, then rewired those front-end pages to read from it.</li>
+                <li>Express routes, controllers and models kept in separate layers so the
+                    database could change without touching the HTTP layer.</li>
+                <li>Queries written against <code>mysql2</code> with values passed as
+                    parameters, rather than concatenated into the query string.</li>
+                <li>JWT sign-in alongside middleware that checks the bearer token before a
+                    protected route runs.</li>
+                <li>Handled the awkward status codes properly: 400 for bad input, 401 and 403
+                    for who you are and what you may touch, 404 for nothing there.</li>
+                <li>Worked on a feature branch and merged into a shared <code>develop</code>
+                    branch alongside three other developers.</li>
+            </ul>
+
+            <p class="evidence">
+                <b>Stack:</b> Express 5, MySQL, jsonwebtoken, bcrypt, cors, dotenv &middot;
+                HTML, CSS, vanilla JavaScript. The repository includes a
+                <code>schema.sql</code> and an entity relationship diagram.
+                <b>Team:</b> Nikita Muller, Rushin, Rasool and me.
+            </p>
+
+            <a class="card-link is-external"
+               href="https://github.com/nikitamullerr/Group-4_HRSystem_Project2"
+               target="_blank"
+               rel="noopener noreferrer">
+                See the repository
+            </a>
+        </article>
+
+        <!-- WECONNECT: slot reserved, pending verified repository details -->
+
+    </div>
+
+</section>
+
+
+<hr class="sketch-rule">
+
+
+<!-- =========================================================
+     SOLO PROJECTS
+     ========================================================= -->
+<section data-reveal>
+
+    <span class="eyebrow">On my own</span>
+
+    <h2>Front-end studies</h2>
+
+    <p>
+        Smaller builds with narrower jobs. Each one exists because I hit a specific problem I
+        did not understand yet, and the fastest way through it was to build the thing badly
+        and then fix it.
+    </p>
+
+    <div class="workshop-grid">
+
+        <article class="card">
             <h3><i class="fa-solid fa-images"></i> My Gallery</h3>
-            <p>
-                A responsive image gallery built using HTML and CSS, focused on layout structure and visual alignment across devices.
+
+            <p class="card-meta">
+                <span>HTML &amp; CSS</span>
+                <span>Layout &amp; filtering</span>
             </p>
-            <a href="projects/my-gallery/gallery.html">
-                View Project →
+
+            <p>
+                A responsive image gallery built to get a handle on grid layout, alignment and
+                filtering. The version here is the one where I finally stopped hard-coding
+                image paths and got them right at every nesting level.
+            </p>
+
+            <ul class="card-list">
+                <li>Filterable categories with the active state tracked in CSS</li>
+                <li>Intrinsic image dimensions to stop the page jumping while loading</li>
+                <li>Lazy loading and async decoding on every image</li>
+                <li>Relative paths that survive being served from a sub-path</li>
+            </ul>
+
+            <a class="card-link" href="projects/my-gallery/gallery.html">
+                View project <span aria-hidden="true">&rarr;</span>
             </a>
         </article>
 
+        <article class="card">
+            <h3><i class="fa-solid fa-car"></i> Premium Car Products</h3>
 
-        <article>
-            <h3><i class="fa-solid fa-car"></i> Premium Car Products Store</h3>
-            <p>
-                A Bootstrap-based product layout featuring structured listings and basic shopping UI design principles.
+            <p class="card-meta">
+                <span>HTML</span>
+                <span>Bootstrap 5.3</span>
+                <span>Multi-page</span>
             </p>
-            <a href="projects/premium-car-products/index.html">
-                View Project →
+
+            <p>
+                AutoVault, a four-page catalogue for performance parts, was my Bootstrap study:
+                grid, navbar, cards, badges and a carousel, wired together with utility classes
+                instead of custom CSS. Reading it back years later, the useful part was seeing
+                how much a framework carries for you, and where it stops.
+            </p>
+
+            <ul class="card-list">
+                <li>Four linked pages: home, catalogue, about and contact</li>
+                <li>Carousel, navbar, cards, badges and alerts built from Bootstrap components</li>
+                <li>Re-toned onto the portfolio's graphite palette with an override stylesheet,
+                    so the exercise still reads as itself</li>
+                <li>Fixed eight "View Item" links that went nowhere, unclosed <code>div</code>
+                    tags that spilled past the grid, a <code>500+</code> claim the catalogue
+                    could not support, and a carousel that auto-rotated with no controls</li>
+            </ul>
+
+            <a class="card-link" href="projects/premium-car-products/index.html">
+                View project <span aria-hidden="true">&rarr;</span>
             </a>
         </article>
 
+        <article class="card">
+            <h3><i class="fa-solid fa-gamepad"></i> Tech &amp; Gaming Products</h3>
 
-        <article>
+            <p class="card-meta">
+                <span>HTML &amp; CSS</span>
+                <span>Custom design</span>
+            </p>
+
+            <p>
+                A showcase for gaming hardware, written without a framework so I had to build
+                the grid myself. Dark surfaces, a single accent, and a type scale that had to
+                carry a page on its own.
+            </p>
+
+            <ul class="card-list">
+                <li>Hand-built grid and responsive behaviour</li>
+                <li>Card composition for image-led product presentation</li>
+                <li>Taken out a loading spinner that never resolved, a pulsing call to action,
+                    an infinite gradient, and six "View Product" buttons that did nothing</li>
+            </ul>
+
+            <a class="card-link" href="projects/tech-gaming-products/index.html">
+                View project <span aria-hidden="true">&rarr;</span>
+            </a>
+        </article>
+
+        <article class="card">
             <h3><i class="fa-solid fa-calendar-check"></i> Booking Form</h3>
-            <p>
-                A structured form project focusing on input handling, layout consistency, and user interaction design.
+
+            <p class="card-meta">
+                <span>HTML &amp; CSS</span>
+                <span>Forms &amp; tables</span>
             </p>
-            <a href="projects/booking-form/index.html">
-                View Project →
+
+            <p>
+                A form and schedule built while I was still learning how a browser sends
+                information. It had a malformed email input and table rows sitting outside the
+                table body, which is exactly the kind of thing you only catch by reading the
+                DOM rather than assuming it is fine.
+            </p>
+
+            <ul class="card-list">
+                <li>Inputs tied to their labels, with the right input types and autocomplete</li>
+                <li>A select for subject and a message area</li>
+                <li>A schedule table with row headers and a scrollable container</li>
+                <li>Both bugs above found and fixed; the form is honestly labelled as a
+                    front-end study with nothing behind it</li>
+            </ul>
+
+            <a class="card-link" href="projects/booking-form/index.html">
+                View project <span aria-hidden="true">&rarr;</span>
             </a>
         </article>
 
-        <!-- END PROJECTS -->
+    </div>
+
+</section>
 
 
-        <h2>The Workshop Never Closes</h2>
+<hr class="sketch-rule">
 
-        <p>
-            Completion is temporary. Each finished project becomes a starting point for the next iteration.
-        </p>
 
-    </section>
+<!-- CLOSING -->
+<section data-reveal>
+
+    <span class="eyebrow">Still open</span>
+
+    <h2>The workshop never closes</h2>
+
+    <p>
+        A finished project is a starting point with better paperwork. Every one of these has
+        something I would do differently, and that is the point of keeping them visible
+        instead of only showing the polished version.
+    </p>
+
+</section>
+
+
+<section class="socials" data-reveal>
+
+    <h3 class="social-title">
+        <i class="fa-solid fa-compass"></i> The commit history
+    </h3>
+
+    <p class="social-label">
+        Small exercises, the broken versions, and the group project, all public.
+    </p>
+
+    <div class="social-links">
+
+        <a href="https://github.com/Xabiso-tech"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i> GitHub
+        </a>
+
+        <a href="https://github.com/nikitamullerr/Group-4_HRSystem_Project2"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fa-solid fa-users"></i> HR System
+        </a>
+
+    </div>
+
+</section>
 
 </main>
 
 
 <footer class="artist-footer">
 
-    <p class="footer-phrase">
-        From rough sketches to polished code.
-    </p>
-
-    <p class="footer-signature">
-        A portfolio where graphite lines meet digital design.
-    </p>
+    <p class="footer-phrase">Every project is a sketch before it is a structure.</p>
+    <p class="footer-signature">A portfolio where graphite lines meet digital structure.</p>
 
     <div class="footer-links">
-
         <a href="index.html">Home</a>
         <a href="about.html">My Story</a>
         <a href="skills.html">Toolkit</a>
         <a href="projects.html">Workshop</a>
         <a href="contact.html">Connect</a>
-
     </div>
 
     <div class="footer-info">
-
-        <span>© 2026 Xabiso Phendu</span>
-
-        <span class="footer-divider">•</span>
-
-        <span>Front-End Developer in Training</span>
-
-        <span class="footer-divider">•</span>
-
-        <a href="#top" class="back-to-top">
-            Return to the Sketchbook ↑
-        </a>
-
+        <span>&copy; 2026 Xabiso Phendu</span>
+        <span class="footer-divider">&bull;</span>
+        <span>Full-Stack Developer in Training</span>
+        <span class="footer-divider">&bull;</span>
+        <a href="#top" class="back-to-top">Back to top &uarr;</a>
     </div>
 
 </footer>
 
-</body>
-</html>
+<script src="motion.js" defer></script>
 
+</body>
+
+</html>

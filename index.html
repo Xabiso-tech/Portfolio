@@ -5,124 +5,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Xabiso Phendu | Drawn by Hand, Built with Code</title>
+    <title>Xabiso Phendu | Full-Stack Developer in Training</title>
 
     <meta name="description"
-    content="Portfolio of Xabiso Phendu, front-end developer in training and graphite artist. Built with HTML, CSS, JavaScript and Python.">
+          content="Portfolio of Xabiso Phendu, a full-stack developer in training from Khayelitsha, Cape Town. Building with HTML, CSS, JavaScript, Node, Express and MySQL.">
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Icons -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
 
-    <!-- Progressive enhancement: only hide reveal targets when scripting is available -->
     <script>
         document.documentElement.classList.add("js-motion");
 
-        /* Failsafe: if motion.js is missing or throws, reveal everything. */
+        /* If motion.js never arrives, tear the stage down and show
+           the page. The stage is decorative and must never trap
+           the visitor behind an animation. */
         window.__motionFailsafe = window.setTimeout(function () {
+            var stage = document.getElementById("graphite-stage");
+            if (stage && stage.parentNode) {
+                stage.parentNode.removeChild(stage);
+            }
             document.documentElement.classList.add("reveal-on", "reveal-fallback");
-        }, 4000);
+        }, 6000);
     </script>
 </head>
 
-<body class="portfolio-body">
+<body id="top">
 
-<!-- AMBIENT BACKDROP (pointer-events:none, decorative) -->
-<div class="hero-backdrop" aria-hidden="true">
-    <span class="backdrop-wash"></span>
-    <span class="backdrop-grain"></span>
+<div class="grain" aria-hidden="true"></div>
+
+
+<!-- =========================================================
+     GRAPHITE DRAWING SEQUENCE
+     A decorative pencil stroke. Hidden from assistive tech,
+     never focusable, and removed from the DOM once it finishes
+     so it cannot trap focus or block input at any point.
+     Total runtime 4200ms, matching --draw-time in style.css.
+     ========================================================= -->
+<div id="graphite-stage" class="graphite-stage" aria-hidden="true" hidden>
+
+    <div class="graphite-sheet">
+
+        <svg viewBox="0 0 300 200" role="presentation" focusable="false">
+            <defs>
+                <filter id="gsWobble" x="-12%" y="-12%" width="124%" height="124%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2"
+                                  seed="7" result="noise" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2"
+                                       xChannelSelector="R" yChannelSelector="G" />
+                </filter>
+            </defs>
+
+            <path class="gs-stroke gs-rough gs-shadow-line" data-draw="0" d="M 27 20 Q 150 12 273 21 Q 282 100 272 181 Q 150 191 25 180 Q 16 100 27 20" />
+            <path class="gs-stroke gs-rough" data-draw="0" d="M 27 20 Q 150 12 273 21 Q 282 100 272 181 Q 150 191 25 180 Q 16 100 27 20" />
+
+            <path class="gs-stroke gs-rough gs-shadow-line" data-draw="1" d="M 97 60 Q 148 102 205 149" />
+            <path class="gs-stroke gs-rough" data-draw="1" d="M 97 60 Q 148 102 205 149" />
+
+            <path class="gs-stroke gs-rough gs-shadow-line" data-draw="2" d="M 204 59 Q 153 103 95 150" />
+            <path class="gs-stroke gs-rough" data-draw="2" d="M 204 59 Q 153 103 95 150" />
+
+            <path class="gs-stroke gs-rough" data-draw="3" d="M 84 165 Q 150 160 216 166" />
+            <path class="gs-stroke" data-draw="4" d="M 62 30 L 46 46 M 70 27 L 54 43" />
+            <path class="gs-stroke" data-draw="4" d="M 238 172 L 254 156 M 246 175 L 262 159" />
+        </svg>
+
+        <span class="gs-nib" id="gs-nib"></span>
+        <div class="gs-dust" id="gs-dust"></div>
+
+    </div>
+
+    <p class="gs-caption" id="gs-caption">one line, then another</p>
+
+    <div class="gs-progress"><span id="gs-progress-bar"></span></div>
+
+    <p class="gs-skip" id="gs-skip">Click or press Esc to skip</p>
+
 </div>
 
-<!-- =========================
-     CINEMATIC INTRO CURTAIN
-     Pointer-events:none, so it can never block navigation.
-     Dismissible via click / Esc / any key, or simply left to finish.
-========================== -->
-<div id="intro-overlay" aria-hidden="true">
 
-    <div class="intro-progress" aria-hidden="true">
-        <span class="intro-progress-bar"></span>
-    </div>
-
-    <div class="intro-frame" aria-hidden="true">
-        <span class="intro-frame-top"></span>
-        <span class="intro-frame-bottom"></span>
-    </div>
-
-    <div class="intro-content">
-
-        <p class="intro-quote">
-            "Impediment to action advances action.
-            What stands in the way becomes the way."
-        </p>
-
-        <span class="intro-stroke" aria-hidden="true"></span>
-
-        <p class="intro-author">
-            — Marcus Aurelius
-        </p>
-
-    </div>
-
-    <p class="intro-skip" aria-hidden="true">
-        Click or press Esc to skip
-    </p>
-
-</div>
-
-
-<header id="top">
+<header>
     <nav>
-        <h1><i class="fa-solid fa-pen-nib"></i> Xabiso Phendu</h1>
+
+        <h1>
+            <i class="fa-solid fa-pen-nib"></i> Xabiso Phendu
+        </h1>
 
         <ul>
-            <li>
-                <a href="index.html">
-                    <i class="fa-solid fa-house"></i> Home
-                </a>
-            </li>
-
-            <li>
-                <a href="about.html">
-                    <i class="fa-solid fa-book-open"></i> My Story
-                </a>
-            </li>
-
-            <li>
-                <a href="skills.html">
-                    <i class="fa-solid fa-screwdriver-wrench"></i> Toolkit
-                </a>
-            </li>
-
-            <li>
-                <a href="projects.html">
-                    <i class="fa-solid fa-palette"></i> Workshop
-                </a>
-            </li>
-
-            <li>
-                <a href="contact.html">
-                    <i class="fa-solid fa-envelope"></i> Connect
-                </a>
-            </li>
+            <li><a href="index.html" aria-current="page"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
+            <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
+            <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
         </ul>
+
     </nav>
 </header>
 
 
-
 <main>
+
     <!-- HERO -->
     <section id="home">
 
+        <p class="eyebrow">Full-stack developer in training</p>
+
         <h2 class="hero-title">
             <span class="hero-line">
-                <span class="hero-line-inner">Drawn by Hand.</span>
+                <span class="hero-line-inner">Drawn by hand.</span>
             </span>
             <span class="hero-line">
                 <span class="hero-line-inner">Built with code.</span>
@@ -130,38 +124,66 @@
         </h2>
 
         <p class="hero-tagline">
-            Web developer in Training •
-            Graphite Artist •
-            Lifelong Builder
+            <span>Khayelitsha, Cape Town</span>
+            <span>HTML &amp; CSS</span>
+            <span>JavaScript</span>
+            <span>Node &amp; Express</span>
+            <span>MySQL</span>
         </p>
 
         <p class="hero-fade hero-fade-1">
-            A digital sketchbook where ideas are drafted, erased, refined, and built into working systems.
+            I learned to see structure by drawing it. A face is a set of planes, a shadow is a
+            gradient you have to earn, and nothing looks right until you erase and go back over it.
+            That instinct turned out to be the most useful thing I had when I started writing software.
         </p>
 
         <p class="hero-fade hero-fade-2">
-            Each project reflects repetition, correction, and iteration — the actual process behind learning to build.
+            Everything here was built the slow way. Broken layouts, rewrites, a group project where
+            my module only worked once the database agreed with it. The work is unfinished on
+            purpose, because it keeps moving.
         </p>
 
-        <!-- CENTERPIECE QUOTE -->
         <div class="quote-block" data-reveal>
-            <p class="quote-text">
-                Impediment to action advances action. What stands in the way becomes the way.
-            </p>
-
-            <p class="quote-author">
-                Marcus Aurelius
-            </p>
+            <p class="quote-text">I dream my painting and I paint my dream.</p>
+            <p class="quote-author">Vincent van Gogh</p>
         </div>
 
-        <h2 data-reveal>Why This Exists</h2>
+    </section>
 
-        <p data-reveal>
-            This portfolio is a record of progress through structured practice, experimentation, and rebuilding.
+
+    <hr class="sketch-rule">
+
+
+    <!-- WHY -->
+    <section data-reveal>
+
+        <span class="eyebrow">Why this exists</span>
+
+        <h2>A sketchbook, not a showroom</h2>
+
+        <p class="lede">
+            Most portfolios show finished work. This one shows the work in progress, because
+            the part I am actually good at is the iteration.
         </p>
 
-        <p data-reveal>
-            The focus is not appearance alone, but the accumulation of functional, improving work over time.
+        <p>
+            Drawing taught me to commit to a line before I know whether it is right. Coding
+            asked me to commit to a structure before I know whether it holds weight. Both
+            turn out to be the same discipline: make a decision, look at the result honestly,
+            and correct it without defending it.
+        </p>
+
+        <p>
+            The projects in the <a href="projects.html">Workshop</a> are the record. Some are
+            front-end studies I built to understand layout. One is a real full-stack HR system
+            where I wrote part of the backend and had to make the front end actually talk to it.
+            Nothing is dressed up beyond what the code shows.
+        </p>
+
+        <p>
+            I am still in training, and I would rather be honest about that than inflate it.
+            What I can tell you is that I understand how the pieces fit together, and I care
+            about getting them right.
         </p>
 
     </section>
@@ -171,11 +193,11 @@
     <section class="socials" data-reveal>
 
         <h3 class="social-title">
-            <i class="fa-solid fa-compass"></i> Find Me Online
+            <i class="fa-solid fa-compass"></i> Find me online
         </h3>
 
         <p class="social-label">
-            Where ideas leave the sketchbook and become systems.
+            Commit history, repositories, and the projects referenced throughout this site.
         </p>
 
         <div class="social-links">
@@ -198,40 +220,26 @@
 
 </main>
 
+
 <footer class="artist-footer">
 
-    <p class="footer-phrase">
-        Sketched in Charcoal. Refined in Code.
-    </p>
-
-    <p class="footer-signature">
-        A portfolio where graphite lines meet digital design.
-    </p>
+    <p class="footer-phrase">Sketched in charcoal. Refined in code.</p>
+    <p class="footer-signature">A portfolio where graphite lines meet digital structure.</p>
 
     <div class="footer-links">
-
         <a href="index.html">Home</a>
         <a href="about.html">My Story</a>
         <a href="skills.html">Toolkit</a>
         <a href="projects.html">Workshop</a>
         <a href="contact.html">Connect</a>
-
     </div>
 
     <div class="footer-info">
-
-        <span>© 2026 Xabiso Phendu</span>
-
-        <span class="footer-divider">•</span>
-
-        <span>Front-End Developer in Training</span>
-
-        <span class="footer-divider">•</span>
-
-        <a href="#top" class="back-to-top">
-            Return to the Sketchbook ↑
-        </a>
-
+        <span>&copy; 2026 Xabiso Phendu</span>
+        <span class="footer-divider">&bull;</span>
+        <span>Full-Stack Developer in Training</span>
+        <span class="footer-divider">&bull;</span>
+        <a href="#top" class="back-to-top">Back to top &uarr;</a>
     </div>
 
 </footer>
@@ -239,4 +247,5 @@
 <script src="motion.js" defer></script>
 
 </body>
+
 </html>

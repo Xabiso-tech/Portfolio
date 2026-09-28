@@ -5,19 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>The Toolkit</title>
+    <title>The Toolkit | Xabiso Phendu</title>
+
+    <meta name="description"
+          content="An honest inventory of Xabiso Phendu's development tools, with the specific work that backs each level: HTML, CSS, JavaScript, Node and Express, MySQL, REST APIs, JWT authentication, Vue, PHP and Python.">
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Icons -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
+
+    <script>
+        document.documentElement.classList.add("js-motion");
+    </script>
 </head>
 
 <body id="top">
+
+<div class="grain" aria-hidden="true"></div>
 
 <header>
     <nav>
@@ -29,7 +37,7 @@
         <ul>
             <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
             <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
-            <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
+            <li><a href="skills.html" aria-current="page"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
             <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
             <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
         </ul>
@@ -40,103 +48,393 @@
 
 <main>
 
-    <!-- SKILL CARDS -->
-     <section class="toolkit-hero">
-        <h2>From Pencil Lines to Code Lines</h2>
-        <p class="toolkit-intro">
-            Every drawing begins with a pencil.
-            Every website begins with a tool.
-            These are the instruments I use to turn ideas into structure, creativity into interaction, and curiosity into skill.
-        </p>
-        
-        <div class="mini-quote">
-            <p>
-                "An artist is known by the marks they leave behind."
-            </p>
-        </div>
-    </section>
+<section class="toolkit-hero" data-reveal>
 
-     <section class="toolkit-grid">
-        <div class="skill-card">
-            <h2><i class="fa-brands fa-html5"></i> HTML & CSS</h2>
-            <p>
-                Structured and responsive layouts with focus on semantic structure and clean design systems.
-            </p>
-            
-            <a href="projects/tech-gaming-products/index.html">
-                View Project →
-            </a>
-            
-            <span class="tag">Core Skill</span>
-        </div>
-        
-        <div class="skill-card">
-            <h2><i class="fa-brands fa-js"></i> JavaScript</h2>
-            <p>
-                Basic function concepts for syntax copmrehension.
-            </p>
-            
-            <a href="skills/functions.JS">
-                View Example →
-            </a> 
-            
-            <span class="tag">Growing</span>
-        </div>
-        
-        <div class="skill-card">
-            <h2><i class="fa-brands fa-python"></i> Python</h2>
-            <p>
-                Logic-based problem solving using structured syntax and foundational programming concepts.
-            </p>
-            
-            <a href="skills/Advanced Exercise 2.py">
-                View Exercise →
-            </a>
-            
-            <span class="tag">Foundations</span>
-        </div>
-    </section>
+    <span class="eyebrow">What I reach for</span>
 
-    <!-- LEARNING JOURNEY -->
-<section>
-    <div class="journey-heading">
-                <h2>Sketchbook Progress</h2>
-        <p>
-             Every line of code is another stroke on the page.
-        </p>
+    <h2>From pencil lines to code lines</h2>
+
+    <p class="toolkit-intro">
+        Every drawing starts with a pencil. Every application starts with a tool and a decision
+        about structure. This is what I actually work in, and how far I have honestly got with
+        each one.
+    </p>
+
+    <div class="mini-quote">
+        <p>A level is only real if you have shipped something that needed it.</p>
     </div>
-    
-    <table>
-        <tr>
-            <th>Technology</th>
-            <th>Level</th>
-             <th>Status</th>
-        </tr>
 
-        <tr>
-            <td>HTML</td>
-             <td>Intermediate</td>
-            <td>Completed Basics</td>
-        </tr>
+</section>
 
-        <tr>
-            <td>CSS</td>
-            <td>Intermediate</td>
-            <td>Completed Basics</td>
-        </tr>
 
-        <tr>
-            <td>Python</td>
-            <td>Intermediate</td>
-            <td>Completed Basics</td>
-        </tr>
+<hr class="sketch-rule">
 
-        <tr>
-            <td>JavaScript</td>
-            <td>Beginner</td>
-            <td>Currently Learning</td>
-        </tr>
-    </table>
+
+<!-- IN THE HAND: front-end -->
+<section data-reveal>
+
+    <span class="eyebrow">Front of the sheet</span>
+
+    <h2>In the hand</h2>
+
+    <p>
+        The three I use every day. These are the ones I can be held to, because they are the
+        ones visible in every project on this site.
+    </p>
+
+    <div class="toolkit-grid">
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-html5"></i></span>
+            <h3>HTML</h3>
+            <p>
+                Semantic structure first, then styling. Landmarks, real heading order, labelled
+                form controls, and descriptions on every image that carries meaning.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Layout &amp; semantics</dt><dd class="is-core">Intermediate</dd></div>
+                <div class="skill-row"><dt>Accessibility</dt><dd>Intermediate</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> this site plus the HR system front end. Focus states,
+                skip-friendly navigation, <code>prefers-reduced-motion</code> fallbacks and a
+                works-without-JavaScript path.
+            </p>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-solid fa-brass"></i></span>
+            <h3>CSS</h3>
+            <p>
+                Custom properties, Grid and Flexbox, layered depth. I like hand-drawn
+                structure: displaced SVG rules, generated grain, shadows that sit back
+                instead of sitting on top.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Layout systems</dt><dd class="is-core">Intermediate</dd></div>
+                <div class="skill-row"><dt>Responsive</dt><dd>Intermediate</dd></div>
+                <div class="skill-row"><dt>Animation</dt><dd>Intermediate</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> the graphite drawing sequence on the
+                <a href="index.html">home page</a> runs on one
+                <code>requestAnimationFrame</code> clock with a real timing budget.
+            </p>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-js"></i></span>
+            <h3>JavaScript</h3>
+            <p>
+                ES6+, the DOM, and the part that took longest: talking to a server. Fetch calls
+                that carry an auth token, responses you have to handle rather than assume.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Language &amp; DOM</dt><dd class="is-core">Intermediate</dd></div>
+                <div class="skill-row"><dt>Async &amp; fetch</dt><dd>Intermediate</dd></div>
+                <div class="skill-row"><dt>Animation loops</dt><dd>Intermediate</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> <code>motion.js</code> in this repository, and the feature
+                modules in the HR project that fetch live records.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<hr class="sketch-rule">
+
+
+<!-- BACK END -->
+<section data-reveal>
+
+    <span class="eyebrow">The invisible half</span>
+
+    <h2>Behind the screen</h2>
+
+    <p>
+        This is the part I moved into on the HR system project, and the part I would rather
+        keep building. I wrote the employee and performance review back end, so these levels
+        come from code I can point at rather than from a course.
+    </p>
+
+    <div class="toolkit-grid">
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-node-js"></i></span>
+            <h3>Node &amp; Express</h3>
+            <p>
+                Separating an API into routes, controllers and models so the data layer can
+                change without rewriting the HTTP layer. Middleware, error handling, config
+                kept out of the source.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Express routing</dt><dd class="is-core">Foundational+</dd></div>
+                <div class="skill-row"><dt>Layered architecture</dt><dd>Foundational+</dd></div>
+                <div class="skill-row"><dt>Environment config</dt><dd>Foundational</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> eight route groups mounted on one Express app, with controllers
+                delegating every query to a model module.
+            </p>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-solid fa-database"></i></span>
+            <h3>MySQL &amp; SQL</h3>
+            <p>
+                Designing the tables before writing the queries. Relations, joins, and
+                parameterised statements everywhere, because building the string yourself is
+                how you end up with a security problem.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Schema design</dt><dd class="is-core">Foundational+</dd></div>
+                <div class="skill-row"><dt>Joins</dt><dd>Foundational</dd></div>
+                <div class="skill-row"><dt>Safe queries</dt><dd>Foundational+</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> a written <code>schema.sql</code> and an entity relationship
+                diagram, with every value passed as a bound parameter rather than concatenated.
+            </p>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-solid fa-code-branch"></i></span>
+            <h3>REST API design</h3>
+            <p>
+                Resources as endpoints, the right status codes instead of one generic failure,
+                and validating input before it reaches the data layer.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Resource routing</dt><dd class="is-core">Foundational+</dd></div>
+                <div class="skill-row"><dt>Status codes</dt><dd>Foundational+</dd></div>
+                <div class="skill-row"><dt>Input validation</dt><dd>Foundational</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> 200, 201, 400, 401, 403 and 404 all used deliberately across
+                the employee and review endpoints.
+            </p>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-solid fa-lock"></i></span>
+            <h3>Authentication</h3>
+            <p>
+                JSON Web Tokens and hashed passwords. Issuing a token on sign-in, attaching it
+                to protected routes in middleware, and rejecting what does not verify.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>JWT sign &amp; verify</dt><dd class="is-core">Foundational</dd></div>
+                <div class="skill-row"><dt>Password hashing</dt><dd>Foundational</dd></div>
+                <div class="skill-row"><dt>Route protection</dt><dd>Foundational</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> a bearer-token middleware guarding endpoints, with the token
+                attached to every front-end API call, and secrets read from the environment.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<hr class="sketch-rule">
+
+
+<!-- FOUNDATIONS -->
+<section data-reveal>
+
+    <span class="eyebrow">Earlier work</span>
+
+    <h2>Foundations</h2>
+
+    <p>
+        Languages I have studied and built small things in. Not advanced, and not dressed up
+        as such, but they are part of the toolkit and they shaped how the rest fits together.
+    </p>
+
+    <div class="toolkit-grid">
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-python"></i></span>
+            <h3>Python</h3>
+            <p>
+                Logic, operators, conditionals and input handling. My clearest lesson from it
+                is how much easier error handling is when you validate deliberately instead of
+                hoping the input is sensible.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Syntax &amp; control flow</dt><dd>Foundations</dd></div>
+            </dl>
+            <a class="card-link" href="skills/graphite-calculator.py">
+                Open the calculator <span aria-hidden="true">&rarr;</span>
+            </a>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-vuejs"></i></span>
+            <h3>Vue</h3>
+            <p>
+                Components, props and reactive state, from a ticket landing page and a cooking
+                masterclass catalogue.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Components &amp; state</dt><dd>Foundations</dd></div>
+            </dl>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-php"></i></span>
+            <h3>PHP</h3>
+            <p>
+                Superglobals, form handling and the request lifecycle. Useful context for why
+                back-end frameworks abstract what PHP makes you do by hand.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Forms &amp; superglobals</dt><dd>Foundations</dd></div>
+            </dl>
+        </div>
+
+        <div class="card">
+            <span class="card-icon"><i class="fa-brands fa-git-alt"></i></span>
+            <h3>Git &amp; GitHub</h3>
+            <p>
+                Branch per feature, meaningful commits, pull requests, and resolving the
+                conflicts that come with four people in one repository.
+            </p>
+            <dl>
+                <div class="skill-row"><dt>Branching &amp; merging</dt><dd class="is-core">Intermediate</dd></div>
+            </dl>
+            <p class="evidence">
+                <b>Evidence:</b> worked on a feature branch and merged into a shared
+                <code>develop</code> branch while three other developers pushed to the same
+                project daily.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<hr class="sketch-rule">
+
+
+<!-- PROGRESS TABLE -->
+<section data-reveal>
+
+    <div class="journey-heading">
+        <span class="eyebrow">Where each one stands</span>
+        <h2>Honest levels</h2>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <caption>
+                Levels are described relative to what I have actually built, not to a curriculum.
+                Nothing here is listed as expert.
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col">Technology</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Backed by</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">HTML</th>
+                    <td>Intermediate</td>
+                    <td>Portfolio, HR front end, project pages</td>
+                </tr>
+                <tr>
+                    <th scope="row">CSS</th>
+                    <td>Intermediate</td>
+                    <td>This site's design system and drawing sequence</td>
+                </tr>
+                <tr>
+                    <th scope="row">JavaScript</th>
+                    <td>Intermediate</td>
+                    <td>DOM exercises, <code>motion.js</code>, API client modules</td>
+                </tr>
+                <tr>
+                    <th scope="row">Node &amp; Express</th>
+                    <td>Foundational+</td>
+                    <td>Employee and review back end, eight route groups</td>
+                </tr>
+                <tr>
+                    <th scope="row">MySQL &amp; SQL</th>
+                    <td>Foundational+</td>
+                    <td>Schema, ERD, parameterised model queries</td>
+                </tr>
+                <tr>
+                    <th scope="row">REST API design</th>
+                    <td>Foundational+</td>
+                    <td>Resource endpoints with deliberate status codes</td>
+                </tr>
+                <tr>
+                    <th scope="row">Authentication</th>
+                    <td>Foundational</td>
+                    <td>JWT sign-in, bearer middleware, bcrypt hashing</td>
+                </tr>
+                <tr>
+                    <th scope="row">Git &amp; GitHub</th>
+                    <td>Intermediate</td>
+                    <td>Feature branches and merges on a four-person project</td>
+                </tr>
+                <tr>
+                    <th scope="row">Python</th>
+                    <td>Foundations</td>
+                    <td>Operator and conditional exercises, validated calculator</td>
+                </tr>
+                <tr>
+                    <th scope="row">Vue</th>
+                    <td>Foundations</td>
+                    <td>Ticket landing page, cooking masterclass catalogue</td>
+                </tr>
+                <tr>
+                    <th scope="row">PHP</th>
+                    <td>Foundations</td>
+                    <td>Superglobals and form handling exercises</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+
+<!-- CLOSING -->
+<section class="socials" data-reveal>
+
+    <h3 class="social-title">
+        <i class="fa-solid fa-compass"></i> Check the work
+    </h3>
+
+    <p class="social-label">
+        Every claim on this page is something you can go and look at in the repositories.
+    </p>
+
+    <div class="social-links">
+
+        <a href="https://github.com/Xabiso-tech"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i> GitHub
+        </a>
+
+        <a href="https://github.com/nikitamullerr/Group-4_HRSystem_Project2"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fa-solid fa-code-branch"></i> HR System
+        </a>
+
+    </div>
+
 </section>
 
 </main>
@@ -144,42 +442,29 @@
 
 <footer class="artist-footer">
 
-    <p class="footer-phrase">
-        Tools sharpened through repetition.
-    </p>
-
-    <p class="footer-signature">
-        A portfolio where graphite lines meet digital design.
-    </p>
+    <p class="footer-phrase">Tools sharpened through repetition.</p>
+    <p class="footer-signature">A portfolio where graphite lines meet digital structure.</p>
 
     <div class="footer-links">
-
         <a href="index.html">Home</a>
         <a href="about.html">My Story</a>
         <a href="skills.html">Toolkit</a>
         <a href="projects.html">Workshop</a>
         <a href="contact.html">Connect</a>
-
     </div>
 
     <div class="footer-info">
-
-        <span>© 2026 Xabiso Phendu</span>
-
-        <span class="footer-divider">•</span>
-
-        <span>Front-End Developer in Training</span>
-
-        <span class="footer-divider">•</span>
-
-        <a href="#top" class="back-to-top">
-            Return to the Sketchbook ↑
-        </a>
-
+        <span>&copy; 2026 Xabiso Phendu</span>
+        <span class="footer-divider">&bull;</span>
+        <span>Full-Stack Developer in Training</span>
+        <span class="footer-divider">&bull;</span>
+        <a href="#top" class="back-to-top">Back to top &uarr;</a>
     </div>
 
 </footer>
 
-</body>
-</html>
+<script src="motion.js" defer></script>
 
+</body>
+
+</html>

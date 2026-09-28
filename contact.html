@@ -5,19 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Let's Connect | Portfolio</title>
+    <title>Connect | Xabiso Phendu</title>
+
+    <meta name="description"
+          content="Get in touch with Xabiso Phendu, a full-stack developer in training from Khayelitsha, Cape Town. Open to learning opportunities, collaboration and front-end or full-stack roles.">
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Icons -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
+
+    <script>
+        document.documentElement.classList.add("js-motion");
+    </script>
 </head>
 
 <body id="top">
+
+<div class="grain" aria-hidden="true"></div>
 
 <header>
     <nav>
@@ -31,7 +39,7 @@
             <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
             <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
             <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-            <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
+            <li><a href="contact.html" aria-current="page"><i class="fa-solid fa-envelope"></i> Connect</a></li>
         </ul>
 
     </nav>
@@ -40,105 +48,90 @@
 
 <main>
 
-    <!-- INTRO -->
-    <section class="contact-hero">
+<section class="contact-hero" data-reveal>
 
-    <h2>The Studio Door</h2>
+    <span class="eyebrow">Last page of the sketchbook</span>
+
+    <h2>If you want to build something</h2>
 
     <p class="contact-tagline">
-        Some projects begin with a sketch.
-        Others begin with a conversation.
+        Then this is the page you came for. I am still early in my career and I say so
+        everywhere else on this site, so I would rather be direct about what I am after
+        than pretend to be further along.
     </p>
 
     <div class="mini-quote">
-        "The shortest distance between two ideas is a message."
+        <p>Some projects begin as a sketch. The rest begin with a conversation.</p>
     </div>
 
 </section>
 
-<section class="contact-cards">
 
-    <div class="contact-card">
-        <i class="fa-solid fa-pencil"></i>
-        <h3>Sketch an Idea</h3>
-        <p>
-            Have a concept, project, or challenge?
-            Let's explore it together.
-        </p>
-    </div>
+<hr class="sketch-rule">
 
-    <div class="contact-card">
-        <i class="fa-solid fa-code"></i>
-        <h3>Talk Development</h3>
-        <p>
-            Front-end projects, learning opportunities,
-            and creative web ideas.
-        </p>
-    </div>
 
-    <div class="contact-card">
-        <i class="fa-solid fa-lightbulb"></i>
-        <h3>Share Inspiration</h3>
-        <p>
-            Great conversations often become
-            future projects.
-        </p>
-    </div>
+<!-- OPEN TO -->
+<section data-reveal>
 
-</section>
+    <span class="eyebrow">What I am after</span>
 
-    <!-- CONTACT LAYOUT (FORM + INFO) -->
-    <section class="contact-grid">
+    <h2>Where I would genuinely use a reply</h2>
 
-        <!-- FORM SIDE -->
-        <div class="contact-form-card">
+    <div class="contact-cards">
 
-            <h3><i class="fa-solid fa-pen-nib"></i> Send a Message</h3>
-
-            <p>Leave a message and I will respond when possible.</p>
-
-            <form>
-
-                <label for="fullname">Name</label>
-                <input type="text" id="fullname" name="fullname">
-
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email">
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5"></textarea>
-
-                <button type="submit">
-                    <i class="fa-solid fa-paper-plane"></i> Send
-                </button>
-
-            </form>
-
+        <div class="contact-card">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <h3>Mentorship</h3>
+            <p>
+                Someone further along who will look at my code honestly. Especially on the
+                back end, which is where I am weakest and most keen.
+            </p>
         </div>
 
+        <div class="contact-card">
+            <i class="fa-solid fa-laptop-code"></i>
+            <h3>Work and internships</h3>
+            <p>
+                Junior front-end or full-stack roles, and anything junior enough that
+                needing guidance is expected rather than a problem.
+            </p>
+        </div>
 
-        <!-- INFO SIDE -->
+        <div class="contact-card">
+            <i class="fa-solid fa-people-group"></i>
+            <h3>Collaboration</h3>
+            <p>
+                Team projects especially. Working with other developers is the fastest thing
+                that has happened to my code.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<hr class="sketch-rule">
+
+
+<!-- CONTACT ROUTES -->
+<section data-reveal>
+
+    <div class="contact-grid">
+
         <div class="contact-info-card">
 
-            <h3><i class="fa-solid fa-compass"></i> One More Thing</h3>
+            <h3><i class="fa-solid fa-share-nodes"></i> Where to find me</h3>
 
             <p>
-                Every project began as a small idea. Dialogue often triggers the next one.
+                Both of these are real and both are monitored, so either one reaches me
+                properly. LinkedIn is better for anything with a person in it; GitHub is
+                better for anything about the code.
             </p>
 
             <div class="mini-divider"></div>
 
-            <h3><i class="fa-solid fa-share-nodes"></i> Find Me Online</h3>
-
-            <p>Follow progress and ongoing work.</p>
-
             <div class="social-links">
-
-                <a href="https://github.com/Xabiso-tech"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    <i class="fa-brands fa-github"></i> GitHub
-                </a>
 
                 <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/"
                    target="_blank"
@@ -146,52 +139,118 @@
                     <i class="fa-brands fa-linkedin"></i> LinkedIn
                 </a>
 
+                <a href="https://github.com/Xabiso-tech"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+
+            </div>
+
+            <div class="mini-divider"></div>
+
+            <h3><i class="fa-solid fa-code-branch"></i> The group project</h3>
+
+            <p>
+                If you would rather judge me on the code than on this page, the HR system is
+                the honest place to start. Four of us built it, my commits are in the history
+                under my own name, and you can read every line of it.
+            </p>
+
+            <div class="social-links">
+
+                <a href="https://github.com/nikitamullerr/Group-4_HRSystem_Project2"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="fa-solid fa-users-gear"></i> HR Tech Solutions
+                </a>
+
             </div>
 
         </div>
 
-    </section>
+        <div class="contact-form-card">
+
+            <h3><i class="fa-solid fa-circle-info"></i> About a message form</h3>
+
+            <p>
+                There is no form on this page, and that is deliberate rather than an
+                oversight.
+            </p>
+
+            <p>
+                This is a static site with no server behind it. A contact form here would
+                either silently fail or invent a mail address that does not exist, and both
+                are worse than telling you where to actually find me.
+            </p>
+
+            <p>
+                So: use LinkedIn or GitHub. If a form matters to you for what you are
+                sending, say so in the message and I will give you a way that works.
+            </p>
+
+            <div class="sign-off">
+                <span class="eyebrow" style="margin-bottom: 0.35rem;">Thanks for reading</span>
+                <span class="hand" aria-label="Signed, Xabiso Phendu">Xabiso Phendu</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CLOSING -->
+<section class="sketch-frame" data-reveal>
+
+    <h2 style="font-size: clamp(1.6rem, 4.4vw, 2.4rem);">One last thing</h2>
+
+    <p>
+        I am not going to pretend this portfolio makes me a strong candidate. It is
+        seventeen weeks of work and a lot of wrong turns, and you can see all of them.
+    </p>
+
+    <p>
+        What I can tell you is that I show up, that I would rather fix something than
+        defend it, and that I care about the part of the code nobody sees. If that is
+        useful to you, the door is open.
+    </p>
+
+    <p class="hand" style="font-size: clamp(1.3rem, 3.6vw, 1.8rem); color: var(--ember); margin-top: 1.8rem;">
+        Draw first. Build second. Correct always.
+    </p>
+
+</section>
 
 </main>
 
 
 <footer class="artist-footer">
 
-    <p class="footer-phrase">
-        The next sketch starts with a hello.
-    </p>
-
-    <p class="footer-signature">
-        A portfolio where graphite lines meet digital design.
-    </p>
+    <p class="footer-phrase">The next sketch starts with a hello.</p>
+    <p class="footer-signature">A portfolio where graphite lines meet digital structure.</p>
 
     <div class="footer-links">
-
         <a href="index.html">Home</a>
         <a href="about.html">My Story</a>
         <a href="skills.html">Toolkit</a>
         <a href="projects.html">Workshop</a>
         <a href="contact.html">Connect</a>
-
     </div>
 
     <div class="footer-info">
-
-        <span>© 2026 Xabiso Phendu</span>
-
-        <span class="footer-divider">•</span>
-
-        <span>Front-End Developer in Training</span>
-
-        <span class="footer-divider">•</span>
-
-        <a href="#top" class="back-to-top">
-            Return to the Sketchbook ↑
-        </a>
-
+        <span>&copy; 2026 Xabiso Phendu</span>
+        <span class="footer-divider">&bull;</span>
+        <span>Full-Stack Developer in Training</span>
+        <span class="footer-divider">&bull;</span>
+        <a href="#top" class="back-to-top">Back to top &uarr;</a>
     </div>
 
 </footer>
 
+<script src="motion.js" defer></script>
+
 </body>
+
 </html>

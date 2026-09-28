@@ -1,169 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f1f1f'/><circle cx='50' cy='50' r='27' fill='none' stroke='%23f6f1e8' stroke-width='8'/></svg>">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaTech</title>
+
+    <title>NovaTech | Xabiso Phendu</title>
+
+    <meta name="description"
+          content="A gaming hardware showcase built without a framework, to learn grid layout, card composition and a dark type scale by hand.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
 
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
 </head>
 
 <body>
-    
-    <!-- LOADER -->
-    <div class="loader-container">
-        <div class="loader"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav>
+    <h1 class="logo">Nova<span>Tech</span></h1>
+
+    <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="#featured">Products</a></li>
+        <li><a href="../../projects.html">Back to the Workshop</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="eyebrow">Product showcase</span>
+        <h2>Enter the future</h2>
+        <p>
+            Immersive design and performance hardware, laid out by hand with no framework
+            doing the work.
+        </p>
+        <a class="hero-link" href="#featured">
+            Browse the collection
+        </a>
+
+        <hr class="sketch-rule">
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="featured">
+    <h2 class="section-title">Featured technology</h2>
+
+    <div class="products-container">
+
+        <article class="product-card">
+            <span class="icon" aria-hidden="true">&#9000;</span>
+            <img src="RGB gaming Keyboard.jpg"
+                 width="522" height="330"
+                 loading="lazy" decoding="async"
+                 alt="Mechanical keyboard with RGB backlighting">
+            <h3>RGB keyboard</h3>
+            <p>Mechanical switches with per-key RGB lighting.</p>
+            <p class="spec"><b>Switches</b> Mechanical &middot; <b>Lighting</b> Per-key RGB</p>
+        </article>
+
+        <article class="product-card">
+            <span class="icon" aria-hidden="true">&#128421;</span>
+            <img src="RGB gaming mouse.jpg"
+                 width="500" height="500"
+                 loading="lazy" decoding="async"
+                 alt="Gaming mouse with RGB lighting">
+            <h3>Gaming mouse</h3>
+            <p>High-polling sensor tuned for competitive play.</p>
+            <p class="spec"><b>Sensor</b> 16000 DPI &middot; <b>Lighting</b> RGB</p>
+        </article>
+
+        <article class="product-card">
+            <span class="icon" aria-hidden="true">&#127911;</span>
+            <img src="Wireless Headphones.jpg"
+                 width="500" height="500"
+                 loading="lazy" decoding="async"
+                 alt="Over-ear wireless headphones">
+            <h3>Wireless headphones</h3>
+            <p>Over-ear design with active noise cancelling.</p>
+            <p class="spec"><b>Type</b> Over-ear &middot; <b>Connection</b> Bluetooth</p>
+        </article>
+
+        <article class="product-card">
+            <span class="icon" aria-hidden="true">&#9201;</span>
+            <img src="Fastrack futuristic watch.jpg"
+                 width="500" height="500"
+                 loading="lazy" decoding="async"
+                 alt="Smartwatch with a dark rectangular display">
+            <h3>Smart watch</h3>
+            <p>A wearable that tracks activity and notifications.</p>
+            <p class="spec"><b>Display</b> AMOLED &middot; <b>Water</b> 5 ATM</p>
+        </article>
+
+        <article class="product-card">
+            <span class="icon" aria-hidden="true">&#128506;</span>
+            <img src="VR Headsets.jpg"
+                 width="500" height="333"
+                 loading="lazy" decoding="async"
+                 alt="Virtual reality headset with head strap">
+            <h3>VR headset</h3>
+            <p>Wide field of view for room-scale immersion.</p>
+            <p class="spec"><b>Field of view</b> 110&deg; &middot; <b>Tracking</b> 6DoF</p>
+        </article>
+
+        <article class="product-card">
+            <span class="icon" aria-hidden="true">&#128421;&#65038;</span>
+            <img src="Gaming Monitor.jpg"
+                 width="500" height="500"
+                 loading="lazy" decoding="async"
+                 alt="Widescreen gaming monitor on a desk">
+            <h3>Gaming monitor</h3>
+            <p>High refresh rate with low response time.</p>
+            <p class="spec"><b>Refresh</b> 165 Hz &middot; <b>Panel</b> IPS</p>
+        </article>
+
     </div>
 
-    <!-- NAVBAR -->
-    <nav> 
-        <h1 class="logo">Nova</span>Tech</span>
-        </h1>
+    <p class="footnote">
+        A front-end study: no framework, no build step, and no dead buttons. The
+        original version had a spinner that never resolved, a pulsing call to action and
+        six "View Product" buttons that did nothing, all of which have been taken out.
+        &mdash; <a href="../../projects.html">Back to the Workshop</a>
+    </p>
+</section>
 
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Gaming</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul> 
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Enter the Future</h2>
-            <p>Futuristic technology with immersive design and perfomance.</p>
-            <button class="cta-btn">
-                Explore Collection
-            </button>
-        </div>
-
-        <div class="skew-box"></div>
-    </section>
-
-    <!-- PRODUCTS SECTION -->
-     <section class="products-section">
-        <h2 class="section-title">
-            Featured Technology
-        </h2>
-
-        <div class="products-container">
-
-            <!-- PRODUCT 1 -->
-            <div class="product-card">
-                <div class="icon">
-                    ⌨️
-                </div>
-                <img src="RGB gaming Keyboard.jpg"
-                     alt="RGB Keyboard">
-
-                <h3>RGB Keyboard</h3>
-                <p>
-                    Mechanical precision with immersive RGB lighting.
-                </p>
-
-                <button>
-                    View Product
-                </button>
-            </div>
-
-            <!-- PRODUCT 2 -->
-            <div class="product-card">
-                <div class="icon">
-                    🖱️
-                </div>
-
-                <img src="RGB gaming mouse.jpg"
-                     alt="Gaming Mouse">
-
-                <h3>Gaming Mouse</h3>
-                <p>
-                    Responsive performance designed for competitive gaming.
-                </p>
-
-                <button>
-                    View Product
-                </button>
-
-            </div>
-
-            <!-- PRODUCT 3 -->
-            <div class="product-card">
-                <div class="icon">
-                    🎧
-                </div>
-
-                <img src="Wireless Headphones.jpg"
-                     alt="Wireless Headphones">
-                <h3>Wireless Headphones</h3>
-                <p>
-                    Premium sound quality with futuristic styling.
-                </p>
-
-                <button>
-                    View Product
-                </button>
-            </div>
-
-            <!-- PRODUCT 4 -->
-            <div class="product-card">
-
-                <div class="icon">
-                    ⌚
-                </div>
-                <img src="Fastrack futuristic watch.jpg"
-                     alt="Smart Watch">
-
-                <h3>Smart Watch</h3>
-                <p>
-                    Modern wearable technology with intelligent features.
-                </p>
-
-                <button>
-                    View Product
-                </button>
-            </div>
-
-            <!-- PRODUCT 5 -->
-            <div class="product-card">
-                <div class="icon">
-                    🕶️
-                </div>
-                <img src="VR Headsets.jpg"
-                     alt="VR Headset">
-
-                <h3>VR Headset</h3>
-                <p>
-                    Step into immersive virtual reality experiences.
-                </p>
-
-                <button>
-                    View Product
-                </button>
-            </div>
-
-            <!-- PRODUCT 6 -->
-            <div class="product-card">
-                <div class="icon">
-                    🖥️
-                </div>
-
-                <img src="Gaming Monitor.jpg"
-                     alt="Gaming Monitor">
-                <h3>Gaming Monitor</h3>
-
-                <p>
-                    Ultra-smooth visuals with vibrant display technology.
-                </p>
-
-                <button>
-                    View Product
-                </button>
-            </div>
-        </div>
-    </section>
 </body>
 </html>

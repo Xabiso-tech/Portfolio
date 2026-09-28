@@ -1,13 +1,96 @@
-/* =========================
-   IMPORTS (CHARCOAL SKETCH TYPE SYSTEM)
-========================= */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&family=Shadows+Into+Light&family=Caveat:wght@600;700&display=swap');
+/* =========================================================
+   XABISO PHENDU — DARK GRAPHITE STUDIO
+   A dark, cinematic artist-studio design system built from
+   charcoal, graphite dust and pencil on toned board.
+
+   Contents
+     01  Fonts
+     02  Tokens (graphite palette, chalk type, motion)
+     03  Reset
+     04  Texture (grain, tooth, smudge)
+     05  Base typography
+     06  Layout
+     07  Navigation
+     08  Graphite drawing sequence (home intro)
+     09  Hero
+     10  Sketch frame + hand-drawn rules
+     11  Cards and panels
+     12  Story
+     13  Toolkit
+     14  Workshop / projects
+     15  Connect
+     16  Social links
+     17  Footer
+     18  Scroll reveal
+     19  Responsive
+     20  Reduced motion + print
+   ========================================================= */
 
 
-/* =========================
-   RESET
-========================= */
-* {
+/* =========================================================
+   01  FONTS
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap');
+
+
+/* =========================================================
+   02  TOKENS
+   ========================================================= */
+:root {
+    /* Graphite surfaces — near-black, faintly blue-cool like
+       a charcoal stick rather than flat #000 */
+    --void:        #08080a;
+    --ink-900:     #0e0e12;
+    --ink-850:     #131318;
+    --ink-800:     #191920;
+    --ink-700:     #212129;
+    --ink-650:     #272730;
+    --ink-600:     #30303a;
+    --ink-500:     #3d3d48;
+
+    /* Chalk tones — pencil dust lifted off the page */
+    --chalk:       #e9e5dd;
+    --chalk-2:     #b9b4aa;
+    --chalk-3:     #8d887f;
+    --chalk-4:     #625e58;
+
+    /* Single restrained accent: raw sienna, the warm tone a
+       graphite board shows under raking light */
+    --ember:       #d4a373;
+    --ember-soft:  rgba(212, 163, 115, 0.14);
+    --ember-line:  rgba(212, 163, 115, 0.38);
+
+    /* Graphite sheen for depth */
+    --sheen:       rgba(255, 255, 255, 0.055);
+    --sheen-soft:  rgba(255, 255, 255, 0.028);
+    --hairline:    rgba(233, 229, 221, 0.10);
+    --hairline-2:  rgba(233, 229, 221, 0.055);
+
+    /* Type */
+    --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+    --hand: "Caveat", "Segoe Script", cursive;
+
+    /* Motion */
+    --ease-draw:   cubic-bezier(0.45, 0.05, 0.35, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-soft:   cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* Rhythm */
+    --measure: 68ch;
+    --shell: 1120px;
+    --gut: clamp(1.15rem, 4vw, 2.5rem);
+}
+
+
+/* =========================================================
+   03  RESET
+   ========================================================= */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -15,1926 +98,1675 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
-
-/* =========================
-   ROOT (CHARCOAL PALETTE SYSTEM)
-========================= */
-:root {
-    --paper: #f6f1e8;
-    --ink: #1f1f1f;
-    --soft-ink: rgba(31,31,31,0.15);
-    --fade: rgba(255,255,255,0.4);
-
-    /* motion easings */
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-soft: cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-
-/* =========================
-   BASE LAYOUT
-========================= */
 body {
-    font-family: "Inter", sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.6;
+    min-height: 100vh;
     overflow-x: hidden;
-    animation: pageLoad 0.8s ease;
-
-    background-image:
-linear-gradient(
-rgba(0,0,0,0.015) 1px,
-transparent 1px
-);
-
-background-size:100% 8px;
+    background-color: var(--ink-900);
+    color: var(--chalk);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    font-weight: 350;
+    line-height: 1.72;
+    letter-spacing: 0.004em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-main {
-    max-width: 1050px;
-    margin: 0 auto;
-    padding: 40px 20px;
+img,
+svg {
+    display: block;
+    max-width: 100%;
 }
 
-
-/* =========================
-   PAGE LOAD (INK SETTLE)
-========================= */
-@keyframes pageLoad {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* =========================
-   NAV (FIXED LAYOUT)
-========================= */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 8%;
-    border-bottom: 1px solid var(--soft-ink);
-    background: var(--paper);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(6px);
-}
-
-nav h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 18px;
-}
-
-nav ul {
+ul {
     list-style: none;
-    display: flex;
-    gap: 18px;
-    align-items: center;
 }
 
-nav a {
-    text-decoration: none;
-    color: var(--ink);
-    font-size: 14px;
-    position: relative;
-    transition: 0.25s ease;
-}
-
-/* ink underline */
-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 1px;
-    background: var(--ink);
-    transition: width 0.3s ease;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-nav a:hover {
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   TYPOGRAPHY SYSTEM
-========================= */
-h1, h2 {
-    font-family: "Playfair Display", serif;
-}
-
-h2 {
-    font-size: 34px;
-    margin-bottom: 10px;
-}
-
-h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-p {
-    margin-bottom: 14px;
-}
-
-
-/* =========================
-   SECTION FLOW (SKETCH PAPER LAYERS)
-========================= */
-section {
-    margin-bottom: 60px;
-    padding: 10px 0;
-    animation: fadeUp 0.7s ease;
-}
-
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* =========================
-   HERO
-========================= */
-#home h2 {
-    font-size: 52px;
-    line-height: 1.1;
-    margin-bottom: 20px;
-}
-
-
-/* =========================
-   QUOTE (CENTREPIECE ART MARK)
-========================= */
-.quote-block {
-    margin: 40px 0;
-    padding: 30px;
-    border-left: 3px solid var(--ink);
-    background: rgba(0,0,0,0.03);
-    animation: inkReveal 1.2s ease;
-}
-
-.quote-text {
-    font-family: "Shadows Into Light", cursive;
-    font-size: 30px;
-    text-align: center;
-    opacity: 0;
-    animation: quoteFade 1.5s ease forwards;
-}
-
-.quote-author {
-    text-align: center;
-    margin-top: 10px;
-    opacity: 0.7;
-}
-
-@keyframes quoteFade {
-    from { opacity: 0; transform: translateY(10px); filter: blur(2px); }
-    to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-@keyframes inkReveal {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-
-/* =========================
-   LINKS (REMOVE BLUE DEFAULT)
-========================= */
 a {
-    color: var(--ink);
-    text-decoration: none;
+    color: inherit;
 }
 
-a:hover {
-    text-decoration: underline;
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
 }
 
-
-/* =========================
-   WORKSHOP PROJECT CARDS (FLAMBOYANT SKETCH BLOCKS)
-========================= */
-
-article {
-    position: relative;
-
-    background: rgba(255,255,255,0.55);
-    border: 1px solid rgba(0,0,0,0.12);
-
-    padding: 25px;
-    margin-bottom: 25px;
-
-    border-radius: 6px;
-
-    overflow: hidden;
-
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-
-    /* movement baseline */
-    animation: floatSketch 6s ease-in-out infinite;
+::selection {
+    background: var(--ember);
+    color: var(--void);
 }
 
-/* subtle paper glow */
-article::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        radial-gradient(circle at top left, rgba(0,0,0,0.04), transparent 40%),
-        radial-gradient(circle at bottom right, rgba(0,0,0,0.03), transparent 45%);
-
-    pointer-events: none;
-}
-
-/* ink texture sweep */
-article::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 14px,
-        rgba(0,0,0,0.015) 15px
-    );
-
-    opacity: 0.6;
-
-    pointer-events: none;
-}
-
-/* hover = lift + energy */
-article:hover {
-    transform: translateY(-10px) scale(1.01);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-}
-
-/* floating motion */
-@keyframes floatSketch {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
-}
-
-
-article:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-
-/* =========================
-   SOCIALS
-========================= */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 15px;
-}
-
-.social-links a {
-    font-weight: 500;
-    transition: 0.2s ease;
-}
-
-.social-links a:hover {
-    transform: translateY(-3px);
-    opacity: 0.7;
-}
-
-
-/* =========================
-   FORM
-========================= */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 600px;
-}
-
-input, textarea {
-    padding: 10px;
-    border: 1px solid var(--soft-ink);
-    background: transparent;
-}
-
-button {
-    padding: 10px;
-    border: none;
-    background: var(--ink);
-    color: var(--paper);
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-button:hover {
-    transform: scale(1.03);
-}
-
-
-/* =========================
-   TABLE
-========================= */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid var(--soft-ink);
-    padding: 10px;
-}
-
-
-/* =========================
-   FOOTER UPGRADE (SIGNATURE STAMP)
-========================= */
-
-.site-footer {
-    position: relative;
-
-    background: rgba(255,255,255,0.35);
-
-    backdrop-filter: blur(6px);
-
-    border-top: 1px solid rgba(0,0,0,0.15);
-
-    margin-top: 80px;
-
-    overflow: hidden;
-
-    animation: footerRise 1.2s ease;
-}
-
-/* subtle moving grain */
-.site-footer::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 12px,
-            rgba(0,0,0,0.015) 13px
-        );
-
-    animation: footerDrift 12s linear infinite;
-
-    pointer-events: none;
-}
-
-/* ink glow pulse */
-.site-footer::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background: radial-gradient(
-        circle at center,
-        rgba(0,0,0,0.05),
-        transparent 60%
-    );
-
-    opacity: 0.6;
-
-    animation: footerPulse 6s ease-in-out infinite;
-
-    pointer-events: none;
-}
-
-/* text lift */
-.site-footer p {
-    position: relative;
-    z-index: 2;
-
-    transition: 0.3s ease;
-}
-
-/* hover makes it “breathe” */
-.site-footer:hover p {
-    transform: translateY(-3px);
-    letter-spacing: 0.5px;
-}
-
-/* animations */
-@keyframes footerRise {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes footerDrift {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(40px);
-    }
-}
-
-@keyframes footerPulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-    100% { opacity: 0.4; }
-}
-
-
-
-/* =========================
-   ARTIST CARD (ABOUT PAGE FOCAL POINT)
-========================= */
-.artist-card {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 25px;
-    background: var(--fade);
-    border: 1px solid var(--soft-ink);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-}
-
-.artist-card:hover {
-    transform: translateY(-4px);
-}
-
-.artist-info h3 {
-    font-size: 24px;
-}
-
-.artist-info p {
-    margin-bottom: 8px;
-}
-
-
-/* =========================
-   PROFILE IMAGE (CONTROLLED SKETCH FRAME)
-========================= */
-.profile-image {
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid var(--soft-ink);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    animation: portraitReveal 1s ease forwards;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-}
-
-.profile-image:hover {
-    transform: scale(1.05);
-}
-
-@keyframes portraitReveal {
-    from {
-        opacity: 0;
-        transform: translateY(15px) scale(0.95);
-        filter: grayscale(1) blur(2px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: grayscale(0) blur(0);
-    }
-}
-
-
-/* =========================
-   TOOLKIT GRID (CARDS SYSTEM)
-========================= */
-.toolkit-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr 1fr;
-    gap: 25px;
-    align-items: start;
-    margin-top: 30px;
-}
-
-
-.skill-card {
-    background: var(--fade);
-    border: 1px solid var(--soft-ink);
-    padding: 20px;
-    position: relative;
-    animation: inkFloat 6s ease-in-out infinite;
-    transition: 0.3s ease;
-}
-
-.skill-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.10);
-}
-
-.skill-card h2 {
-    font-size: 20px;
-}
-
-.skill-card p {
-    font-size: 14px;
-}
-
-.tag {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 11px;
-    padding: 4px 8px;
-    border: 1px solid var(--soft-ink);
-    border-radius: 12px;
-}
-
-
-/* FLOAT ANIMATION (SUBTLE HAND-DRAWN FEEL) */
-@keyframes inkFloat {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-3px); }
-    100% { transform: translateY(0px); }
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-
-    .toolkit-grid {
-        grid-template-columns: 1fr;
-    }
-
-    nav {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #home h2 {
-        font-size: 36px;
-    }
-
-    .artist-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .profile-image {
-        width: 180px;
-        height: 180px;
-    }
-
-    main {
-        padding: 20px;
-    }
-}
 
 /* =========================================================
-   LANDING PAGE CINEMATIC SYSTEM
-   (curtain -> hero choreography -> ambient -> scroll reveal)
+   04  TEXTURE
+   Grain sits above the page, tooth below it, smudge between.
+   All decorative, all pointer-events:none.
    ========================================================= */
-
-/* The body/hero reveal is owned by this timeline on the landing page,
-   so the generic page-load fades are suppressed there only. */
-body.portfolio-body {
-    animation: none;
-}
-
-body.portfolio-body section {
-    animation: none;
-}
-
-
-/* =========================
-   AMBIENT BACKDROP
-   ========================= */
-.hero-backdrop {
+body::before {
+    /* Graphite tooth — the fine directional grain of toned board */
+    content: "";
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    overflow: hidden;
+    opacity: 0.5;
+    background-image:
+        repeating-linear-gradient(
+            101deg,
+            rgba(255, 255, 255, 0.014) 0px,
+            rgba(255, 255, 255, 0.014) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        repeating-linear-gradient(
+            8deg,
+            rgba(0, 0, 0, 0.16) 0px,
+            rgba(0, 0, 0, 0.16) 1px,
+            transparent 1px,
+            transparent 4px
+        );
 }
 
-.backdrop-wash {
-    position: absolute;
-    inset: -20%;
-
-    background:
-        radial-gradient(42% 38% at 18% 20%, rgba(31,31,31,0.06), transparent 70%),
-        radial-gradient(38% 42% at 84% 66%, rgba(31,31,31,0.05), transparent 70%),
-        radial-gradient(34% 34% at 54% 8%,  rgba(255,255,255,0.6),  transparent 70%);
-
-    will-change: transform;
-    animation: washDrift 26s var(--ease-soft) infinite alternate;
-}
-
-@keyframes washDrift {
-    from { transform: translate3d(-2%, -1%, 0) scale(1); }
-    to   { transform: translate3d(2%, 3%, 0) scale(1.07); }
-}
-
-.backdrop-grain {
-    position: absolute;
+body::after {
+    /* Studio lamp — a soft warm pool from the upper left, so the
+       page reads as a lit surface rather than flat black */
+    content: "";
+    position: fixed;
     inset: 0;
-
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.02) 0 1px,
-        transparent 1px 4px
-    );
-
-    opacity: 0.55;
-    will-change: transform;
-    animation: grainDrift 9s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(120% 78% at 14% -8%, rgba(212, 163, 115, 0.075), transparent 58%),
+        radial-gradient(96% 62% at 92% 4%, rgba(150, 170, 200, 0.045), transparent 60%),
+        radial-gradient(140% 100% at 50% 118%, rgba(0, 0, 0, 0.5), transparent 62%);
 }
 
-@keyframes grainDrift {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(0, 4px, 0); }
+.grain {
+    /* Film grain, generated as SVG turbulence so it costs no request */
+    position: fixed;
+    inset: -50%;
+    z-index: 9000;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    animation: grainShift 7s steps(6) infinite;
 }
 
-/* keep real content above the ambient layer */
-body.portfolio-body header,
-body.portfolio-body main,
-body.portfolio-body .artist-footer {
+@keyframes grainShift {
+    0%   { transform: translate3d(0, 0, 0); }
+    20%  { transform: translate3d(-3%, 2%, 0); }
+    40%  { transform: translate3d(2%, -3%, 0); }
+    60%  { transform: translate3d(-2%, -2%, 0); }
+    80%  { transform: translate3d(3%, 1%, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Everything below the fixed texture layers */
+header,
+main,
+footer,
+.graphite-stage {
     position: relative;
     z-index: 1;
 }
 
 
-/* =========================
-   INTRO CURTAIN
-   Never intercepts pointer events, so it can not block navigation.
-   ========================= */
-#intro-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background: var(--paper);
-    overflow: hidden;
-    pointer-events: none;
-
-    will-change: transform;
-    animation: introCurtain 3s var(--ease-soft) forwards;
+/* =========================================================
+   05  BASE TYPOGRAPHY
+   ========================================================= */
+h1, h2, h3, h4 {
+    font-family: var(--display);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    color: var(--chalk);
+    text-wrap: balance;
 }
 
-@keyframes introCurtain {
-    0%   { transform: translate3d(0, 0, 0); }
-    76%  { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(0, -100%, 0); }
+h1 { font-size: clamp(1.75rem, 4.6vw, 2.6rem); }
+h2 { font-size: clamp(1.6rem, 4.2vw, 2.35rem); }
+h3 { font-size: clamp(1.18rem, 2.4vw, 1.45rem); }
+h4 { font-size: 1.03rem; }
+
+/* Expressive display headings: the display face only earns its
+   keep at large sizes, so it is reserved for h1-h2 */
+h1,
+h2 {
+    font-variation-settings: "SOFT" 28, "WONK" 1, "opsz" 96;
 }
 
-/* page-edge shading so the lift reads as paper turning */
-#intro-overlay::after {
+p {
+    max-width: var(--measure);
+    margin-bottom: 1.15rem;
+}
+
+strong {
+    color: var(--chalk);
+    font-weight: 500;
+}
+
+a {
+    color: var(--ember);
+    text-decoration: none;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+    transition: color 0.25s var(--ease-out-expo);
+}
+
+a:hover {
+    color: #e8c49b;
+}
+
+:focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.688rem;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--chalk-3);
+    margin-bottom: 1.15rem;
+}
+
+.lede {
+    font-size: clamp(1.1rem, 2vw, 1.28rem);
+    font-weight: 300;
+    line-height: 1.62;
+    color: var(--chalk-2);
+}
+
+.hand {
+    font-family: var(--hand);
+    font-size: 1.32rem;
+    line-height: 1.32;
+    color: var(--chalk-3);
+    letter-spacing: 0.01em;
+}
+
+.mono {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+}
+
+
+/* =========================================================
+   06  LAYOUT
+   ========================================================= */
+main {
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: clamp(3.25rem, 8vw, 6rem) var(--gut) clamp(4rem, 9vw, 7rem);
+}
+
+section {
+    margin-bottom: clamp(3.5rem, 8vw, 6rem);
+}
+
+section:last-child {
+    margin-bottom: 0;
+}
+
+section > h2 {
+    margin-bottom: 0.9rem;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+    gap: clamp(1.1rem, 2.6vw, 1.75rem);
+}
+
+
+/* =========================================================
+   07  NAVIGATION
+   ========================================================= */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 800;
+    backdrop-filter: blur(14px) saturate(115%);
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+    background: linear-gradient(180deg, rgba(14, 14, 18, 0.94), rgba(14, 14, 18, 0.78));
+    border-bottom: 1px solid var(--hairline);
+}
+
+/* A drawn rule that fades out, like a pencil line losing pressure */
+header::after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 140px;
-
-    background: linear-gradient(180deg, transparent, rgba(31,31,31,0.12));
-
-    opacity: 0;
-    pointer-events: none;
-
-    animation: introEdge 3s var(--ease-soft) forwards;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember-line) 22%, var(--ember-line) 58%, transparent);
+    opacity: 0.5;
 }
 
-@keyframes introEdge {
-    0%, 76% { opacity: 0; }
-    92%     { opacity: 1; }
-    100%    { opacity: 0; }
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: 1.05rem var(--gut);
 }
 
-/* progress hairline */
-.intro-progress {
+nav h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: clamp(1rem, 2.1vw, 1.2rem);
+    font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 40;
+    letter-spacing: -0.005em;
+}
+
+nav h1 i {
+    color: var(--ember);
+    font-size: 0.88em;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.35rem;
+    align-items: center;
+}
+
+nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.3rem 0;
+    font-size: 0.845rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--chalk-2);
+    text-decoration: none;
+    transition: color 0.28s var(--ease-out-expo);
+}
+
+/* Underline is drawn, not typed: it grows from the left on hover
+   and sits at an angle like a confident pencil stroke */
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.1rem;
+    width: 100%;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.34s var(--ease-out-expo);
+}
+
+nav a i {
+    font-size: 0.78rem;
+    opacity: 0.72;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    color: var(--chalk);
+}
+
+nav a:hover::after,
+nav a[aria-current="page"]::after {
+    transform: scaleX(1) rotate(-0.6deg);
+}
+
+nav a[aria-current="page"] {
+    color: var(--ember);
+}
+
+
+/* =========================================================
+   08  GRAPHITE DRAWING SEQUENCE
+   A physical pencil stroke: the graphite path is drawn on by
+   dash-offset, a nib tracks the head of that stroke, dust falls
+   from the contact point, and the sheet lifts when finished.
+   Total 4.2s, matching --draw-time in motion.js.
+   ========================================================= */
+:root {
+    --draw-time: 4200ms;
+}
+
+.graphite-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    display: grid;
+    place-items: center;
+    background: var(--void);
+    overflow: hidden;
+}
+
+.graphite-stage[hidden] {
+    display: none;
+}
+
+/* Vignette + a raking light across the sheet */
+.graphite-stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(74% 62% at 32% 26%, rgba(212, 163, 115, 0.1), transparent 62%),
+        radial-gradient(120% 96% at 50% 50%, transparent 34%, rgba(0, 0, 0, 0.86) 100%);
+}
+
+.graphite-sheet {
+    position: relative;
+    width: min(78vw, 30rem);
+    aspect-ratio: 3 / 2;
+}
+
+.graphite-sheet svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* The stroke itself. Each path draws on in sequence. */
+.gs-stroke {
+    fill: none;
+    stroke: var(--chalk);
+    stroke-width: 2.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 5px rgba(233, 229, 221, 0.28));
+}
+
+/* Roughening: a displacement filter makes the line read as graphite
+   on tooth rather than a vector stroke */
+.gs-rough {
+    filter:
+        url(#gsWobble)
+        drop-shadow(0 0 5px rgba(233, 229, 221, 0.26));
+}
+
+.gs-shadow-line {
+    fill: none;
+    stroke: rgba(233, 229, 221, 0.16);
+    stroke-width: 5;
+    stroke-linecap: round;
+    filter: blur(3.5px);
+}
+
+/* The pencil nib: a small graphite tip that rides the stroke head */
+.gs-nib {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 2px;
-
-    background: rgba(31,31,31,0.07);
+    width: 15px;
+    height: 15px;
+    margin: -7.5px 0 0 -7.5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 34%, #fffaf0, var(--ember) 42%, #6b5340 78%, #2a211a);
+    box-shadow:
+        0 0 12px rgba(212, 163, 115, 0.6),
+        0 0 34px rgba(212, 163, 115, 0.28);
+    opacity: 0;
+    z-index: 3;
 }
 
-.intro-progress-bar {
+.gs-nib::after {
+    /* the point of the lead, angled like a pencil held to the page */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 2px;
+    transform: translate(-50%, -50%) rotate(-38deg);
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba(233, 229, 221, 0.9), transparent);
+    border-radius: 2px;
+    filter: blur(0.4px);
+}
+
+.gs-dust {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.gs-mote {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--chalk-2);
+    opacity: 0;
+    filter: blur(0.4px);
+}
+
+.gs-caption {
+    position: absolute;
+    bottom: clamp(2.2rem, 9vh, 5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    text-align: center;
+    font-family: var(--hand);
+    font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+    color: var(--chalk-3);
+    opacity: 0;
+    z-index: 4;
+}
+
+.gs-progress {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(1.5rem, 5vh, 2.6rem);
+    transform: translateX(-50%);
+    width: min(46vw, 15rem);
+    height: 1.5px;
+    background: rgba(233, 229, 221, 0.1);
+    overflow: hidden;
+    opacity: 0;
+    z-index: 4;
+}
+
+.gs-progress span {
     display: block;
     width: 100%;
     height: 100%;
-
-    background: var(--ink);
+    background: linear-gradient(90deg, var(--ember), var(--chalk));
     transform: scaleX(0);
-    transform-origin: 0 50%;
-
-    will-change: transform;
-    animation: drawLine 3s var(--ease-out-quint) forwards;
+    transform-origin: left center;
 }
 
-/* sketchbook frame that draws itself in */
-.intro-frame {
+.gs-skip {
     position: absolute;
-    top: 30px;
-    bottom: 30px;
-    left: 30px;
-    right: 30px;
-    pointer-events: none;
-}
-
-.intro-frame-top,
-.intro-frame-bottom {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 1px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(31,31,31,0.32),
-        transparent
-    );
-}
-
-.intro-frame-top {
-    top: 0;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    animation: drawLine 0.9s var(--ease-out-expo) 0.15s forwards;
-}
-
-.intro-frame-bottom {
-    bottom: 0;
-    transform: scaleX(0);
-    transform-origin: 100% 50%;
-    animation: drawLine 0.9s var(--ease-out-expo) 0.35s forwards;
-}
-
-@keyframes drawLine {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-}
-
-.intro-content {
-    text-align: center;
-    padding: 0 24px;
-    max-width: 900px;
-}
-
-.intro-quote {
-    font-family: "Shadows Into Light", cursive;
-
-    font-size: clamp(1.9rem, 5.2vw, 3.3rem);
-    line-height: 1.32;
-
+    right: var(--gut);
+    bottom: clamp(1.2rem, 4vh, 2rem);
     margin: 0;
-
-    opacity: 0;
-    will-change: transform, opacity;
-
-    animation: quoteCinematic 1.35s var(--ease-out-expo) 0.28s forwards;
-}
-
-@keyframes quoteCinematic {
-    from {
-        opacity: 0;
-        letter-spacing: 0.18em;
-        filter: blur(5px);
-        transform: translate3d(0, 14px, 0);
-    }
-    to {
-        opacity: 1;
-        letter-spacing: normal;
-        filter: blur(0);
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-/* charcoal rule drawn under the quote */
-.intro-stroke {
-    display: block;
-    width: min(240px, 42vw);
-    height: 2px;
-
-    margin: 26px auto 0;
-
-    background: var(--ink);
-    transform: scaleX(0);
-    transform-origin: 50% 50%;
-
-    animation: drawLine 0.75s var(--ease-out-expo) 1.5s forwards;
-}
-
-.intro-author {
-    font-family: "Playfair Display", serif;
-
-    margin: 22px 0 0;
-
-    color: rgba(31,31,31,0.72);
-
-    opacity: 0;
-    letter-spacing: 0.85em;
-    text-indent: 0.85em; /* balance the trailing letter-space */
-
-    will-change: transform, opacity;
-
-    animation: authorCinematic 0.95s var(--ease-out-expo) 1.85s forwards;
-}
-
-@keyframes authorCinematic {
-    from {
-        opacity: 0;
-        letter-spacing: 0.85em;
-        transform: translate3d(0, 16px, 0);
-    }
-    to {
-        opacity: 1;
-        letter-spacing: 0.18em;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-.intro-skip {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 7%;
-
-    text-align: center;
-
-    font-size: 0.7rem;
-    letter-spacing: 0.28em;
+    max-width: none;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-
-    color: rgba(31,31,31,0.38);
-
+    color: var(--chalk-4);
     opacity: 0;
-    animation: skipIn 0.7s ease 1.1s forwards;
+    z-index: 4;
 }
 
-@keyframes skipIn {
-    to { opacity: 1; }
+/* Exit: the sheet lifts away and the studio is revealed */
+.graphite-stage.is-lifting {
+    animation: gsLift var(--lift-ms, 900ms) var(--ease-out-expo) forwards;
+}
+
+@keyframes gsLift {
+    0%   { opacity: 1; clip-path: inset(0 0 0 0); }
+    55%  { opacity: 1; clip-path: inset(0 0 14% 0); }
+    100% { opacity: 0; clip-path: inset(0 0 100% 0); }
+}
+
+.graphite-stage.is-lifting .graphite-sheet,
+.graphite-stage.is-lifting .gs-caption,
+.graphite-stage.is-lifting .gs-progress,
+.graphite-stage.is-lifting .gs-skip {
+    animation: gsSheetOut var(--lift-ms, 900ms) var(--ease-out-expo) forwards;
+}
+
+@keyframes gsSheetOut {
+    to { transform: translateY(-1.6rem) scale(1.04); }
 }
 
 
-/* =========================
-   HERO CHOREOGRAPHY
-   Runs behind the curtain so the page is revealed mid-entrance.
-   ========================= */
+/* =========================================================
+   09  HERO
+   ========================================================= */
+#home {
+    padding-top: clamp(1rem, 3vw, 2rem);
+}
+
 .hero-title {
-    font-size: clamp(2.05rem, 7vw, 52px);
-    line-height: 1.1;
-    margin-bottom: 20px;
+    font-size: clamp(2.9rem, 11.5vw, 7.5rem);
+    font-weight: 700;
+    font-variation-settings: "SOFT" 34, "WONK" 1, "opsz" 144;
+    line-height: 0.9;
+    letter-spacing: -0.036em;
+    margin-bottom: 1.6rem;
 }
 
 .hero-line {
     display: block;
     overflow: hidden;
-
-    padding-bottom: 0.08em;  /* stop descenders clipping */
-    margin-bottom: -0.04em;
+    padding-bottom: 0.06em;
 }
 
 .hero-line-inner {
     display: block;
-    will-change: transform;
+    transform: translateY(105%);
 }
 
-html.js-motion .hero-line-inner {
-    transform: translate3d(0, 110%, 0);
+/* Each line settles at its own beat */
+.hero-line:nth-child(1) .hero-line-inner { transition: transform 1.15s var(--ease-out-expo) 0.12s; }
+.hero-line:nth-child(2) .hero-line-inner { transition: transform 1.15s var(--ease-out-expo) 0.26s; }
+
+.reveal-on .hero-line-inner {
+    transform: translateY(0);
 }
 
-html.js-motion.reveal-on .hero-line-inner {
-    animation: heroLineIn 0.95s var(--ease-out-expo) both;
-}
-
-html.js-motion.reveal-on .hero-line:nth-child(1) .hero-line-inner {
-    animation-delay: 1.70s;
-}
-
-html.js-motion.reveal-on .hero-line:nth-child(2) .hero-line-inner {
-    animation-delay: 1.86s;
-}
-
-@keyframes heroLineIn {
-    from { transform: translate3d(0, 110%, 0); }
-    to   { transform: translate3d(0, 0, 0); }
+/* Second line reads as graphite laid over chalk */
+.hero-line:nth-child(2) .hero-line-inner {
+    background: linear-gradient(96deg, var(--chalk) 8%, var(--chalk-3) 62%, var(--chalk-4) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .hero-tagline {
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    opacity: 0.8;
-    margin-bottom: 25px;
-}
-
-html.js-motion .hero-tagline,
-html.js-motion .hero-fade {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0);
-}
-
-html.js-motion.reveal-on .hero-tagline,
-html.js-motion.reveal-on .hero-fade {
-    animation: heroFadeIn 0.8s var(--ease-out-expo) both;
-}
-
-html.js-motion.reveal-on .hero-tagline   { animation-delay: 2.30s; }
-html.js-motion.reveal-on .hero-fade-1    { animation-delay: 2.44s; }
-html.js-motion.reveal-on .hero-fade-2    { animation-delay: 2.56s; }
-
-@keyframes heroFadeIn {
-    from {
-        opacity: 0;
-        filter: blur(3px);
-        transform: translate3d(0, 16px, 0);
-    }
-    to {
-        opacity: 1;
-        filter: blur(0);
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-/* nav drops in just before the curtain lifts */
-html.js-motion .portfolio-body nav {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-}
-
-html.js-motion.reveal-on .portfolio-body nav {
-    animation: navDrop 0.7s var(--ease-out-expo) 2.15s both;
-}
-
-@keyframes navDrop {
-    from { opacity: 0; transform: translate3d(0, -100%, 0); }
-    to   { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-/* Skipping the curtain collapses the whole timeline to immediate. */
-html.js-motion.intro-skipped .hero-line-inner,
-html.js-motion.intro-skipped .hero-tagline,
-html.js-motion.intro-skipped .hero-fade,
-html.js-motion.intro-skipped .portfolio-body nav {
-    animation-delay: 0s !important;
-}
-
-/* fast, clean paper lift instead of the full 3s hold */
-html.intro-skipped #intro-overlay {
-    animation: introCurtainFast 0.45s var(--ease-out-expo) forwards;
-}
-
-html.intro-skipped #intro-overlay::after,
-html.intro-skipped .intro-progress-bar,
-html.intro-skipped .intro-frame-top,
-html.intro-skipped .intro-frame-bottom,
-html.intro-skipped .intro-quote,
-html.intro-skipped .intro-stroke,
-html.intro-skipped .intro-author,
-html.intro-skipped .intro-skip {
-    animation: none !important;
-}
-
-html.intro-skipped .intro-skip {
-    opacity: 0;
-}
-
-@keyframes introCurtainFast {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(0, -100%, 0); }
-}
-
-
-/* =========================
-   SCROLL REVEAL
-   ========================= */
-html.js-motion [data-reveal] {
-    opacity: 0;
-    transform: translate3d(0, 26px, 0);
-
-    transition:
-        opacity 0.75s var(--ease-out-expo) var(--reveal-delay, 0ms),
-        transform 0.75s var(--ease-out-expo) var(--reveal-delay, 0ms);
-
-    will-change: opacity, transform;
-}
-
-html.js-motion [data-reveal].is-in {
-    opacity: 1;
-    transform: none;
-    will-change: auto;
-}
-
-/* safety net if motion.js is unavailable */
-html.js-motion.reveal-fallback .hero-line-inner,
-html.js-motion.reveal-fallback .hero-tagline,
-html.js-motion.reveal-fallback .hero-fade,
-html.js-motion.reveal-fallback .portfolio-body nav,
-html.js-motion.reveal-fallback [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-}
-
-
-/* =========================
-   HOVER / INTERACTION POLISH
-   ========================= */
-.social-links a {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 9px;
-
-    padding: 10px 18px;
-
-    border: 1px solid var(--soft-ink);
-    border-radius: 100px;
-
-    background: rgba(255,255,255,0.4);
-
-    transition:
-        transform 0.3s var(--ease-out-expo),
-        box-shadow 0.3s var(--ease-out-expo),
-        border-color 0.3s ease,
-        background-color 0.3s ease;
+    gap: 0.5rem 0.85rem;
+    max-width: none;
+    font-family: var(--mono);
+    font-size: 0.755rem;
+    font-weight: 400;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    color: var(--chalk-3);
+    margin-bottom: 2.6rem;
 }
 
-.social-links a:hover {
-    transform: translateY(-4px);
-
-    border-color: rgba(31,31,31,0.35);
-    background: rgba(255,255,255,0.7);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-
-    text-decoration: none;
-    opacity: 1;
+.hero-tagline span:not(:last-child)::after {
+    content: "/";
+    margin-left: 0.85rem;
+    color: var(--chalk-4);
 }
 
-.social-links a i {
-    transition: transform 0.35s var(--ease-out-expo);
+.hero-fade {
+    max-width: 58ch;
+    font-size: clamp(1.05rem, 1.9vw, 1.19rem);
+    font-weight: 300;
+    color: var(--chalk-2);
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
 }
 
-.social-links a:hover i {
-    transform: rotate(-8deg) scale(1.12);
-}
+.reveal-on .hero-fade-1 { opacity: 1; transform: none; transition-delay: 0.5s; }
+.reveal-on .hero-fade-2 { opacity: 1; transform: none; transition-delay: 0.66s; }
 
 .quote-block {
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    max-width: 44rem;
+    margin: clamp(2.8rem, 7vw, 4.5rem) 0;
+    padding: 1.9rem 0 1.9rem 1.9rem;
+    border-left: 2px solid var(--ember-line);
+    position: relative;
 }
 
-.quote-block:hover {
-    border-left-color: rgba(31,31,31,0.45);
-    box-shadow: inset 0 0 0 1px rgba(31,31,31,0.04);
+.quote-block::before {
+    /* a smudged shadow cast by the block, as if the page has depth */
+    content: "";
+    position: absolute;
+    inset: 0.6rem -0.7rem -0.6rem 0.9rem;
+    z-index: -1;
+    background: linear-gradient(115deg, rgba(0, 0, 0, 0.5), transparent 68%);
+    filter: blur(11px);
+    border-radius: 4px;
+}
+
+.quote-text {
+    max-width: none;
+    margin-bottom: 0.85rem;
+    font-family: var(--display);
+    font-size: clamp(1.3rem, 3vw, 1.85rem);
+    font-weight: 400;
+    font-style: italic;
+    font-variation-settings: "SOFT" 40, "WONK" 0, "opsz" 72;
+    line-height: 1.32;
+    letter-spacing: -0.012em;
+    color: var(--chalk);
+}
+
+.quote-author {
+    max-width: none;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+
+/* =========================================================
+   10  SKETCH FRAME + HAND-DRAWN RULES
+   A displaced SVG stroke, used as a repeating border so panels
+   look torn out of a sketchbook rather than boxed by a div.
+   ========================================================= */
+.sketch-frame {
+    position: relative;
+    padding: clamp(1.6rem, 3.6vw, 2.6rem);
+    background:
+        linear-gradient(168deg, rgba(255, 255, 255, 0.038), transparent 46%),
+        var(--ink-850);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    box-shadow:
+        inset 0 1px 0 var(--sheen),
+        0 1px 0 rgba(0, 0, 0, 0.5),
+        0 18px 44px -20px rgba(0, 0, 0, 0.85);
+}
+
+/* The drawn edge: a thin, imperfect line laid just inside the border */
+.sketch-frame::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' preserveAspectRatio='none'%3E%3Cpath d='M0.5 4 Q150 1 299 4 M0.5 4 Q2 100 0.5 196 M299 4 Q298 100 299.5 196 M0.5 196 Q150 199 299 196' fill='none' stroke='%23e9e5dd' stroke-opacity='0.13' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+.sketch-rule {
+    height: 1px;
+    margin: clamp(2rem, 5vw, 3.2rem) 0;
+    border: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 8' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q75 1.5 150 4 Q225 6.5 300 3' fill='none' stroke='%23e9e5dd' stroke-opacity='0.16' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   11  CARDS AND PANELS
+   ========================================================= */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3.2vw, 2.1rem);
+    background:
+        linear-gradient(162deg, rgba(255, 255, 255, 0.04), transparent 52%),
+        var(--ink-850);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    box-shadow:
+        inset 0 1px 0 var(--sheen),
+        0 16px 38px -22px rgba(0, 0, 0, 0.9);
+    transition:
+        transform 0.5s var(--ease-out-expo),
+        border-color 0.4s var(--ease-out-expo),
+        box-shadow 0.5s var(--ease-out-expo);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 163, 115, 0.26);
+    box-shadow:
+        inset 0 1px 0 var(--sheen),
+        0 26px 54px -24px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(212, 163, 115, 0.08);
+}
+
+.card > h3 {
+    margin-bottom: 0.7rem;
+}
+
+.card p {
+    color: var(--chalk-2);
+    font-size: 0.985rem;
+}
+
+.card > p:last-of-type {
+    margin-bottom: 0;
+}
+
+.card-icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1.15rem;
+    font-size: 0.95rem;
+    color: var(--ember);
+    background: var(--ember-soft);
+    border: 1px solid var(--ember-line);
+    border-radius: 2px;
+}
+
+/* Small tonal label, e.g. "Verified" / "In progress" */
+.tag {
+    align-self: flex-start;
+    display: inline-block;
+    margin-top: 1.15rem;
+    padding: 0.28rem 0.62rem;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--chalk-3);
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+}
+
+.tag.is-accent {
+    color: var(--ember);
+    background: var(--ember-soft);
+    border-color: var(--ember-line);
+}
+
+/* An honest provenance note: what the claim is based on */
+.evidence {
+    margin-top: 1.05rem;
+    padding-top: 0.95rem;
+    border-top: 1px dashed var(--hairline);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    line-height: 1.6;
+    letter-spacing: 0.012em;
+    color: var(--chalk-4);
+}
+
+.evidence b {
+    color: var(--chalk-3);
+    font-weight: 500;
+}
+
+.mini-quote {
+    margin: 2.4rem 0 0;
+    padding-left: 1.15rem;
+    border-left: 1px solid var(--hairline);
+}
+
+.mini-quote p {
+    margin: 0;
+    max-width: 46ch;
+    font-family: var(--display);
+    font-size: 1.12rem;
+    font-style: italic;
+    font-weight: 400;
+    font-variation-settings: "SOFT" 40, "WONK" 0, "opsz" 36;
+    color: var(--chalk-3);
+}
+
+.mini-divider {
+    height: 1px;
+    margin: 1.6rem 0;
+    background: linear-gradient(90deg, var(--hairline), transparent);
+}
+
+
+/* =========================================================
+   12  STORY
+   ========================================================= */
+.story-heading {
+    font-size: clamp(2.3rem, 8vw, 4.6rem);
+    font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    margin-bottom: 0.65rem;
+}
+
+.story-subtitle {
+    max-width: 40ch;
+    margin-bottom: 2.8rem;
+    font-family: var(--hand);
+    font-size: clamp(1.25rem, 3.4vw, 1.6rem);
+    color: var(--ember);
+}
+
+.artist-card {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 2.75rem);
+    align-items: start;
+    padding: clamp(1.4rem, 3.4vw, 2.1rem);
+    background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.04), transparent 46%),
+        var(--ink-850);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.9);
+}
+
+.profile-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 2px;
+    /* the portrait sits under the same studio light as the page */
+    filter: grayscale(1) contrast(1.1) brightness(0.92);
+    border: 1px solid var(--hairline);
+    box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.9);
+}
+
+.artist-info h3 {
+    margin-bottom: 1.1rem;
+}
+
+.artist-info p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.94rem;
+    color: var(--chalk-2);
+}
+
+.artist-info p strong {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.story-quote {
+    margin: clamp(2.6rem, 6vw, 4rem) 0;
+    padding-left: 1.4rem;
+    border-left: 2px solid var(--ember-line);
+    font-family: var(--display);
+    font-size: clamp(1.35rem, 3.4vw, 2rem);
+    font-style: italic;
+    font-weight: 400;
+    font-variation-settings: "SOFT" 44, "WONK" 0, "opsz" 72;
+    line-height: 1.28;
+    color: var(--chalk);
+}
+
+/* Margin-note list, set as scribbled annotations */
+.sketch-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.55rem 1.75rem;
+    margin-top: 1.9rem;
+}
+
+.sketch-notes li {
+    position: relative;
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    font-size: 0.96rem;
+    color: var(--chalk-2);
+    border-bottom: 1px solid var(--hairline-2);
+}
+
+.sketch-notes li::before {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    top: 1.15rem;
+    width: 9px;
+    height: 1.5px;
+    background: var(--ember);
+    transform: rotate(-38deg);
+}
+
+.journey-path {
+    position: relative;
+    padding-left: 1.85rem;
+    border-left: 1px solid var(--hairline);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 2.1rem;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -1.85rem;
+    top: 0.42rem;
+    width: 9px;
+    height: 9px;
+    background: var(--ink-900);
+    border: 1.5px solid var(--ember);
+    border-radius: 50%;
+}
+
+.timeline-item strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.71rem;
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--ember);
+}
+
+.timeline-item p {
+    margin: 0;
+    color: var(--chalk-2);
+}
+
+
+/* =========================================================
+   13  TOOLKIT
+   ========================================================= */
+.toolkit-hero,
+.workshop-hero,
+.contact-hero {
+    margin-bottom: clamp(2.8rem, 7vw, 4.4rem);
+}
+
+.toolkit-hero h2,
+.workshop-hero h2,
+.contact-hero h2 {
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+}
+
+.toolkit-intro,
+.contact-tagline {
+    max-width: 52ch;
+    margin-top: 1rem;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    font-weight: 300;
+    color: var(--chalk-2);
+}
+
+.toolkit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+/* Skill levels are stated, not decorated with fake meters */
+.skill-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 0.9rem;
+    padding: 0.72rem 0;
+    border-top: 1px solid var(--hairline-2);
+}
+
+.skill-row:first-of-type {
+    margin-top: 1.15rem;
+    border-top: 0;
+}
+
+.skill-row dt {
+    font-size: 0.94rem;
+    color: var(--chalk);
+}
+
+.skill-row dd {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--chalk-3);
+}
+
+.skill-row dd.is-core {
+    color: var(--ember);
+}
+
+.journey-heading {
+    margin-bottom: 1.4rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.94rem;
+}
+
+/* Tables scroll rather than forcing the page wide on phones */
+.table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    background: var(--ink-850);
+    box-shadow: 0 16px 38px -24px rgba(0, 0, 0, 0.9);
+}
+
+.table-wrap table {
+    min-width: 34rem;
+}
+
+caption {
+    margin-bottom: 0.85rem;
+    font-size: 0.88rem;
+    color: var(--chalk-3);
+    text-align: left;
+}
+
+th,
+td {
+    padding: 0.85rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--hairline-2);
+}
+
+th {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+td {
+    color: var(--chalk-2);
+}
+
+tbody tr:hover td {
+    color: var(--chalk);
+    background: rgba(255, 255, 255, 0.018);
+}
+
+
+/* =========================================================
+   14  WORKSHOP / PROJECTS
+   ========================================================= */
+.workshop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+.workshop-grid .card {
+    gap: 0;
+}
+
+.workshop-grid .card h3 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+}
+
+.workshop-grid .card h3 i {
+    font-size: 0.8em;
+    color: var(--ember);
+}
+
+/* Meta line: role, year, stack */
+.card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.55rem;
+    margin-bottom: 0.95rem;
+    font-family: var(--mono);
+    font-size: 0.645rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.card-meta span:not(:last-child)::after {
+    content: "·";
+    margin-left: 0.55rem;
+    color: var(--chalk-4);
+}
+
+/* Bulleted list of real, verifiable features */
+.card-list {
+    margin: 0 0 1.15rem;
+    font-size: 0.925rem;
+    color: var(--chalk-2);
+}
+
+.card-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.42rem;
+}
+
+.card-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 1px;
+    background: var(--chalk-4);
+}
+
+.card-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding-bottom: 0.15rem;
+    font-family: var(--mono);
+    font-size: 0.685rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember);
+    border-bottom: 1px solid var(--ember-line);
+    transition: border-color 0.3s var(--ease-out-expo), gap 0.3s var(--ease-out-expo);
+}
+
+.card-link:hover {
+    border-bottom-color: var(--ember);
+    gap: 0.75rem;
+}
+
+.card-link.is-external::after {
+    content: "\2197";
+    font-size: 0.95em;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   15  CONNECT
+   ========================================================= */
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: clamp(0.9rem, 2.2vw, 1.3rem);
+    margin-bottom: clamp(2.6rem, 6vw, 4rem);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(1rem, 2.6vw, 1.6rem);
+    align-items: start;
+}
+
+.contact-form-card,
+.contact-info-card {
+    padding: clamp(1.5rem, 3.2vw, 2.2rem);
+    background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.04), transparent 50%),
+        var(--ink-850);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.9);
+}
+
+.contact-form-card h3,
+.contact-info-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.7rem;
+}
+
+.contact-form-card h3 i,
+.contact-info-card h3 i {
+    color: var(--ember);
+    font-size: 0.85em;
+}
+
+form {
+    margin-top: 1.6rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.655rem;
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.78rem 0.9rem;
+    margin-bottom: 1.3rem;
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--chalk);
+    font-size: 0.95rem;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.28s var(--ease-out-expo), box-shadow 0.28s var(--ease-out-expo);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 7rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--chalk-4);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--ember-line);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 0 3px var(--ember-soft);
+}
+
+button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--void);
+    background: linear-gradient(180deg, #e8c49b, var(--ember));
+    border: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), filter 0.25s var(--ease-out-expo);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.07);
+    box-shadow: 0 10px 24px -12px rgba(212, 163, 115, 0.55);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.form-note {
+    margin: 1.15rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.665rem;
+    line-height: 1.65;
+    color: var(--chalk-4);
+}
+
+.sign-off {
+    margin-top: 1.6rem;
+    padding-top: 1.3rem;
+    border-top: 1px dashed var(--hairline);
+}
+
+.sign-off .hand {
+    display: block;
+    font-size: clamp(1.6rem, 4.6vw, 2.3rem);
+    color: var(--chalk);
+    transform: rotate(-2.2deg);
+    transform-origin: left center;
+}
+
+
+/* =========================================================
+   16  SOCIAL LINKS
+   ========================================================= */
+.socials {
+    padding: clamp(1.7rem, 4vw, 2.6rem);
+    background:
+        linear-gradient(146deg, rgba(255, 255, 255, 0.04), transparent 52%),
+        var(--ink-850);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.9);
 }
 
 .social-title {
-    animation: fadeFloat 6s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.2rem, 2.6vw, 1.5rem);
 }
 
-@keyframes fadeFloat {
-    0%   { transform: translate3d(0, 0, 0); }
-    50%  { transform: translate3d(0, -5px, 0); }
-    100% { transform: translate3d(0, 0, 0); }
+.social-title i {
+    color: var(--ember);
+    font-size: 0.85em;
+}
+
+.social-label {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--chalk-3);
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.05rem;
+    font-family: var(--mono);
+    font-size: 0.685rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--chalk-2);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    transition:
+        color 0.3s var(--ease-out-expo),
+        border-color 0.3s var(--ease-out-expo),
+        background 0.3s var(--ease-out-expo),
+        transform 0.3s var(--ease-out-expo);
+}
+
+.social-links a:hover {
+    color: var(--ember);
+    background: var(--ember-soft);
+    border-color: var(--ember-line);
+    transform: translateY(-2px);
 }
 
 
-/* =========================
-   RESPONSIVE (landing)
-   ========================= */
-@media (max-width: 768px) {
-    .intro-frame {
-        top: 18px;
-        bottom: 18px;
-        left: 18px;
-        right: 18px;
+/* =========================================================
+   17  FOOTER
+   ========================================================= */
+.artist-footer {
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: clamp(2.6rem, 6vw, 4rem) var(--gut) clamp(2.2rem, 5vw, 3.2rem);
+    border-top: 1px solid var(--hairline);
+    text-align: center;
+}
+
+.footer-phrase {
+    max-width: none;
+    margin-bottom: 0.5rem;
+    font-family: var(--display);
+    font-size: clamp(1.3rem, 3.4vw, 1.9rem);
+    font-style: italic;
+    font-weight: 400;
+    font-variation-settings: "SOFT" 44, "WONK" 0, "opsz" 60;
+    color: var(--chalk);
+}
+
+.footer-signature {
+    max-width: none;
+    margin-bottom: 1.9rem;
+    font-size: 0.9rem;
+    color: var(--chalk-4);
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.35rem;
+    margin-bottom: 1.6rem;
+}
+
+.footer-links a {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--chalk-3);
+    text-decoration: none;
+    transition: color 0.28s var(--ease-out-expo);
+}
+
+.footer-links a:hover {
+    color: var(--ember);
+}
+
+.footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.645rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.footer-divider {
+    color: var(--ink-500);
+}
+
+.back-to-top {
+    color: var(--chalk-3);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+    transition: color 0.28s var(--ease-out-expo), border-color 0.28s var(--ease-out-expo);
+}
+
+.back-to-top:hover {
+    color: var(--ember);
+    border-bottom-color: var(--ember-line);
+}
+
+
+/* =========================================================
+   18  SCROLL REVEAL
+   Progressive enhancement: [data-reveal] only starts hidden
+   once the root carries .js-motion, so no-JS is never blank.
+   ========================================================= */
+.js-motion [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.1rem);
+    transition:
+        opacity 0.95s var(--ease-out-expo) var(--reveal-delay, 0ms),
+        transform 0.95s var(--ease-out-expo) var(--reveal-delay, 0ms);
+}
+
+.js-motion [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+}
+
+/* Set by the failsafe in index.html if motion.js never arrives */
+.js-motion.reveal-fallback [data-reveal] {
+    opacity: 1;
+    transform: none;
+}
+
+.js-motion.reveal-fallback .hero-line-inner {
+    transform: none;
+}
+
+.js-motion.reveal-fallback .hero-fade {
+    opacity: 1;
+    transform: none;
+}
+
+
+/* =========================================================
+   19  RESPONSIVE
+   ========================================================= */
+@media (max-width: 62rem) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 46rem) {
+    nav {
+        justify-content: center;
+        text-align: center;
     }
 
-    .intro-stroke {
-        margin-top: 20px;
+    nav h1 {
+        width: 100%;
+        justify-content: center;
     }
 
-    .intro-author {
-        letter-spacing: 0.5em;
-        text-indent: 0.5em;
-        font-size: 0.9rem;
+    nav ul {
+        justify-content: center;
+    }
+
+    nav a {
+        font-size: 0.79rem;
+    }
+
+    /* Icons duplicate the adjacent label once stacked, so drop them
+       and let the text carry the navigation */
+    nav a i {
+        display: none;
+    }
+
+    .artist-card {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-image {
+        max-width: 15rem;
+    }
+
+    .graphite-sheet {
+        width: min(84vw, 22rem);
+    }
+
+    .gs-skip {
+        right: 50%;
+        transform: translateX(50%);
+        text-align: center;
+    }
+
+    table {
+        font-size: 0.86rem;
+    }
+
+    th,
+    td {
+        padding: 0.7rem 0.6rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    body {
+        font-size: 1rem;
     }
 
     .hero-tagline {
-        font-size: 0.95rem;
-        letter-spacing: 1.4px;
+        gap: 0.35rem 0.7rem;
+        font-size: 0.665rem;
+        letter-spacing: 0.14em;
     }
 
-    .social-links {
-        flex-direction: column;
-        align-items: center;
+    .quote-block,
+    .story-quote {
+        padding-left: 1.15rem;
+    }
+
+    .journey-path {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+        left: -1.5rem;
     }
 }
 
 
-/* =========================
-   REDUCED MOTION
-   ========================= */
+/* =========================================================
+   20  REDUCED MOTION + PRINT
+   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto;
-    }
-
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
     }
 
-    #intro-overlay,
-    .hero-backdrop {
+    /* The drawing stage is removed outright rather than merely
+       shortened, so no motion is shown at all */
+    .graphite-stage {
         display: none !important;
     }
 
-    html.js-motion .hero-line-inner,
-    html.js-motion .hero-tagline,
-    html.js-motion .hero-fade,
-    html.js-motion [data-reveal],
-    html.js-motion .portfolio-body nav {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
-    }
-}
-
-
-/* Quick Sketch */
-.artist-info h3{
-    font-family: "Caveat", cursive;
-    font-size: 2rem;
-    letter-spacing: 1px;
-}
-
-.artist-card {
-
-    position: relative;
-    overflow: hidden;
-}
-
-.artist-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:-50%;
-    left:-50%;
-
-    width:200%;
-    height:200%;
-
-    background:
-    linear-gradient(
-    45deg,
-    transparent,
-    rgba(255,255,255,0.15),
-    transparent
-    );
-
-    animation: sketchSweep 10s linear infinite;
-}
-
-@keyframes sketchSweep{
-
-    from{
-        transform: rotate(0deg);
+    .grain {
+        animation: none;
     }
 
-    to{
-        transform: rotate(360deg);
-    }
-}
-
-/* Sketch-Notes */
-
-.sketch-notes{
-
-    list-style:none;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-
-    gap:15px;
-
-    margin-top:25px;
-}
-
-.sketch-notes li{
-
-    padding:15px;
-
-    border-left:2px solid var(--ink);
-
-    background:rgba(255,255,255,0.3);
-
-    transition:0.3s ease;
-}
-
-.sketch-notes li:hover{
-
-    transform:translateX(6px);
-}
-
-.story-quote{
-
-    font-family:"Caveat", cursive;
-
-    font-size:2rem;
-
-    text-align:center;
-
-    margin:40px 0;
-
-    opacity:0.8;
-}
-
-.timeline-item{
-
-    border-left:3px solid var(--ink);
-
-    padding-left:20px;
-
-    margin:25px 0;
-
-    position:relative;
-}
-
-.timeline-item::before{
-
-    content:"";
-
-    width:12px;
-    height:12px;
-
-    border-radius:50%;
-
-    background:var(--ink);
-
-    position:absolute;
-
-    left:-7px;
-    top:5px;
-}
-
-.toolkit-hero {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.toolkit-hero h2 {
-    font-size: 4rem;
-    font-family: "Shadows Into Light", cursive;
-    margin-bottom: 15px;
-
-    animation: pencilWrite 2s ease forwards;
-}
-
-/* handwriting-on reveal: the line writes in, then settles */
-@keyframes pencilWrite {
-    from {
-        opacity: 0;
-        transform: translateY(14px) rotate(-1.2deg);
-        clip-path: inset(0 100% 0 0);
-    }
-    70% {
+    .js-motion [data-reveal] {
         opacity: 1;
+        transform: none;
     }
-    to {
+
+    .hero-line-inner {
+        transform: none;
+    }
+
+    .hero-fade {
         opacity: 1;
-        transform: translateY(0) rotate(0);
-        clip-path: inset(0 0 0 0);
+        transform: none;
+    }
+
+    .card:hover,
+    button:hover,
+    .social-links a:hover {
+        transform: none;
     }
 }
 
-.toolkit-intro {
-    max-width: 700px;
-    margin: auto;
-
-    font-size: 1.05rem;
-    opacity: 0.85;
-}
-
-.mini-quote {
-    max-width: 600px;
-
-    margin: 35px auto;
-
-    padding: 18px;
-
-    border-left: 3px solid #222;
-
-    background: rgba(255,255,255,0.4);
-
-    font-family: "Shadows Into Light", cursive;
-
-    font-size: 1.4rem;
-
-    animation: fadeUp 1.5s ease;
-}
-
-.skill-card::before {
-    content: "✏";
-    position: absolute;
-
-    top: 15px;
-    left: 15px;
-
-    font-size: 1.3rem;
-
-    opacity: 0.15;
-}
-
-.skill-card h2 {
-    margin-top: 15px;
-
-    font-family: "Playfair Display", serif;
-
-    position: relative;
-}
-
-.skill-card {
-    overflow: hidden;
-}
-
-.skill-card::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-    repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 12px,
-        rgba(0,0,0,0.015) 13px,
-        rgba(0,0,0,0.015) 14px
-    );
-
-    pointer-events: none;
-}
-
-.journey-heading {
-    text-align: center;
-    margin-top: 70px;
-    margin-bottom: 25px;
-}
-
-.journey-heading h2 {
-    font-family: "Shadows Into Light", cursive;
-    font-size: 2.8rem;
-}
-
-table {
-    background: rgba(255,255,255,0.4);
-
-    overflow: hidden;
-
-    border-radius: 12px;
-
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-}
-
-.workshop-hero {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.workshop-hero h2 {
-    font-family: "Shadows Into Light", cursive;
-    font-size: 3rem;
-}
-
-.workshop-hero p {
-    opacity: 0.8;
-    font-size: 1.05rem;
-}
-
-article a {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 6px 10px;
-
-    border: 1px solid rgba(0,0,0,0.2);
-
-    transition: 0.25s ease;
-}
-
-article a:hover {
-    background: rgba(0,0,0,0.05);
-    transform: translateX(4px);
-}
-
-/* =========================
-   ARTIST FOOTER
-========================= */
-
-.artist-footer{
-    position: relative;
-
-    margin-top: 100px;
-    padding: 60px 20px 40px;
-
-    text-align: center;
-
-    background:
-    linear-gradient(
-        180deg,
-        #2b2b2b,
-        #1a1a1a
-    );
-
-    color: #f6f1e8;
-
-    overflow: hidden;
-
-    border-top: 3px solid rgba(255,255,255,0.08);
-
-    box-shadow:
-    0 -10px 30px rgba(0,0,0,0.25);
-}
-
-
-/* charcoal texture */
-.artist-footer::before{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    background:
-    repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 8px,
-        rgba(255,255,255,0.02) 9px,
-        rgba(255,255,255,0.02) 10px
-    );
-
-    pointer-events:none;
-}
-
-
-/* moving glow */
-.artist-footer::after{
-    content:"";
-
-    position:absolute;
-
-    width:500px;
-    height:500px;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(255,255,255,0.05),
-        transparent 70%
-    );
-
-    top:-200px;
-    left:-200px;
-
-    animation: footerGlow 14s linear infinite;
-}
-
-
-.footer-phrase{
-    position: relative;
-    z-index: 2;
-
-    font-family: "Shadows Into Light", cursive;
-
-    font-size: 2.4rem;
-
-    margin-bottom: 18px;
-
-    letter-spacing: 1px;
-
-    animation: footerFloat 5s ease-in-out infinite;
-}
-
-
-.footer-info{
-    position: relative;
-    z-index: 2;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:14px;
-
-    font-size:0.95rem;
-
-    opacity:0.9;
-}
-
-
-.footer-info span{
-    transition:0.3s ease;
-}
-
-
-.footer-icon{
-    font-size:1.4rem;
-
-    display:inline-block;
-
-    animation: pencilSpin 8s linear infinite;
-}
-
-
-.back-to-top{
-    color:#f6f1e8;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    position:relative;
-
-    transition:0.3s ease;
-}
-
-
-.back-to-top::after{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    bottom:-4px;
-
-    width:0;
-    height:2px;
-
-    background:#f6f1e8;
-
-    transition:0.3s ease;
-}
-
-
-.back-to-top:hover::after{
-    width:100%;
-}
-
-
-.back-to-top:hover{
-    transform:translateY(-2px);
-}
-
-
-/* floating phrase */
-@keyframes footerFloat{
-    0%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-6px);
-    }
-    100%{
-        transform:translateY(0);
-    }
-}
-
-
-/* moving charcoal glow */
-@keyframes footerGlow{
-    0%{
-        transform:translate(0,0);
+@media print {
+    body {
+        background: #fff;
+        color: #000;
     }
 
-    50%{
-        transform:translate(600px,150px);
+    body::before,
+    body::after,
+    .grain,
+    .graphite-stage,
+    header {
+        display: none;
     }
 
-    100%{
-        transform:translate(0,0);
-    }
-}
-
-
-/* pencil motion */
-@keyframes pencilSpin{
-    0%{
-        transform:rotate(0deg);
+    .card,
+    .sketch-frame,
+    .socials,
+    .contact-form-card,
+    .contact-info-card {
+        border: 1px solid #999;
+        box-shadow: none;
     }
 
-    100%{
-        transform:rotate(360deg);
+    a {
+        color: #000;
     }
 }
-
-/* CONTACT HERO */
-
-.contact-hero{
-    text-align:center;
-    margin-bottom:50px;
-}
-
-.contact-hero h2{
-    font-family:"Shadows Into Light", cursive;
-    font-size:4rem;
-}
-
-.contact-tagline{
-    font-size:1.1rem;
-    opacity:0.8;
-    margin-top:10px;
-}
-
-/* CONTACT CARDS */
-
-.contact-cards{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
-
-    gap:25px;
-    margin:50px 0;
-}
-
-.contact-card{
-    background:#2b2b2b;
-    color:#f6f1e8;
-
-    padding:25px;
-
-    border-radius:16px;
-
-    position:relative;
-
-    animation: contactFloat 6s ease-in-out infinite;
-
-    transition:0.3s ease;
-}
-
-.contact-card:hover{
-    transform:translateY(-10px);
-}
-
-.contact-card i{
-    font-size:2rem;
-    margin-bottom:15px;
-}
-
-.contact-card h3{
-    margin-bottom:12px;
-}
-
-@keyframes contactFloat{
-
-    0%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-4px);
-    }
-
-    100%{
-        transform:translateY(0px);
-    }
-}
-
-
-
-/* =========================
-   MISSING LAYOUT BLOCKS
-   Classes used in markup that previously had no rules at all.
-   ========================= */
-
-/* FOOTER LINK ROW */
-.footer-links{
-    position: relative;
-    z-index: 2;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:26px;
-
-    margin: 0 0 24px;
-}
-
-.footer-links a{
-    position:relative;
-
-    font-size:0.9rem;
-    letter-spacing:1.2px;
-    text-transform:uppercase;
-
-    color:#f6f1e8;
-    opacity:0.78;
-
-    transition: opacity 0.3s ease, transform 0.3s var(--ease-out-expo);
-}
-
-.footer-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-6px;
-
-    width:0;
-    height:1px;
-    background:#f6f1e8;
-
-    transition: width 0.3s var(--ease-out-expo);
-}
-
-.footer-links a:hover{
-    text-decoration:none;
-    opacity:1;
-    transform:translateY(-2px);
-}
-
-.footer-links a:hover::after{
-    width:100%;
-}
-
-.footer-signature{
-    position:relative;
-    z-index:2;
-
-    font-size:0.92rem;
-    font-style:italic;
-    letter-spacing:0.6px;
-
-    opacity:0.65;
-
-    margin-bottom:30px;
-}
-
-.footer-divider{
-    opacity:0.4;
-}
-
-
-/* STORY PAGE HEADINGS */
-.story-heading{
-    font-size: clamp(2.1rem, 6vw, 3.1rem);
-    line-height:1.15;
-    margin-bottom:6px;
-}
-
-.story-subtitle{
-    font-family:"Shadows Into Light", cursive;
-    font-size:1.6rem;
-
-    opacity:0.75;
-    margin-bottom:30px;
-}
-
-.journey-path .timeline-item:last-child{
-    margin-bottom:0;
-}
-
-
-/* CONTACT LAYOUT (form + info) */
-.contact-grid{
-    display:grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap:28px;
-    align-items:start;
-}
-
-.contact-form-card,
-.contact-info-card{
-    position:relative;
-
-    padding:28px;
-    border-radius:14px;
-
-    background:rgba(255,255,255,0.5);
-    border:1px solid var(--soft-ink);
-    box-shadow:0 12px 30px rgba(0,0,0,0.06);
-
-    overflow:hidden;
-    transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s ease;
-}
-
-.contact-form-card:hover,
-.contact-info-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 18px 40px rgba(0,0,0,0.1);
-}
-
-.contact-form-card h3,
-.contact-info-card h3{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    margin-bottom:8px;
-}
-
-.contact-form-card p,
-.contact-info-card p{
-    font-size:0.94rem;
-    opacity:0.8;
-    margin-bottom:16px;
-}
-
-/* paper grain */
-.contact-form-card::after,
-.contact-info-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 12px,
-        rgba(0,0,0,0.014) 13px,
-        rgba(0,0,0,0.014) 14px
-    );
-
-    pointer-events:none;
-}
-
-.contact-form-card > *,
-.contact-info-card > *{
-    position:relative;
-    z-index:1;
-}
-
-.mini-divider{
-    height:1px;
-    margin:22px 0;
-
-    background:linear-gradient(90deg, var(--soft-ink), transparent);
-}
-
-/* FORM LABELS */
-form label{
-    font-size:0.76rem;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-
-    opacity:0.65;
-    margin-bottom:-6px;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-    outline:none;
-    border-color:rgba(31,31,31,0.5);
-    background:rgba(255,255,255,0.55);
-}
-
-@media (max-width: 900px) {
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-}
-
-
