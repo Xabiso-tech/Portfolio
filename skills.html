@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Toolkit &middot; Xabiso Phendu</title>
     <meta name="description"
-        content="An honest inventory of Xabiso Phendu's development tools, with the specific work that backs each level: HTML, CSS, JavaScript, Node and Express, MySQL, REST APIs, JWT authentication, Vue, PHP, Git and Python.">
+        content="A practical overview of Xabiso Phendu's web development skills: HTML, CSS, JavaScript, Vue, Bootstrap, PHP, Node.js, Express, MySQL, SQL, APIs, Python, Git and deployment.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
                 <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
                 <li><a href="skills.html" aria-current="page"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
                 <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li><a href="gallery.html"><i class="fa-regular fa-images"></i> Gallery</a></li>
+                <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
                 <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
             </ul>
         </nav>
@@ -67,11 +67,11 @@
 
         <div class="toolkit-hero">
             <span class="eyebrow" data-reveal>What I reach for</span>
-            <h2 data-etch>From pencil lines to code lines</h2>
+            <h2 data-etch>Web development tools</h2>
             <p class="toolkit-intro" data-reveal>
-                Every drawing starts with a pencil. Every application starts with a tool and a
-                decision about structure. This is what I actually work in, and how far I have
-                honestly got with each one.
+                Technologies I have learned and applied through coursework, individual studies and
+                team projects. The levels reflect my current experience, with examples of the work
+                behind them.
             </p>
 
             <div class="mini-quote" data-reveal>
@@ -82,12 +82,12 @@
         <hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
-            <span class="eyebrow">Front of the sheet</span>
-            <h2 data-etch>In the hand</h2>
+            <span class="eyebrow">Browser interface</span>
+            <h2 data-etch>Frontend development</h2>
 
             <p>
-                The three I use every day. These are the ones I can be held to, because they are
-                the ones visible in every project on this site.
+                HTML, CSS and JavaScript are the foundation of the interfaces in this portfolio and
+                in the HR system project.
             </p>
 
             <div class="toolkit-grid">
@@ -128,9 +128,8 @@
                 <div class="card" data-reveal>
                     <h3>CSS</h3>
                     <p>
-                        Custom properties, Grid and Flexbox, layered depth. I like hand-drawn
-                        structure: displaced SVG rules, generated grain, shadows that sit back
-                        instead of sitting on top.
+                        Custom properties, Grid and Flexbox, responsive layouts and layered visual
+                        treatments. I use CSS for both page structure and interface motion.
                     </p>
                     <dl>
                         <div class="skill-row">
@@ -162,10 +161,9 @@
                         </div>
                     </dl>
                     <p class="evidence">
-                        <b>Evidence:</b> the graphite drawing sequence on the
-                        <a href="index.html">home page</a> runs on one
-                        <code>requestAnimationFrame</code> clock with a real timing budget, and the
-                        whole design system is one stylesheet of custom properties.
+                        <b>Evidence:</b> responsive layouts and the staged intro on the
+                        <a href="index.html">home page</a>, implemented with custom properties,
+                        CSS transitions and a small <code>requestAnimationFrame</code> loop.
                     </p>
                 </div>
 
@@ -217,8 +215,8 @@
         <hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
-            <span class="eyebrow">The invisible half</span>
-            <h2 data-etch>Behind the screen</h2>
+            <span class="eyebrow">Services and data</span>
+            <h2 data-etch>Backend development</h2>
 
             <p>
                 This is the part I moved into on the HR system project, and the part I would rather
@@ -409,18 +407,17 @@
              reference, and stays linked underneath.
              ===================================================== -->
         <section data-reveal>
-            <span class="eyebrow">The working sheet</span>
-            <h2 data-etch>Python, on paper</h2>
+            <span class="eyebrow">Interactive exercise</span>
+            <h2 data-etch>Python calculator</h2>
 
             <p>
                 My clearest lesson from Python is how much easier error handling is when you
-                validate deliberately instead of hoping the input is sensible. The file below is
-                that lesson as an exercise, and it runs four ways: arithmetic, percentage, frame
-                maths, and the paper sizes I measure my own drawings on.
+                validate deliberately instead of assuming input is sensible. This exercise runs in
+                four modes: arithmetic, percentages, frame dimensions and common paper sizes.
             </p>
 
             <button type="button" class="ink-btn is-ember console-open" id="console-open">
-                <i class="fa-solid fa-calculator"></i> Open the studio console
+                <i class="fa-solid fa-calculator"></i> Open the calculator
             </button>
 
             <div class="console" id="studio-console" hidden>
@@ -443,7 +440,7 @@
             </div>
 
             <p class="console-foot">
-                The same logic, in Python, is the reference this is ported from:
+                The calculator is a browser-based JavaScript port of the Python exercise:
                 <a href="skills/graphite-calculator.py">skills/graphite-calculator.py</a>. Division
                 and modulo by zero are refused rather than guessed at, results that are not real
                 numbers are reported as such, and the arithmetic chains left to right exactly as
@@ -454,13 +451,12 @@
         <hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
-            <span class="eyebrow">Earlier work</span>
-            <h2 data-etch>Foundations</h2>
+            <span class="eyebrow">Additional experience</span>
+            <h2 data-etch>Programming and frameworks</h2>
 
             <p>
-                Languages I have studied and built small things in. Not advanced, and not dressed up
-                as such, but they are part of the toolkit and they shaped how the rest fits
-                together.
+                These technologies extend the core frontend and backend work. I list them at the
+                level supported by my coursework and project experience.
             </p>
 
             <div class="toolkit-grid">
@@ -565,15 +561,15 @@
                 <table>
                     <caption>
                         Levels are described relative to what I have actually built, not to a
-                        curriculum. Nothing here is listed as expert. The shading beside each level
-                        is the same five-cell meter used above, drawn in graphite rather than
-                        filled with colour.
+                        curriculum. Nothing here is listed as expert. The five-cell meter offers a
+                        visual comparison; the written level and project evidence remain the useful
+                        measures.
                     </caption>
                     <thead>
                         <tr>
                             <th scope="col">Technology</th>
                             <th scope="col">Level</th>
-                            <th scope="col">Shading</th>
+                            <th scope="col">Visual scale</th>
                             <th scope="col">Backed by</th>
                         </tr>
                     </thead>
@@ -596,7 +592,7 @@
                                     <span class="meter-fill" style="--n: 4"></span>
                                 </span>
                             </td>
-                            <td>This site's design system and drawing sequence</td>
+                            <td>This site's design system and interface animation</td>
                         </tr>
                         <tr>
                             <th scope="row">JavaScript</th>
@@ -609,7 +605,7 @@
                             <td>DOM exercises, <code>motion.js</code>, API client modules</td>
                         </tr>
                         <tr>
-                            <th scope="row">Node &amp; Express</th>
+                            <th scope="row">Node.js &amp; Express</th>
                             <td>Foundational+</td>
                             <td>
                                 <span class="meter" role="img" aria-label="Foundational plus, three of five">
@@ -687,6 +683,26 @@
                                 </span>
                             </td>
                             <td>Superglobals and form handling exercises</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Bootstrap</th>
+                            <td>Applied experience</td>
+                            <td>
+                                <span class="meter" role="img" aria-label="Applied experience, three of five">
+                                    <span class="meter-fill" style="--n: 3"></span>
+                                </span>
+                            </td>
+                            <td>Responsive four-page AutoVault catalogue</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Deployment</th>
+                            <td>Applied experience</td>
+                            <td>
+                                <span class="meter" role="img" aria-label="Applied experience, three of five">
+                                    <span class="meter-fill" style="--n: 3"></span>
+                                </span>
+                            </td>
+                            <td>Portfolio on GitHub Pages and live project deployments</td>
                         </tr>
                     </tbody>
                 </table>

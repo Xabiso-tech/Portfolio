@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery &middot; Xabiso Phendu</title>
+    <title>Workshop Gallery &middot; Xabiso Phendu</title>
     <meta name="description"
-        content="A hanging exhibition of graphite and charcoal studies: landscapes, portraits and architecture, mounted on the studio wall.">
+        content="Visual studies presented as part of Xabiso Phendu's Workshop: a small personal drawing practice alongside a full-stack web development portfolio.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
                 <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
                 <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
                 <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li><a href="gallery.html" aria-current="page"><i class="fa-regular fa-images"></i> Gallery</a></li>
+                <li class="nav-gallery"><a href="gallery.html" aria-current="page" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
                 <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
             </ul>
         </nav>
@@ -66,12 +66,18 @@
     <main id="main" tabindex="-1">
 
         <div class="exhibit-hero">
-            <span class="eyebrow" data-reveal>The wall</span>
-            <h2 data-etch>Twelve studies, hung where I left them</h2>
-            <p class="toolkit-intro" data-reveal>
-                Charcoal, graphite, and whatever board was to hand. This is where I get to work
-                without a client telling me what the drawing is supposed to say.
+            <p class="workshop-breadcrumb" data-reveal>
+                <a href="projects.html">Workshop</a><span aria-hidden="true"> / </span>
+                <span aria-current="page">Visual studies</span>
             </p>
+            <span class="eyebrow" data-reveal>Personal visual work</span>
+            <h2 data-etch>Visual studies</h2>
+            <p class="toolkit-intro" data-reveal>
+                Drawing is a hobby and occasional side hustle. These studies sit inside the
+                Workshop as visual context for the graphite style; software development remains
+                the focus of this portfolio.
+            </p>
+            <a class="note-btn" href="projects.html">Back to the Workshop</a>
         </div>
 
         <div class="filter-set" data-filter-set role="group" aria-label="Filter the studies by category">
@@ -271,9 +277,8 @@
         </div>
 
         <p class="exhibit-note" data-reveal>
-            The filter is a convenience, not a requirement: with scripting off, every study stays
-            on the wall. Each plate holds the proportion it was drawn at, and each carries the
-            construction frame it was measured inside.
+            Filter the collection by subject. With scripting off, every image remains available;
+            each retains its source proportion and descriptive alternative text.
         </p>
 
         <p class="exhibit-note" data-reveal>
@@ -284,8 +289,8 @@
 
     <footer class="artist-footer">
         <p class="footer-phrase">
-            Drawn slowly.<br>
-            Built to last.
+            Visual practice on the side.<br>
+            Development work at the center.
         </p>
 
         <p class="footer-signature">
@@ -308,7 +313,7 @@
         </p>
 
         <p class="footer-info">
-            &copy; <span class="year">2026</span> Xabiso Phendu &middot; every mark on this site was placed by hand
+            &copy; <span class="year">2026</span> Xabiso Phendu &middot; web development presented through a graphite studio
         </p>
     </footer>
 

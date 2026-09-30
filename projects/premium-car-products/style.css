@@ -136,7 +136,6 @@ body::after {
 .carousel-item img {
     height: clamp(240px, 46vw, 460px);
     object-fit: cover;
-    filter: grayscale(0.45) contrast(1.05) brightness(0.92);
 }
 
 .carousel-caption {
@@ -258,12 +257,6 @@ h2.animate__animated {
     object-fit: cover;
     border-bottom: 1px solid var(--hairline);
     border-radius: 3px 3px 0 0 !important;
-    filter: grayscale(0.55) contrast(1.05) brightness(0.95);
-    transition: filter 0.5s var(--ease);
-}
-
-.card:hover .card-img-top {
-    filter: grayscale(0.2) contrast(1.03) brightness(1);
 }
 
 .card-title,

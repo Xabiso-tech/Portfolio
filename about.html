@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Story &middot; Xabiso Phendu</title>
     <meta name="description"
-        content="How a graphite habit in Khayelitsha, Cape Town turned into full-stack development: the drawing years, structured learning, group back-end work, and what Xabiso Phendu is building toward.">
+        content="Xabiso Phendu's development journey from Life Choices Academy to frontend, backend, databases and full-stack web application projects.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
                 <li><a href="about.html" aria-current="page"><i class="fa-solid fa-book-open"></i> My Story</a></li>
                 <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
                 <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li><a href="gallery.html"><i class="fa-regular fa-images"></i> Gallery</a></li>
+                <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
                 <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
             </ul>
         </nav>
@@ -67,255 +67,222 @@
 
         <div class="exhibit-hero">
             <span class="eyebrow" data-reveal>The long version</span>
-            <h2 data-etch>How I ended up here</h2>
-            <p class="toolkit-intro" data-reveal>Pencil first. Code second. Both slower than they look.</p>
+            <h2 data-etch>My development journey</h2>
+            <p class="toolkit-intro" data-reveal>
+                I joined Life Choices Academy with little coding experience. Structured lessons,
+                practice and project work took me from frontend fundamentals into backend and
+                full-stack development.
+            </p>
         </div>
 
-        <section data-reveal>
-            <div class="plate" data-plate style="--plate-ratio: 755 / 696; --plate-tilt: -0.7deg">
+        <section class="story-opening" data-reveal>
+            <div class="plate story-portrait" data-plate style="--plate-ratio: 755 / 696; --plate-tilt: -0.7deg">
                 <div class="plate-stage">
                     <img class="plate-img" src="images/1000125110.jpg" width="755" height="696"
                         alt="Portrait of Xabiso Phendu." decoding="async">
                 </div>
-                <span class="plate-note is-left">plate 0 &mdash; the sitter</span>
+                <span class="plate-note is-left">Xabiso Phendu &mdash; developer</span>
             </div>
 
-            <hr class="sketch-rule" data-reveal>
-
-            <div class="card" data-reveal>
-                <h3>Quick sketch</h3>
-                <dl>
-                    <div class="skill-row">
-                        <dt>Name</dt>
-                        <dd><span>Xabiso Phendu</span></dd>
-                    </div>
-                    <div class="skill-row">
-                        <dt>Where</dt>
-                        <dd><span>Khayelitsha, Cape Town</span></dd>
-                    </div>
-                    <div class="skill-row">
-                        <dt>Building</dt>
-                        <dd><span>Full-stack web applications</span></dd>
-                    </div>
-                    <div class="skill-row">
-                        <dt>Drawing</dt>
-                        <dd><span>Graphite and charcoal</span></dd>
-                    </div>
-                </dl>
+            <div class="story-profile">
+                <h2 data-etch>Starting at Life Choices Academy</h2>
+                <p class="lede">
+                    I began with little knowledge of coding. The Academy gave me a structured place
+                    to learn, practise and build alongside other people.
+                </p>
+                <div class="card story-facts">
+                    <h3>Quick profile</h3>
+                    <dl>
+                        <div class="skill-row">
+                            <dt>Name</dt>
+                            <dd><span>Xabiso Phendu</span></dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Where</dt>
+                            <dd><span>Khayelitsha, Cape Town</span></dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Focus</dt>
+                            <dd><span>Full-stack web applications</span></dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Learning through</dt>
+                            <dd><span>Life Choices Academy</span></dd>
+                        </div>
+                    </dl>
+                </div>
             </div>
-
-            <blockquote class="quote-block" data-etch data-reveal>
-                <p class="quote-text">A sketch begins as uncertainty. So does growth.</p>
-                <p class="quote-author">Studio note</p>
-            </blockquote>
         </section>
 
         <hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
-            <span class="eyebrow">01 &mdash; Curiosity</span>
-            <h2 data-etch>It started with making marks</h2>
+            <span class="eyebrow">01 &mdash; Foundation</span>
+            <h2 data-etch>Learning the frontend</h2>
 
             <p>
-                Before any of this was software, it was paper. Graphite and charcoal, mostly, in a
-                house in Khayelitsha where the light was never quite right and you learned to work
-                with what you had. I drew because I wanted to, and I kept going because drawing is
-                honest about how long things take.
+                The first step was understanding how a website is structured and presented. I
+                learned semantic HTML, CSS layout and responsive design, then used JavaScript to
+                make pages respond to user input and work with data.
             </p>
 
             <p>
-                What I did not expect was how much structure it would teach me. A face is not a
-                face, it is a set of planes and edges that happen to line up. A shadow is not one
-                colour, it is a gradient you have to earn stroke by stroke. When something looks
-                wrong you cannot argue with it, you just erase and go again. That instinct turned
-                out to be the single most useful thing I brought into programming.
+                Building small pages helped me connect markup, styling and browser behavior rather
+                than treat them as separate topics. I also began using Git and GitHub to keep track
+                of changes and collaborate on shared work.
             </p>
         </section>
 
         <section data-reveal>
-            <span class="eyebrow">02 &mdash; Learning</span>
-            <h2 data-etch>Then the work got structured</h2>
+            <span class="eyebrow">02 &mdash; Broader tools</span>
+            <h2 data-etch>Programming and data</h2>
 
             <p>
-                Drawing is self-directed, which means it is also easy to avoid. I needed something
-                with deadlines and other people holding me to them, so I went into structured
-                coursework: HTML and CSS first, then JavaScript, then the parts I had no idea
-                existed, like SQL, PHP, Vue and Node.
+                The curriculum expanded into Python and PHP, then SQL and MySQL. I learned to work
+                with conditionals, functions and input validation, and to model data, query related
+                records and handle invalid input deliberately.
             </p>
 
             <p>
-                Most of it was unglamorous. Conditionals, loops, functions, arrays, the DOM, error
-                handling, template literals, scope. I did them badly, then redid them. My GitHub is
-                mostly small exercises, and I am not going to pretend otherwise. But you cannot hold
-                up a framework you have not built something small with, and the small things are
-                the ones I remember.
+                I also worked with Vue and Bootstrap, learning how components and frameworks can
+                support an interface while leaving the underlying structure and behavior my
+                responsibility.
             </p>
         </section>
 
         <section data-reveal>
             <span class="eyebrow">03 &mdash; Experimentation</span>
-            <h2 data-etch>Projects that taught me the rules by breaking them</h2>
+            <h2 data-etch>Applying the fundamentals</h2>
 
             <p>
-                The <a href="projects.html">Workshop</a> is where the real learning sat. An image
-                gallery that taught me grid and lazy loading. A product store that taught me why
-                consistent spacing matters more than any colour choice. A booking form with a
-                validation bug I did not find until months later.
+                The <a href="projects.html">Workshop</a> brings together independent studies and
+                team applications. The gallery and product sites let me practise layout,
+                responsive behavior and interaction; the booking form focused on labels, input
+                types and browser validation.
             </p>
 
             <p>
-                Each one looked finished right up until it did not, and each failure was specific
-                and fixable. That is the thing nobody tells you about learning to build: it is
-                mostly diagnosing, not inventing. You get very good at reading an error message and
-                forming a theory about what it means, then being wrong, then forming a better one.
-            </p>
-        </section>
-
-        <section data-reveal>
-            <span class="eyebrow">04 &mdash; The part that changed direction</span>
-            <h2 data-etch>Then I had to make the front end talk to a real database</h2>
-
-            <p>
-                This is where the portfolio stopped being a front-end exercise. On a four-person HR
-                system project I took the employee and performance review modules to the back end:
-                Express routes, controllers, models, MySQL tables, and a JWT sign-in flow, so the
-                pages I had built on the front end were reading live records instead of a JSON file
-                someone had typed in by hand.
-            </p>
-
-            <p>
-                The second team project, WeConnect, tested that on a much bigger scale. It is a B2B
-                marketplace where small businesses order stock from wholesalers, and my part was
-                delivery: the orders, payments and GPS tracking back end, and the pages that drew it
-                on a map. Six hundred commits by four people, and a database behind a managed host
-                that had to be reached over an encrypted connection. Reading somebody else's work is
-                a skill of its own, and it is one I only learned by being buried in it.
-            </p>
-
-            <p>
-                It was a different kind of problem. A bad layout is visible immediately, so you fix
-                it in a minute. A broken query is invisible until the page is empty for a reason you
-                cannot see. Learning to think about what the data is doing, not just what the screen
-                is doing, is the shift I am most grateful for.
-            </p>
-
-            <p>
-                I would still call myself a developer in training. But I know which side of the
-                stack I am drawn to, and I know I would rather build the part nobody sees if it is
-                the part that actually holds.
+                Working through defects taught me to reproduce a problem, inspect the relevant
+                markup or code, and verify a fix in context. That process continues to shape how I
+                approach new features.
             </p>
         </section>
 
         <section data-reveal>
-            <span class="eyebrow">05 &mdash; Purpose</span>
-            <h2 data-etch>Why it matters outside the screen</h2>
+            <span class="eyebrow">04 &mdash; Backend development</span>
+            <h2 data-etch>Working across the stack</h2>
 
             <p>
-                I am not building this for a portfolio. I am in church every Sunday and I take that
-                seriously, because what you believe about people shows up in how you treat them.
-                Chess teaches me the same lesson from the other side: you lose gracefully, you do not
-                fold.
+                On a four-person HR system project, I built the employee and performance review
+                backend using Express and MySQL, then connected the corresponding frontend pages to
+                those routes. This introduced me to controllers, models, parameterized queries and
+                JWT-protected endpoints in a shared codebase.
             </p>
 
             <p>
-                In my community, gender-based violence and femicide are not statistics. They are
-                people. I am involved in awareness work because the argument is simple: this is
-                preventable, and prevention is somebody showing up.
+                In WeConnect, a B2B marketplace, I worked on orders, payments and delivery tracking.
+                My contribution included backend routes and queries, location setup, and Vue pages
+                connected to the API, including a Leaflet map for the latest courier position.
             </p>
 
             <p>
-                The part I care about most is talking to younger boys. Not lecturing them, just being
-                honest about treating women well, about safety, about what a healthy attitude toward
-                someone actually looks like. A lot of that is just repetition, which is another thing
-                art taught me before code did.
+                These projects made the relationship between interface, API and database concrete.
+                A feature had to work across those boundaries and fit the team's existing structure.
             </p>
 
             <p>
-                Building software is how I contribute to that. Systems that make it easier to do the
-                right thing, or to notice when something is wrong, are worth more to me than anything
-                that is merely impressive.
+                I am continuing to develop as a full-stack web developer, with more depth to build
+                in backend design, databases and application architecture.
+            </p>
+        </section>
+
+        <section data-reveal>
+            <span class="eyebrow">05 &mdash; Professional development</span>
+            <h2 data-etch>Working well with others</h2>
+
+            <p>
+                Life Choices Academy also included personal-development training. Sessions with
+                Coach Matika covered leadership principles, communication, transformation and
+                coaching. That work complemented the technical training and helped me think more
+                deliberately about collaboration and professional practice.
             </p>
         </section>
 
         <hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
-            <span class="eyebrow">Off the clock</span>
-            <h2 data-etch>Beyond the screen</h2>
+            <span class="eyebrow">Outside development</span>
+            <h2 data-etch>Personal interests</h2>
 
-            <p>What fills the time when I am not building something.</p>
+            <p>
+                Drawing is a hobby and occasional side work; it informs the visual style of this site
+                without defining my profession.
+            </p>
 
             <ul class="sketch-notes">
-                <li>Graphite and charcoal drawing</li>
                 <li>Church, every Sunday</li>
                 <li>Chess</li>
-                <li>Awareness work on GBV and femicide</li>
-                <li>Mentoring younger boys</li>
                 <li>Reading and library visits</li>
                 <li>Physical activity</li>
             </ul>
         </section>
 
         <section class="journey-heading" data-reveal>
-            <span class="eyebrow">The shape of it</span>
-            <h2 data-etch>The journey so far</h2>
+            <span class="eyebrow">From learning to application</span>
+            <h2 data-etch>Technical progression</h2>
 
             <div class="ruler">
                 <div class="timeline-item">
-                    <strong>Curiosity, on paper</strong>
-                    <p>Years of graphite and charcoal, learning structure, proportion and how to
-                        correct a line.</p>
+                    <strong>Life Choices Academy</strong>
+                    <p>Started with little coding knowledge and a structured program of technical
+                        and personal development.</p>
                 </div>
 
                 <div class="timeline-item">
-                    <strong>Structured learning</strong>
-                    <p>HTML, CSS, JavaScript, then the languages I did not know I needed: SQL, PHP,
-                        Vue, Node.</p>
+                    <strong>Frontend foundations</strong>
+                    <p>HTML, CSS, JavaScript, responsive layouts and browser interaction.</p>
                 </div>
 
                 <div class="timeline-item">
-                    <strong>Small projects</strong>
-                    <p>Gallery, store, booking form. Each one broken in a way that taught me
-                        something specific.</p>
+                    <strong>Programming and databases</strong>
+                    <p>Python, PHP, SQL and MySQL, applied to input handling and data-driven features.</p>
                 </div>
 
                 <div class="timeline-item">
-                    <strong>Back-end work</strong>
-                    <p>Employee and performance review modules in Express, with routes, controllers
-                        and models separated.</p>
+                    <strong>Backend development</strong>
+                    <p>Node.js, Express APIs, controllers, models and authentication in team projects.</p>
                 </div>
 
                 <div class="timeline-item">
-                    <strong>Databases</strong>
-                    <p>MySQL schemas, parameterised queries and delivery data behind a managed host.</p>
+                    <strong>Modern web applications</strong>
+                    <p>Vue, Bootstrap, API integration and responsive interfaces backed by databases.</p>
                 </div>
 
                 <div class="timeline-item">
-                    <strong>Full-stack</strong>
-                    <p>Connecting Vue pages to the WeConnect API and drawing courier locations on a map.</p>
+                    <strong>Practical application</strong>
+                    <p>HR Tech and WeConnect work connecting frontend features to backend services.</p>
                 </div>
 
                 <div class="timeline-item is-now">
-                    <strong>Purpose</strong>
-                    <p>Building useful systems, continuing to learn, and showing up for my community.</p>
+                    <strong>Current direction</strong>
+                    <p>Continuing to grow as a full-stack developer through project work and practice.</p>
                 </div>
             </div>
         </section>
 
         <section data-reveal>
-            <span class="eyebrow">Next</span>
-            <h2 data-etch>What I am building toward</h2>
+            <span class="eyebrow">Current direction</span>
+            <h2 data-etch>Developing across the stack</h2>
 
             <p>
-                A developer who can hold a whole system in their head, not just a screen. I want to
-                be the person who can take a vague idea, work out what the data needs to look like,
-                and then build the front end and the back end that agree with each other.
+                I am building on my frontend experience while deepening my understanding of backend
+                systems, data design and deployment. My goal is to contribute across the lifecycle
+                of practical web applications.
             </p>
 
             <p>
-                I am not there yet, and I would rather say so plainly than perform something I have
-                not learned. What I can promise is that I keep showing up, I keep correcting, and I
-                would rather build one thing properly than five things halfway.
+                The <a href="projects.html">Workshop</a> shows the projects and team contributions
+                behind that direction.
             </p>
         </section>
 
@@ -325,7 +292,7 @@
             </h3>
 
             <p class="social-label">
-                The commit history behind everything described on this page.
+                Code and project history on GitHub, with professional updates on LinkedIn.
             </p>
 
             <div class="social-links">
@@ -343,8 +310,8 @@
 
     <footer class="artist-footer">
         <p class="footer-phrase">
-            Drawn by curiosity.<br>
-            Guided by discipline.
+            Learning through projects.<br>
+            Building across the stack.
         </p>
 
         <p class="footer-signature">

@@ -1,9 +1,10 @@
-# Xabiso Phendu Portfolio
+# Xabiso Phendu | Full-Stack Web Developer
 
-**Drawn by Hand. Built with Code.**
+**A developer portfolio presented through a graphite studio.**
 
-A portfolio site that looks like a graphite drawing: dark tonal surfaces, paper grain,
-hand-drawn rules, and a pencil that actually draws the opening line.
+This portfolio documents my development journey from Life Choices Academy into frontend,
+backend, database and full-stack web application work. The graphite styling is the visual
+language of the site; software development is its subject.
 
 Static HTML, CSS and vanilla JavaScript. No build step, no framework, no bundler. Push to
 `main` and GitHub Pages serves it.
@@ -20,12 +21,12 @@ Static HTML, CSS and vanilla JavaScript. No build step, no framework, no bundler
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Home. A ~4.9 second pencil-drawing entrance, then who I am and where to go next. |
-| `about.html` | My Story. Where I started, what I actually work on, and what I care about outside it. |
-| `skills.html` | The Toolkit. Skills at honest levels, each one tied to something I built. |
-| `projects.html` | The Workshop. Two full-stack team projects, then the smaller front-end studies. |
-| `gallery.html` | The Gallery. Twelve graphite and charcoal studies with category filters. |
-| `contact.html` | Let's Connect. How to reach me, and which repository to read first. |
+| `index.html` | Home. Full-stack developer identity, an animated Marcus Aurelius quote, and routes into the work. |
+| `about.html` | My Story. Learning web development at Life Choices Academy and applying it in projects. |
+| `skills.html` | The Toolkit. Practical levels across frontend, backend, databases, frameworks and deployment. |
+| `projects.html` | The Workshop. Team applications, individual studies and technical project details. |
+| `gallery.html` | Workshop Gallery. A personal collection of visual studies, linked from the Workshop. |
+| `contact.html` | Connect. Professional opportunities, collaborations and direct contact links. |
 
 Nested inside `projects/`:
 
@@ -42,10 +43,10 @@ Nested inside `projects/`:
 
 - HTML5
 - CSS3 (custom properties, grid, flexbox, `prefers-reduced-motion`)
-- Vanilla JavaScript (no libraries)
-- Bootstrap 5.3, only inside the AutoVault study
-- Python
-- Git and GitHub Pages
+- Vanilla JavaScript, Python, PHP, Node.js and Express
+- Vue and Bootstrap 5.3 (used in the AutoVault study)
+- MySQL, SQL, REST APIs, Git and GitHub
+- GitHub Pages deployment
 
 ---
 
@@ -76,30 +77,34 @@ Source: [zahraamoerat/Project-3-E-Commerce1](https://github.com/zahraamoerat/Pro
 
 ---
 
-## Design Philosophy
+## Design Direction
 
-> Every website starts as a rough sketch.
-
-The site is treated the way a drawing is: tone first, then edges, then texture. Grain and
-sketched rules are SVG or CSS, so the look costs no image requests and no extra files.
+The graphite studio is a presentation style rather than the portfolio's subject. Charcoal
+surfaces, construction marks, grain and image reveals frame the software work without
+turning the site into an artist portfolio. Photographs settle back to their source colours.
 
 ---
 
 ## Motion & Accessibility
 
-The home page runs a pencil that draws the opening line, roughly 4.2 seconds, then lifts
-away to reveal the page. It is decorative and it is not in the way:
+The home page builds the quote “Impediment to action advances action.” through staged
+construction marks, lettering and tonal development, then reveals the portfolio. The full
+sequence is about five seconds and can be skipped:
 
-- The skip control is keyboard reachable; Escape, Enter, Space or its button skips the drawing.
+- The skip control is keyboard reachable; Escape, Enter, Space or its button skips the intro.
 - A 6 second failsafe removes it even if the script never finishes.
 - Entrance states are only applied when scripting is available, so the page is fully
   readable with JavaScript off.
 - `prefers-reduced-motion: reduce` skips the drawing entirely and shows the page directly.
 - Every interactive control is keyboard reachable, with visible focus.
-- The main gallery uses buttons with `aria-pressed` state and a live result count. The original
+- The Workshop Gallery uses buttons with `aria-pressed` state and a live result count. The original
   project study uses focusable radio inputs and CSS-only filtering.
 - Decorative art is `aria-hidden`; the Bootstrap carousel has controls and does not
   auto-rotate.
+
+Life Choices Academy provided technical instruction alongside personal-development training
+in communication, leadership, transformation and coaching. Drawing remains a hobby and
+occasional side hustle; it informs the graphite styling but is not a professional skill track.
 
 The form studies have no server behind them. AutoVault's contact action is disabled; the
 booking study demonstrates client-side form controls and does not send data to a service.
@@ -123,11 +128,11 @@ subpath GitHub Pages serves it from, so check links and image paths there too.
 
 **Xabiso Phendu**
 
-Full-Stack Developer in Training. Lifelong student of growth.
+Full-Stack Web Developer &middot; Cape Town, South Africa.
 
 - LinkedIn: [linkedin.com/in/xabiso-phendu-ab6347414](https://www.linkedin.com/in/xabiso-phendu-ab6347414/)
 - GitHub: [github.com/Xabiso-tech](https://github.com/Xabiso-tech)
 
 ---
 
-*Sketched in Charcoal. Refined in Code.*
+*Full-stack development, explored through a graphite studio.*

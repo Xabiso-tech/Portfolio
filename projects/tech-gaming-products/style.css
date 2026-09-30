@@ -290,13 +290,6 @@ nav a[aria-current="page"] {
     object-fit: cover;
     margin-bottom: 1.1rem;
     border-radius: 2px;
-    /* lit by the same studio light as everything else */
-    filter: grayscale(0.55) contrast(1.05) brightness(0.95);
-    transition: filter 0.5s var(--ease);
-}
-
-.product-card:hover img {
-    filter: grayscale(0.2) contrast(1.03) brightness(1);
 }
 
 .product-card h3 {

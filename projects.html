@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Workshop &middot; Xabiso Phendu</title>
     <meta name="description"
-        content="Projects by Xabiso Phendu: WeConnect, a B2B marketplace with a separate admin platform; HR Tech Solutions; and the front-end studies that taught me why the back end was worth building.">
+        content="Full-stack team applications, independent frontend studies and technical project notes by Xabiso Phendu, a web developer from Cape Town.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
                 <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
                 <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
                 <li><a href="projects.html" aria-current="page"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li><a href="gallery.html"><i class="fa-regular fa-images"></i> Gallery</a></li>
+                <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
                 <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
             </ul>
         </nav>
@@ -66,13 +66,13 @@
     <main id="main" tabindex="-1">
 
         <div class="workshop-hero">
-            <span class="eyebrow" data-reveal>Everything I have built</span>
+            <span class="eyebrow" data-reveal>Software projects and technical studies</span>
             <h2 data-etch>The workshop</h2>
             <p class="toolkit-intro" data-reveal>
-                Two team projects where I was responsible for the back end and the pages that read
-                from it, then the smaller front-end studies that taught me why that back end was
-                worth building. Every one of them taught me something I could not have read.
+                A record of what I have built and how it works: my contributions, the technical
+                problems, the tools and the decisions behind each project.
             </p>
+            <a class="note-btn" href="gallery.html">Explore visual studies <small>(Workshop gallery)</small></a>
         </div>
 
         <hr class="sketch-rule" data-reveal>
@@ -82,9 +82,8 @@
             <h2 data-etch>Built with other people</h2>
 
             <p>
-                Team projects are where I stopped being able to hide behind my own code. Someone
-                else writes a route, or renames a field, or merges at the wrong moment, and
-                suddenly your work has to survive contact with everybody else's.
+                Team projects taught me to work with existing code, coordinate changes and keep
+                interfaces aligned with backend contracts.
             </p>
 
             <div class="workshop-grid">
@@ -117,8 +116,8 @@
                             I wrote the orders, deliveries and payments back end, the GPS tracking
                             API, and the front-end pages that render them.</li>
                         <li>The delivery query joins orders, buyers, suppliers and payments in
-                            one pass, and returns pickup and destination coordinates, route
-                            distance and estimated duration for the map to draw.</li>
+                            one pass, returning pickup and destination coordinates, route distance
+                            and estimated duration for the map.</li>
                         <li>Every query is parameterised through <code>mysql2</code>
                             placeholders, never string concatenation, and the model layer is
                             split from routes and controllers.</li>
@@ -127,8 +126,8 @@
                         <li>Connected the Vue 3 front end to the real API, replacing the sample
                             data the pages had been reading from, then added the cart and reviews
                             endpoints to support that.</li>
-                        <li>Wired the Leaflet map to stream the latest recorded position for a
-                            delivery and mark where the courier actually is.</li>
+                        <li>Connected the Leaflet map to the latest recorded delivery position so
+                            buyers can see where the courier is.</li>
                     </ul>
 
                     <p class="evidence">
@@ -230,13 +229,12 @@
         <hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
-            <span class="eyebrow">On my own</span>
-            <h2 data-etch>Front-end studies</h2>
+            <span class="eyebrow">Individual work</span>
+            <h2 data-etch>Frontend studies</h2>
 
             <p>
-                Smaller builds with narrower jobs. Each one exists because I hit a specific problem
-                I did not understand yet, and the fastest way through it was to build the thing
-                badly and then fix it.
+                Focused projects for practising layout, interaction, responsive behavior and
+                browser forms. Each one addresses a specific development task.
             </p>
 
             <div class="workshop-grid">
@@ -251,7 +249,8 @@
 
                     <p>
                         A responsive image gallery built to get a handle on grid layout, alignment
-                        and filtering. It is the study the twelve drawings on the wall come from.
+                        and filtering. Its image collection is presented in the
+                        <a href="gallery.html">Workshop gallery</a>.
                     </p>
 
                     <ul class="card-list">
@@ -377,9 +376,9 @@
             <h2 data-etch>The workshop never closes</h2>
 
             <p>
-                A finished project is a starting point with better paperwork. Every one of these
-                has something I would do differently, and that is the point of keeping them
-                visible instead of only showing the polished version.
+                Each project shows what I built, what I learned and where I would take the work
+                next. The gallery is part of this workshop too: a small collection of visual
+                studies connected to the site's graphite presentation.
             </p>
         </section>
 
@@ -407,8 +406,8 @@
 
     <footer class="artist-footer">
         <p class="footer-phrase">
-            Every project is a sketch<br>
-            before it is a structure.
+            Every project has a problem,<br>
+            an implementation and a result.
         </p>
 
         <p class="footer-signature">
