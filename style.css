@@ -1,34 +1,40 @@
 /* =========================================================
-   XABISO PHENDU — DARK GRAPHITE STUDIO
-   A dark, cinematic artist-studio design system built from
-   charcoal, graphite dust and pencil on toned board.
+   XABISO PHENDU — A LIVING GRAPHITE STUDIO
+   The page is treated as a sheet of toned board under a raking
+   light: construction lines down first, then stroke, then shade.
 
    Contents
      01  Fonts
-     02  Tokens (graphite palette, chalk type, motion)
+     02  Tokens
      03  Reset
-     04  Texture (grain, tooth, smudge)
+     04  The living canvas
      05  Base typography
      06  Layout
      07  Navigation
-     08  Graphite drawing sequence (home intro)
-     09  Hero
-     10  Sketch frame + hand-drawn rules
-     11  Cards and panels
-     12  Story
-     13  Toolkit
-     14  Workshop / projects
-     15  Connect
-     16  Social links
-     17  Footer
-     18  Scroll reveal
-     19  Responsive
-     20  Reduced motion + print
+     08  Opening artwork
+     09  Home
+     10  Sketch frames, rules, etching
+     11  Cards, panels, technical frames
+     12  Plates — images drawn onto the sheet
+     13  The drawn timeline
+     14  Toolkit + graphite meters
+     15  Workshop — technical studies
+     16  The studio console
+     17  The exhibition
+     18  Connect
+     19  Socials
+     20  Footer
+     21  Reveals, cursor, page wipe
+     22  Responsive
+     23  Reduced motion + print
    ========================================================= */
 
 
 /* =========================================================
    01  FONTS
+   Four faces do all the work: a display serif for lettering,
+   a neutral for reading, a mono for technical annotation and
+   a script for the handwritten margin notes.
    ========================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap');
 
@@ -37,9 +43,9 @@
    02  TOKENS
    ========================================================= */
 :root {
-    /* Graphite surfaces — near-black, faintly blue-cool like
-       a charcoal stick rather than flat #000 */
-    --void:        #08080a;
+    /* Graphite surfaces — near-black, faintly blue-cool, the way
+       a charcoal stick reflects rather than flat #000 */
+    --void:        #07070a;
     --ink-900:     #0e0e12;
     --ink-850:     #131318;
     --ink-800:     #191920;
@@ -54,15 +60,19 @@
     --chalk-3:     #8d887f;
     --chalk-4:     #625e58;
 
-    /* Single restrained accent: raw sienna, the warm tone a
-       graphite board shows under raking light */
+    /* The one warm note: raw sienna, what a graphite board shows
+       under raking light. Used sparingly so it stays the accent */
     --ember:       #d4a373;
-    --ember-soft:  rgba(212, 163, 115, 0.14);
+    --ember-hot:   #e8c49b;
+    --ember-soft:  rgba(212, 163, 115, 0.13);
     --ember-line:  rgba(212, 163, 115, 0.38);
 
-    /* Graphite sheen for depth */
+    /* Graphite shading for meters and shaded blocks */
+    --graphite-lo: #4a4842;
+    --graphite:    #7d7972;
+    --graphite-hi: #a8a49c;
+
     --sheen:       rgba(255, 255, 255, 0.055);
-    --sheen-soft:  rgba(255, 255, 255, 0.028);
     --hairline:    rgba(233, 229, 221, 0.10);
     --hairline-2:  rgba(233, 229, 221, 0.055);
 
@@ -72,11 +82,11 @@
     --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
     --hand: "Caveat", "Segoe Script", cursive;
 
-    /* Motion */
-    --ease-draw:   cubic-bezier(0.45, 0.05, 0.35, 1);
+    /* Motion. --draw must match DRAW_MS in motion.js */
+    --draw: 4100ms;
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-soft:   cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-draw: cubic-bezier(0.45, 0.05, 0.35, 1);
+    --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
 
     /* Rhythm */
     --measure: 68ch;
@@ -138,6 +148,12 @@ textarea {
     color: inherit;
 }
 
+code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    color: var(--chalk-2);
+}
+
 ::selection {
     background: var(--ember);
     color: var(--void);
@@ -145,12 +161,31 @@ textarea {
 
 
 /* =========================================================
-   04  TEXTURE
-   Grain sits above the page, tooth below it, smudge between.
-   All decorative, all pointer-events:none.
+   04  THE LIVING CANVAS
+   Four layers stack to make the sheet feel worked on rather
+   than displayed. All decorative, all pointer-events: none.
    ========================================================= */
+
+/* -- 4a. studio-canvas: slow graphite dust ------------------------
+   Backing store is kept small and upscaled, so the motes read as
+   soft grain rather than crisp dots. motion.js drives it. */
+#studio-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2.4s ease 0.4s;
+}
+
+.canvas-on #studio-canvas {
+    opacity: 1;
+}
+
+/* -- 4b. tooth: the fine directional grain of toned board --------- */
 body::before {
-    /* Graphite tooth — the fine directional grain of toned board */
     content: "";
     position: fixed;
     inset: 0;
@@ -160,8 +195,8 @@ body::before {
     background-image:
         repeating-linear-gradient(
             101deg,
-            rgba(255, 255, 255, 0.014) 0px,
-            rgba(255, 255, 255, 0.014) 1px,
+            rgba(255, 255, 255, 0.013) 0px,
+            rgba(255, 255, 255, 0.013) 1px,
             transparent 1px,
             transparent 3px
         ),
@@ -174,27 +209,65 @@ body::before {
         );
 }
 
+/* -- 4c. the studio lamp ------------------------------------------ */
 body::after {
-    /* Studio lamp — a soft warm pool from the upper left, so the
-       page reads as a lit surface rather than flat black */
     content: "";
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(120% 78% at 14% -8%, rgba(212, 163, 115, 0.075), transparent 58%),
-        radial-gradient(96% 62% at 92% 4%, rgba(150, 170, 200, 0.045), transparent 60%),
+        radial-gradient(118% 76% at 14% -8%, rgba(212, 163, 115, 0.075), transparent 58%),
+        radial-gradient(94% 60% at 92% 4%, rgba(150, 170, 200, 0.042), transparent 60%),
         radial-gradient(140% 100% at 50% 118%, rgba(0, 0, 0, 0.5), transparent 62%);
 }
 
+/* -- 4d. construction lines: the guides a draughtsman lays down
+      before committing to a mark. Parallaxed in motion.js. ------ */
+.construction {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.55;
+}
+
+.construction svg {
+    position: absolute;
+    top: -14vh;
+    left: 50%;
+    width: min(168vw, 150rem);
+    height: 128vh;
+    transform: translateX(-50%);
+    will-change: transform;
+}
+
+.construction path,
+.construction line {
+    stroke: var(--chalk);
+    stroke-width: 1;
+    fill: none;
+    opacity: 0.055;
+    vector-effect: non-scaling-stroke;
+}
+
+.construction .c-circle {
+    stroke-dasharray: 3 9;
+    opacity: 0.05;
+}
+
+.construction .c-hatch {
+    opacity: 0.035;
+}
+
+/* -- 4e. grain: animated film grain, SVG turbulence, no request -- */
 .grain {
-    /* Film grain, generated as SVG turbulence so it costs no request */
     position: fixed;
     inset: -50%;
     z-index: 9000;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.38;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
     animation: grainShift 7s steps(6) infinite;
@@ -209,18 +282,44 @@ body::after {
     100% { transform: translate3d(0, 0, 0); }
 }
 
-/* Everything below the fixed texture layers */
+/* -- 4f. smudge: graphite gathering where the hand has been ------ */
+.smudge {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 46rem;
+    height: 46rem;
+    margin: -23rem 0 0 -23rem;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(233, 229, 221, 0.05) 0%,
+        rgba(233, 229, 221, 0.022) 38%,
+        transparent 68%);
+    filter: blur(24px);
+}
+
+.cursor-on .smudge {
+    opacity: 1;
+    transition: opacity 1.6s ease;
+}
+
+/* Everything above the fixed texture layers */
 header,
 main,
 footer,
-.graphite-stage {
+.graphite-stage,
+.page-wipe {
     position: relative;
     z-index: 1;
 }
 
 
 /* =========================================================
-   05  BASE TYPOGRAPHY
+   05  BASE TYMPOGRAPHY
    ========================================================= */
 h1, h2, h3, h4 {
     font-family: var(--display);
@@ -236,8 +335,6 @@ h2 { font-size: clamp(1.6rem, 4.2vw, 2.35rem); }
 h3 { font-size: clamp(1.18rem, 2.4vw, 1.45rem); }
 h4 { font-size: 1.03rem; }
 
-/* Expressive display headings: the display face only earns its
-   keep at large sizes, so it is reserved for h1-h2 */
 h1,
 h2 {
     font-variation-settings: "SOFT" 28, "WONK" 1, "opsz" 96;
@@ -262,7 +359,7 @@ a {
 }
 
 a:hover {
-    color: #e8c49b;
+    color: var(--ember-hot);
 }
 
 :focus-visible {
@@ -297,10 +394,26 @@ a:hover {
     letter-spacing: 0.01em;
 }
 
-.mono {
+/* A skip link, so the navigation is reachable in one keystroke */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -140%);
+    padding: 0.7rem 1.2rem;
     font-family: var(--mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.02em;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--void);
+    background: var(--ember);
+    border-radius: 0 0 3px 3px;
+    transition: transform 0.3s var(--ease-out-expo);
+}
+
+.skip-link:focus {
+    transform: translate(-50%, 0);
 }
 
 
@@ -311,6 +424,10 @@ main {
     max-width: var(--shell);
     margin: 0 auto;
     padding: clamp(3.25rem, 8vw, 6rem) var(--gut) clamp(4rem, 9vw, 7rem);
+}
+
+main:focus {
+    outline: none;
 }
 
 section {
@@ -325,15 +442,33 @@ section > h2 {
     margin-bottom: 0.9rem;
 }
 
-.grid-2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
-    gap: clamp(1.1rem, 2.6vw, 1.75rem);
+/* -- the etched underline: a pencil stroke that lays itself under
+      a heading once the heading is in view --------------------- */
+h2[data-etch]::after,
+h3[data-etch]::after {
+    content: "";
+    display: block;
+    width: min(9rem, 40%);
+    height: 2px;
+    margin-top: 0.6rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5 Q22 2.4 44 4.4 Q66 6.4 88 3.4 Q104 2 119 4.6' fill='none' stroke='%23d4a373' stroke-opacity='0.5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.9s var(--ease-settle) 0.24s;
+}
+
+.is-in h2[data-etch]::after,
+.is-in h3[data-etch]::after,
+.reveal-fallback h2[data-etch]::after {
+    transform: scaleX(1) rotate(-0.5deg);
 }
 
 
 /* =========================================================
    07  NAVIGATION
+   A sketchbook index across the top of the sheet.
    ========================================================= */
 header {
     position: sticky;
@@ -345,7 +480,7 @@ header {
     border-bottom: 1px solid var(--hairline);
 }
 
-/* A drawn rule that fades out, like a pencil line losing pressure */
+/* A drawn rule that fades out, like a line losing pressure */
 header::after {
     content: "";
     position: absolute;
@@ -385,7 +520,7 @@ nav h1 i {
 nav ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem 1.35rem;
+    gap: 0.35rem 1.25rem;
     align-items: center;
 }
 
@@ -395,7 +530,7 @@ nav a {
     align-items: center;
     gap: 0.42rem;
     padding: 0.3rem 0;
-    font-size: 0.845rem;
+    font-size: 0.825rem;
     font-weight: 400;
     letter-spacing: 0.03em;
     color: var(--chalk-2);
@@ -403,8 +538,6 @@ nav a {
     transition: color 0.28s var(--ease-out-expo);
 }
 
-/* Underline is drawn, not typed: it grows from the left on hover
-   and sits at an angle like a confident pencil stroke */
 nav a::after {
     content: "";
     position: absolute;
@@ -413,14 +546,14 @@ nav a::after {
     width: 100%;
     height: 1.5px;
     background: currentColor;
-    transform: scaleX(0);
+    transform: scaleX(0) rotate(0.8deg);
     transform-origin: left center;
     transition: transform 0.34s var(--ease-out-expo);
 }
 
 nav a i {
-    font-size: 0.78rem;
-    opacity: 0.72;
+    font-size: 0.76rem;
+    opacity: 0.7;
 }
 
 nav a:hover,
@@ -439,16 +572,10 @@ nav a[aria-current="page"] {
 
 
 /* =========================================================
-   08  GRAPHITE DRAWING SEQUENCE
-   A physical pencil stroke: the graphite path is drawn on by
-   dash-offset, a nib tracks the head of that stroke, dust falls
-   from the contact point, and the sheet lifts when finished.
-   Total 4.2s, matching --draw-time in motion.js.
+   08  OPENING ARTWORK
+   The home page opens by drawing a Stoic line onto bare board.
+   Stage order: guides, ghost outline, ink, shading, hatching.
    ========================================================= */
-:root {
-    --draw-time: 4200ms;
-}
-
 .graphite-stage {
     position: fixed;
     inset: 0;
@@ -463,90 +590,200 @@ nav a[aria-current="page"] {
     display: none;
 }
 
-/* Vignette + a raking light across the sheet */
 .graphite-stage::before {
     content: "";
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(74% 62% at 32% 26%, rgba(212, 163, 115, 0.1), transparent 62%),
-        radial-gradient(120% 96% at 50% 50%, transparent 34%, rgba(0, 0, 0, 0.86) 100%);
+        radial-gradient(70% 58% at 32% 24%, rgba(212, 163, 115, 0.085), transparent 62%),
+        radial-gradient(120% 96% at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.88) 100%);
 }
 
-.graphite-sheet {
+/* -- the sheet the quote is drawn on ----------------------------- */
+.quote-sheet {
     position: relative;
-    width: min(78vw, 30rem);
-    aspect-ratio: 3 / 2;
+    width: min(88vw, 52rem);
+    padding: clamp(1.6rem, 4vw, 2.6rem) 0;
 }
 
-.graphite-sheet svg {
+.quote-guides {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     overflow: visible;
+    opacity: 1;
+    transition: opacity 1.1s ease;
 }
 
-/* The stroke itself. Each path draws on in sequence. */
-.gs-stroke {
+.graphite-stage.phase-settling .quote-guides {
+    opacity: 0.22;
+}
+
+.quote-guides path,
+.quote-guides line {
     fill: none;
+    stroke: var(--chalk-2);
+    stroke-width: 0.9;
+    stroke-linecap: round;
+    opacity: 0.4;
+}
+
+.quote-guides .g-shadow {
+    /* the soft bleed of graphite beside a stroke. A wider, paler
+       stroke reads the same and costs nothing to raster */
     stroke: var(--chalk);
-    stroke-width: 2.1;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    filter: drop-shadow(0 0 5px rgba(233, 229, 221, 0.28));
+    stroke-width: 8;
+    opacity: 0.07;
 }
 
-/* Roughening: a displacement filter makes the line read as graphite
-   on tooth rather than a vector stroke */
-.gs-rough {
-    filter:
-        url(#gsWobble)
-        drop-shadow(0 0 5px rgba(233, 229, 221, 0.26));
+.quote-lines {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    text-align: center;
 }
 
-.gs-shadow-line {
+.graphite-stage .quote-lines {
+    font-family: var(--display);
+    font-style: italic;
+    font-variation-settings: "SOFT" 44, "WONK" 0, "opsz" 72;
+    font-size: clamp(1.4rem, 4.6vw, 2.9rem);
+    line-height: 1.26;
+    letter-spacing: -0.014em;
+    color: var(--chalk);
+    /* the hand needs room to overshoot at the edges of the block */
+    padding: 0 0.2em;
+}
+
+.quote-line {
+    display: block;
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-variation-settings: "SOFT" 44, "WONK" 0, "opsz" 72;
+    font-size: clamp(1.4rem, 4.6vw, 2.9rem);
+    line-height: 1.26;
+    letter-spacing: -0.014em;
+    color: var(--chalk);
+}
+
+/* Each word is a small carving: an outline that leads, a filled
+   mark that follows, and a tilt that stops it reading as type. */
+.w {
+    position: relative;
+    display: inline-block;
+    margin-right: 0.26em;
+    transform: rotate(var(--tilt, 0deg)) translateY(var(--drop, 0));
+    will-change: transform;
+}
+
+/* the construction outline, aria-hidden so the word is read once */
+.w-g {
+    position: absolute;
+    inset: 0;
+    color: transparent;
+    -webkit-text-stroke: 0.7px var(--chalk-3);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 420ms linear var(--lead-delay, 0ms);
+    pointer-events: none;
+}
+
+.graphite-stage.phase-ink .w-g {
+    clip-path: inset(0 -0.2em 0 0);
+}
+
+/* the ink itself sweeps in behind the outline */
+.w > .w-ink {
+    display: block;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 560ms var(--ease-draw) var(--ink-delay, 0ms);
+}
+
+.graphite-stage.phase-ink .w > .w-ink {
+    clip-path: inset(0 -0.2em 0 0);
+}
+
+.w-ink {
+    background-image: linear-gradient(178deg,
+        rgba(255, 255, 255, 0.14) 0%,
+        transparent 38%,
+        rgba(0, 0, 0, 0.16) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* -- shading: graphite gathers across the finished sentence ------ */
+.quote-shade {
+    position: absolute;
+    inset: -6% -4%;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(100deg,
+        transparent 0%,
+        rgba(233, 229, 221, 0.05) 32%,
+        rgba(233, 229, 221, 0.1) 48%,
+        rgba(0, 0, 0, 0.16) 64%,
+        transparent 92%);
+    background-size: 260% 100%;
+    background-repeat: no-repeat;
+    transform: translateX(-42%);
+    mix-blend-mode: overlay;
+}
+
+.graphite-stage.phase-shade .quote-shade {
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 2.1s var(--ease-settle) 0.1s;
+    transform: translateX(0);
+}
+
+/* -- imperfections: a few hatch marks and eraser scrapes --------- */
+.quote-marks {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.quote-marks path {
     fill: none;
-    stroke: rgba(233, 229, 221, 0.16);
-    stroke-width: 5;
+    stroke: var(--chalk-2);
+    stroke-width: 0.7;
     stroke-linecap: round;
-    filter: blur(3.5px);
+    opacity: 0;
 }
 
-/* The pencil nib: a small graphite tip that rides the stroke head */
+.graphite-stage.phase-marks .quote-marks path {
+    opacity: 0.32;
+    transition: opacity 0.9s ease var(--mark-delay, 0ms);
+}
+
+/* -- the pencil, the dust, the caption --------------------------- */
 .gs-nib {
     position: absolute;
     top: 0;
     left: 0;
-    width: 15px;
-    height: 15px;
-    margin: -7.5px 0 0 -7.5px;
+    z-index: 6;
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
     border-radius: 50%;
-    background: radial-gradient(circle at 38% 34%, #fffaf0, var(--ember) 42%, #6b5340 78%, #2a211a);
-    box-shadow:
-        0 0 12px rgba(212, 163, 115, 0.6),
-        0 0 34px rgba(212, 163, 115, 0.28);
+    background: radial-gradient(circle at 38% 34%, #fffaf0, var(--ember) 40%, #6b5340 76%, #2a211a);
+    box-shadow: 0 0 10px rgba(212, 163, 115, 0.55), 0 0 30px rgba(212, 163, 115, 0.22);
     opacity: 0;
-    z-index: 3;
-}
-
-.gs-nib::after {
-    /* the point of the lead, angled like a pencil held to the page */
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30px;
-    height: 2px;
-    transform: translate(-50%, -50%) rotate(-38deg);
-    transform-origin: left center;
-    background: linear-gradient(90deg, rgba(233, 229, 221, 0.9), transparent);
-    border-radius: 2px;
-    filter: blur(0.4px);
+    will-change: transform;
+    pointer-events: none;
 }
 
 .gs-dust {
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 5;
     pointer-events: none;
 }
 
@@ -560,33 +797,39 @@ nav a[aria-current="page"] {
     filter: blur(0.4px);
 }
 
-.gs-caption {
+.gs-attribution {
     position: absolute;
-    bottom: clamp(2.2rem, 9vh, 5rem);
     left: 50%;
+    bottom: clamp(3.4rem, 11vh, 5.6rem);
     transform: translateX(-50%);
-    margin: 0;
     width: 100%;
     max-width: none;
+    margin: 0;
     text-align: center;
-    font-family: var(--hand);
-    font-size: clamp(1.1rem, 3.4vw, 1.5rem);
-    color: var(--chalk-3);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
     opacity: 0;
-    z-index: 4;
+    transition: opacity 0.8s ease;
+}
+
+.graphite-stage.phase-ink .gs-attribution {
+    opacity: 1;
+    transition-delay: 1.5s;
 }
 
 .gs-progress {
     position: absolute;
     left: 50%;
-    bottom: clamp(1.5rem, 5vh, 2.6rem);
+    bottom: clamp(2.4rem, 7vh, 3.4rem);
     transform: translateX(-50%);
     width: min(46vw, 15rem);
     height: 1.5px;
     background: rgba(233, 229, 221, 0.1);
     overflow: hidden;
-    opacity: 0;
-    z-index: 4;
+    z-index: 6;
 }
 
 .gs-progress span {
@@ -601,19 +844,42 @@ nav a[aria-current="page"] {
 .gs-skip {
     position: absolute;
     right: var(--gut);
-    bottom: clamp(1.2rem, 4vh, 2rem);
+    bottom: clamp(1.6rem, 5vh, 2.4rem);
     margin: 0;
     max-width: none;
+    padding: 0.55rem 0.95rem;
     font-family: var(--mono);
-    font-size: 0.66rem;
+    font-size: 0.63rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--chalk-4);
+    color: var(--chalk-3);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    cursor: pointer;
+    z-index: 6;
     opacity: 0;
-    z-index: 4;
+    transition:
+        color 0.3s var(--ease-out-expo),
+        border-color 0.3s var(--ease-out-expo),
+        opacity 0.6s ease,
+        background 0.3s var(--ease-out-expo);
 }
 
-/* Exit: the sheet lifts away and the studio is revealed */
+.graphite-stage.phase-ink .gs-skip {
+    opacity: 1;
+    transition-delay: 0.6s;
+}
+
+.gs-skip:hover {
+    color: var(--ember);
+    border-color: var(--ember-line);
+    background: var(--ember-soft);
+}
+
+/* Exit: the sheet lifts and the studio is revealed behind it.
+   Only the sheet is transformed, so elements that are already
+   positioned with a transform of their own do not shift. */
 .graphite-stage.is-lifting {
     animation: gsLift var(--lift-ms, 900ms) var(--ease-out-expo) forwards;
 }
@@ -624,32 +890,40 @@ nav a[aria-current="page"] {
     100% { opacity: 0; clip-path: inset(0 0 100% 0); }
 }
 
-.graphite-stage.is-lifting .graphite-sheet,
-.graphite-stage.is-lifting .gs-caption,
-.graphite-stage.is-lifting .gs-progress,
-.graphite-stage.is-lifting .gs-skip {
+.graphite-stage.is-lifting .quote-sheet {
+    transform-origin: 50% 50%;
     animation: gsSheetOut var(--lift-ms, 900ms) var(--ease-out-expo) forwards;
 }
 
 @keyframes gsSheetOut {
-    to { transform: translateY(-1.6rem) scale(1.04); }
+    to { transform: translateY(-1.5rem) scale(1.035); }
+}
+
+.graphite-stage.is-lifting .gs-attribution,
+.graphite-stage.is-lifting .gs-progress,
+.graphite-stage.is-lifting .gs-skip {
+    animation: gsFadeOut var(--lift-ms, 900ms) ease forwards;
+}
+
+@keyframes gsFadeOut {
+    to { opacity: 0; }
 }
 
 
 /* =========================================================
-   09  HERO
+   09  HOME
    ========================================================= */
 #home {
     padding-top: clamp(1rem, 3vw, 2rem);
 }
 
 .hero-title {
-    font-size: clamp(2.9rem, 11.5vw, 7.5rem);
+    font-size: clamp(2.7rem, 11vw, 7rem);
     font-weight: 700;
     font-variation-settings: "SOFT" 34, "WONK" 1, "opsz" 144;
-    line-height: 0.9;
+    line-height: 0.92;
     letter-spacing: -0.036em;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.5rem;
 }
 
 .hero-line {
@@ -663,7 +937,6 @@ nav a[aria-current="page"] {
     transform: translateY(105%);
 }
 
-/* Each line settles at its own beat */
 .hero-line:nth-child(1) .hero-line-inner { transition: transform 1.15s var(--ease-out-expo) 0.12s; }
 .hero-line:nth-child(2) .hero-line-inner { transition: transform 1.15s var(--ease-out-expo) 0.26s; }
 
@@ -691,7 +964,7 @@ nav a[aria-current="page"] {
     letter-spacing: 0.19em;
     text-transform: uppercase;
     color: var(--chalk-3);
-    margin-bottom: 2.6rem;
+    margin-bottom: 2.4rem;
 }
 
 .hero-tagline span:not(:last-child)::after {
@@ -713,16 +986,40 @@ nav a[aria-current="page"] {
 .reveal-on .hero-fade-1 { opacity: 1; transform: none; transition-delay: 0.5s; }
 .reveal-on .hero-fade-2 { opacity: 1; transform: none; transition-delay: 0.66s; }
 
+/* the pulled statement, signed in the margin like a studio note */
+.hero-signoff {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem 1.1rem;
+    max-width: none;
+    margin: 2.2rem 0 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--hairline-2);
+}
+
+.hero-signoff .hand {
+    color: var(--chalk-2);
+    transform: rotate(-1.4deg);
+}
+
+.hero-signoff .mono {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
 .quote-block {
     max-width: 44rem;
-    margin: clamp(2.8rem, 7vw, 4.5rem) 0;
-    padding: 1.9rem 0 1.9rem 1.9rem;
-    border-left: 2px solid var(--ember-line);
+    margin: clamp(2.8rem, 7vw, 4.2rem) 0;
+    padding: 1.7rem 0 1.7rem 1.8rem;
+    border-left: 1px solid var(--ember-line);
     position: relative;
 }
 
 .quote-block::before {
-    /* a smudged shadow cast by the block, as if the page has depth */
     content: "";
     position: absolute;
     inset: 0.6rem -0.7rem -0.6rem 0.9rem;
@@ -736,7 +1033,7 @@ nav a[aria-current="page"] {
     max-width: none;
     margin-bottom: 0.85rem;
     font-family: var(--display);
-    font-size: clamp(1.3rem, 3vw, 1.85rem);
+    font-size: clamp(1.28rem, 2.9vw, 1.8rem);
     font-weight: 400;
     font-style: italic;
     font-variation-settings: "SOFT" 40, "WONK" 0, "opsz" 72;
@@ -755,11 +1052,144 @@ nav a[aria-current="page"] {
     color: var(--chalk-4);
 }
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.1rem;
+    margin-top: 2.4rem;
+}
+
 
 /* =========================================================
-   10  SKETCH FRAME + HAND-DRAWN RULES
-   A displaced SVG stroke, used as a repeating border so panels
-   look torn out of a sketchbook rather than boxed by a div.
+   10  BUTTONS — ink and annotation
+   Two registers only. The first is a block of graphite ink; the
+   second is a marginal note, underlined by hand.
+   ========================================================= */
+.ink-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.78rem 1.35rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--chalk);
+    text-decoration: none;
+    background: linear-gradient(168deg, var(--ink-600), var(--ink-800) 62%, var(--ink-850));
+    border: 1px solid rgba(233, 229, 221, 0.16);
+    border-radius: 2px;
+    box-shadow:
+        inset 0 1px 0 var(--sheen),
+        0 12px 26px -16px rgba(0, 0, 0, 0.95);
+    transition:
+        transform 0.34s var(--ease-out-expo),
+        box-shadow 0.34s var(--ease-out-expo),
+        color 0.34s var(--ease-out-expo),
+        border-color 0.34s var(--ease-out-expo);
+}
+
+/* the stroke that darkens the block as the hand presses */
+.ink-btn::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 2px;
+    background: linear-gradient(120deg, transparent 10%, rgba(212, 163, 115, 0.22) 55%, transparent 92%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out-expo);
+    pointer-events: none;
+}
+
+.ink-btn:hover {
+    color: var(--ember-hot);
+    border-color: var(--ember-line);
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 1px 0 var(--sheen),
+        0 20px 36px -18px rgba(0, 0, 0, 1),
+        0 0 0 1px rgba(212, 163, 115, 0.1);
+}
+
+.ink-btn:hover::before {
+    opacity: 1;
+}
+
+.ink-btn:active {
+    transform: translateY(0);
+}
+
+.ink-btn i {
+    font-size: 0.85em;
+    opacity: 0.85;
+}
+
+.ink-btn.is-ember {
+    color: var(--void);
+    background: linear-gradient(178deg, var(--ember-hot), var(--ember));
+    border-color: transparent;
+}
+
+.ink-btn.is-ember:hover {
+    color: var(--void);
+    filter: brightness(1.06);
+}
+
+/* the secondary register: a handwritten marginal note */
+.note-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    padding: 0.25rem 0 0.3rem;
+    font-family: var(--hand);
+    font-size: 1.24rem;
+    line-height: 1.1;
+    color: var(--chalk-2);
+    text-decoration: none;
+}
+
+.note-btn::after {
+    content: "";
+    position: absolute;
+    left: -0.1rem;
+    right: -0.1rem;
+    bottom: -0.1rem;
+    height: 2px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 8' preserveAspectRatio='none'%3E%3Cpath d='M1 4.6 Q18 2 36 4.2 Q54 6.4 72 3.6 Q90 1.6 108 4.4 Q124 6 139 3.4' fill='none' stroke='%23b9b4aa' stroke-opacity='0.65' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+    transform: scaleX(1);
+    transform-origin: left center;
+    transition: transform 0.42s var(--ease-settle), background-image 0.3s ease;
+}
+
+.note-btn:hover {
+    color: var(--ember);
+    transform: rotate(-0.7deg);
+}
+
+.note-btn:hover::after {
+    transform: scaleX(1) rotate(-0.5deg);
+}
+
+.note-btn small {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.note-btn:hover small {
+    color: var(--chalk-3);
+}
+
+
+/* =========================================================
+   11  SKETCH FRAMES, RULES, PANELS
    ========================================================= */
 .sketch-frame {
     position: relative;
@@ -775,7 +1205,7 @@ nav a[aria-current="page"] {
         0 18px 44px -20px rgba(0, 0, 0, 0.85);
 }
 
-/* The drawn edge: a thin, imperfect line laid just inside the border */
+/* the drawn edge: a thin, imperfect line just inside the border */
 .sketch-frame::before {
     content: "";
     position: absolute;
@@ -786,8 +1216,10 @@ nav a[aria-current="page"] {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' preserveAspectRatio='none'%3E%3Cpath d='M0.5 4 Q150 1 299 4 M0.5 4 Q2 100 0.5 196 M299 4 Q298 100 299.5 196 M0.5 196 Q150 199 299 196' fill='none' stroke='%23e9e5dd' stroke-opacity='0.13' stroke-width='1'/%3E%3C/svg%3E");
 }
 
+/* a rule drawn by a hand that cannot keep a line straight */
 .sketch-rule {
-    height: 1px;
+    position: relative;
+    height: 8px;
     margin: clamp(2rem, 5vw, 3.2rem) 0;
     border: 0;
     background-repeat: no-repeat;
@@ -795,9 +1227,21 @@ nav a[aria-current="page"] {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 8' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q75 1.5 150 4 Q225 6.5 300 3' fill='none' stroke='%23e9e5dd' stroke-opacity='0.16' stroke-width='1'/%3E%3C/svg%3E");
 }
 
+.js-motion .sketch-rule {
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 0;
+    transition: transform 1.4s var(--ease-settle), opacity 0.6s ease;
+}
+
+.js-motion .sketch-rule.is-in {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
 
 /* =========================================================
-   11  CARDS AND PANELS
+   12  CARDS AND TECHNICAL FRAMES
    ========================================================= */
 .card {
     position: relative;
@@ -820,11 +1264,11 @@ nav a[aria-current="page"] {
 
 .card:hover {
     transform: translateY(-3px);
-    border-color: rgba(212, 163, 115, 0.26);
+    border-color: rgba(212, 163, 115, 0.24);
     box-shadow:
         inset 0 1px 0 var(--sheen),
-        0 26px 54px -24px rgba(0, 0, 0, 0.95),
-        0 0 0 1px rgba(212, 163, 115, 0.08);
+        0 28px 56px -26px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(212, 163, 115, 0.07);
 }
 
 .card > h3 {
@@ -853,37 +1297,13 @@ nav a[aria-current="page"] {
     border-radius: 2px;
 }
 
-/* Small tonal label, e.g. "Verified" / "In progress" */
-.tag {
-    align-self: flex-start;
-    display: inline-block;
-    margin-top: 1.15rem;
-    padding: 0.28rem 0.62rem;
-    font-family: var(--mono);
-    font-size: 0.625rem;
-    font-weight: 500;
-    letter-spacing: 0.17em;
-    text-transform: uppercase;
-    color: var(--chalk-3);
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid var(--hairline);
-    border-radius: 2px;
-}
-
-.tag.is-accent {
-    color: var(--ember);
-    background: var(--ember-soft);
-    border-color: var(--ember-line);
-}
-
-/* An honest provenance note: what the claim is based on */
 .evidence {
     margin-top: 1.05rem;
     padding-top: 0.95rem;
     border-top: 1px dashed var(--hairline);
     font-family: var(--mono);
     font-size: 0.7rem;
-    line-height: 1.6;
+    line-height: 1.62;
     letter-spacing: 0.012em;
     color: var(--chalk-4);
 }
@@ -916,87 +1336,403 @@ nav a[aria-current="page"] {
     background: linear-gradient(90deg, var(--hairline), transparent);
 }
 
-
-/* =========================================================
-   12  STORY
-   ========================================================= */
-.story-heading {
-    font-size: clamp(2.3rem, 8vw, 4.6rem);
-    font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
-    letter-spacing: -0.03em;
-    line-height: 0.98;
-    margin-bottom: 0.65rem;
-}
-
-.story-subtitle {
-    max-width: 40ch;
-    margin-bottom: 2.8rem;
-    font-family: var(--hand);
-    font-size: clamp(1.25rem, 3.4vw, 1.6rem);
-    color: var(--ember);
-}
-
-.artist-card {
-    display: grid;
-    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
-    gap: clamp(1.5rem, 4vw, 2.75rem);
-    align-items: start;
-    padding: clamp(1.4rem, 3.4vw, 2.1rem);
+/* -- a technical frame: corner registration marks and a title
+      block, so a study reads as a sheet rather than a card ------ */
+.tech-frame {
+    position: relative;
+    padding: clamp(1.1rem, 2.2vw, 1.5rem);
+    border: 1px solid var(--hairline-2);
     background:
-        linear-gradient(150deg, rgba(255, 255, 255, 0.04), transparent 46%),
+        linear-gradient(158deg, rgba(255, 255, 255, 0.035), transparent 40%),
         var(--ink-850);
-    border: 1px solid var(--hairline);
-    border-radius: 3px;
-    box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 20px 48px -26px rgba(0, 0, 0, 0.92);
+    transform-style: preserve-3d;
 }
 
-.profile-image {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 2px;
-    /* the portrait sits under the same studio light as the page */
-    filter: grayscale(1) contrast(1.1) brightness(0.92);
-    border: 1px solid var(--hairline);
-    box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.9);
+/* the four corner ticks a draughtsman uses to register a sheet */
+.tech-frame::before,
+.tech-frame::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    pointer-events: none;
+    border: 0 solid var(--ember-line);
+    opacity: 0.75;
 }
 
-.artist-info h3 {
-    margin-bottom: 1.1rem;
+.tech-frame::before {
+    top: 6px;
+    left: 6px;
+    border-top-width: 1px;
+    border-left-width: 1px;
 }
 
-.artist-info p {
+.tech-frame::after {
+    right: 6px;
+    bottom: 6px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+}
+
+/* Pointer tilt owns the transform on the two big studies, so the
+   ordinary hover lift is handed back to touch devices. */
+.card.tech-frame:hover {
+    transform: none;
+}
+
+@media (hover: none) {
+    .card.tech-frame:hover {
+        transform: translateY(-3px);
+    }
+}
+
+.plate-no {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem 0.6rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.94rem;
-    color: var(--chalk-2);
-}
-
-.artist-info p strong {
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
     font-family: var(--mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--chalk-4);
 }
 
-.story-quote {
-    margin: clamp(2.6rem, 6vw, 4rem) 0;
-    padding-left: 1.4rem;
-    border-left: 2px solid var(--ember-line);
-    font-family: var(--display);
-    font-size: clamp(1.35rem, 3.4vw, 2rem);
-    font-style: italic;
-    font-weight: 400;
-    font-variation-settings: "SOFT" 44, "WONK" 0, "opsz" 72;
-    line-height: 1.28;
-    color: var(--chalk);
+.plate-no::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--hairline), transparent);
 }
 
-/* Margin-note list, set as scribbled annotations */
+/* the title block that sits in the corner of a technical sheet */
+.title-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 1.1rem;
+    margin-top: auto;
+    padding-top: 0.95rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.title-block span {
+    position: relative;
+    padding-right: 1.1rem;
+}
+
+.title-block span:not(:last-child)::after {
+    content: "/";
+    position: absolute;
+    right: 0;
+    color: var(--ink-500);
+}
+
+/* a pencil callout: a leader line with a label at its end */
+.callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: 0.63rem;
+    line-height: 1.5;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.callout::before {
+    content: "";
+    flex: none;
+    width: 1.5rem;
+    height: 0.75rem;
+    margin-top: 0.22rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6 Q7 3 15 5.4 L21 1.6 M21 1.6 L16.4 2.4 M21 1.6 L20 6.4' fill='none' stroke='%23625e58' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+.callout b {
+    color: var(--chalk-3);
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   13  PLATES — images drawn onto the sheet
+   The photograph is real and stays real; what is staged is the
+   hand around it. Guides first, then the image develops from a
+   faint construction to finished, then the border is drawn.
+   ========================================================= */
+.plate {
+    position: relative;
+    isolation: isolate;
+    transform: rotate(var(--plate-tilt, -0.5deg));
+}
+
+.plate-stage {
+    position: relative;
+    overflow: hidden;
+    /* each study keeps the proportion it was drawn at */
+    aspect-ratio: var(--plate-ratio, 4 / 3);
+    background: var(--ink-850);
+    box-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.6),
+        0 26px 48px -24px rgba(0, 0, 0, 0.95);
+}
+
+/* --draw runs 0 to 1 while the plate develops, so a single
+      rAF drives every stage below with no extra listeners. */
+/* The settled state, and the one a browser without JavaScript gets. */
+.plate-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.14) brightness(0.96);
+}
+
+/* --draw runs 0 to 1 while the plate develops, so a single rAF
+      drives every stage below with no extra listeners. The
+      development states only exist when motion.js is running. */
+.js-motion .plate-img {
+    filter:
+        grayscale(1)
+        contrast(calc(0.42 + var(--draw, 0) * 0.72))
+        brightness(calc(0.72 + var(--draw, 0) * 0.24))
+        sepia(calc(0.12 * (1 - var(--draw, 0))));
+    clip-path: inset(0 calc(100% - var(--draw, 0) * 100%) 0 0);
+}
+
+/* graphite gathering on the shadow side as the plate settles */
+.plate-tone {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: calc(1 - var(--draw, 0));
+    background:
+        radial-gradient(70% 58% at 24% 26%, rgba(233, 229, 221, 0.1), transparent 62%),
+        linear-gradient(104deg, rgba(0, 0, 0, 0.5) 0%, transparent 58%);
+}
+
+/* cross-hatching laid over the plate while it is still working */
+.plate-hatch {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    opacity: calc(0.5 - var(--draw, 0) * 0.42);
+    background-image:
+        repeating-linear-gradient(58deg, rgba(233, 229, 221, 0.14) 0 1px, transparent 1px 6px),
+        repeating-linear-gradient(-58deg, rgba(233, 229, 221, 0.09) 0 1px, transparent 1px 9px);
+    mix-blend-mode: overlay;
+}
+
+/* the construction guides, drawn in before the image appears */
+.plate-guides {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: calc(var(--draw, 0) * 1.6 - 0.35);
+    transition: opacity 0.8s ease;
+}
+
+.js-motion .plate-tone,
+.js-motion .plate-hatch,
+.js-motion .plate-guides,
+.js-motion .plate-dust,
+.js-motion .plate-edge {
+    display: block;
+}
+
+.plate-guides path,
+.plate-guides line,
+.plate-guides rect,
+.plate-guides circle {
+    fill: none;
+    stroke: var(--chalk-2);
+    stroke-width: 0.8;
+    opacity: 0.4;
+    vector-effect: non-scaling-stroke;
+}
+
+.plate-guides .p-heavy {
+    stroke-width: 1.4;
+    opacity: 0.62;
+    stroke: var(--ember);
+    opacity: 0.5;
+}
+
+/* the irregular edge, drawn last and left slightly open */
+.plate-edge {
+    position: absolute;
+    inset: -7px;
+    z-index: 5;
+    width: calc(100% + 14px);
+    height: calc(100% + 14px);
+    pointer-events: none;
+    overflow: visible;
+}
+
+.plate-edge path {
+    fill: none;
+    stroke: var(--chalk-2);
+    stroke-width: 1.15;
+    stroke-linecap: round;
+    opacity: 0.5;
+    vector-effect: non-scaling-stroke;
+}
+
+.plate-edge .e-heavy {
+    stroke: var(--chalk);
+    stroke-width: 1.5;
+    opacity: 0.34;
+}
+
+/* graphite dust shaken loose as the stroke finishes */
+.plate-dust {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.plate-mote {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--chalk-2);
+    opacity: 0;
+    filter: blur(0.4px);
+}
+
+/* eraser marks and a handwritten label in the margin */
+.plate-note {
+    position: absolute;
+    z-index: 7;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.1;
+    color: var(--chalk-3);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.plate-note.is-right {
+    right: -0.4rem;
+    bottom: -2.5rem;
+    transform: rotate(-1.6deg);
+}
+
+.plate-note.is-left {
+    left: 0.2rem;
+    top: -2.4rem;
+    transform: rotate(-1.2deg);
+}
+
+
+/* =========================================================
+   14  THE DRAWN TIMELINE
+   A single pencil line runs down the page and is drawn as the
+   visitor reaches it; each milestone is a graphite mark on it.
+   ========================================================= */
+.ruler {
+    position: relative;
+    padding-left: 2.2rem;
+}
+
+/* the line itself */
+.ruler::before {
+    content: "";
+    position: absolute;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 7px;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, var(--chalk-4) 6%, var(--chalk-3) 92%, transparent);
+    background-size: 100% var(--ruler, 0%);
+    background-repeat: no-repeat;
+    opacity: 0.55;
+}
+
+.js-motion .ruler::before {
+    transition: background-size 1.8s var(--ease-settle);
+}
+
+.is-in .ruler,
+.reveal-fallback .ruler {
+    --ruler: 100%;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 2.1rem;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -2.2rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    margin-left: 2px;
+    background: var(--ink-900);
+    border: 1.5px solid var(--chalk-4);
+    border-radius: 50%;
+    transform: scale(0.4);
+    opacity: 0;
+    transition:
+        transform 0.6s var(--ease-out-expo) 0.35s,
+        opacity 0.5s ease 0.35s,
+        border-color 0.6s ease;
+}
+
+.is-in .timeline-item::before,
+.reveal-fallback .timeline-item::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.timeline-item.is-now::before {
+    border-color: var(--ember);
+    box-shadow: 0 0 0 3px var(--ember-soft);
+}
+
+.timeline-item strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.71rem;
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--ember);
+}
+
+.timeline-item p {
+    margin: 0;
+    color: var(--chalk-2);
+}
+
+/* margin notes, written in the gutter */
 .sketch-notes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
@@ -1023,62 +1759,21 @@ nav a[aria-current="page"] {
     transform: rotate(-38deg);
 }
 
-.journey-path {
-    position: relative;
-    padding-left: 1.85rem;
-    border-left: 1px solid var(--hairline);
-}
-
-.timeline-item {
-    position: relative;
-    padding-bottom: 2.1rem;
-}
-
-.timeline-item:last-child {
-    padding-bottom: 0;
-}
-
-.timeline-item::before {
-    content: "";
-    position: absolute;
-    left: -1.85rem;
-    top: 0.42rem;
-    width: 9px;
-    height: 9px;
-    background: var(--ink-900);
-    border: 1.5px solid var(--ember);
-    border-radius: 50%;
-}
-
-.timeline-item strong {
-    display: block;
-    margin-bottom: 0.3rem;
-    font-family: var(--mono);
-    font-size: 0.71rem;
-    font-weight: 500;
-    letter-spacing: 0.17em;
-    text-transform: uppercase;
-    color: var(--ember);
-}
-
-.timeline-item p {
-    margin: 0;
-    color: var(--chalk-2);
-}
-
 
 /* =========================================================
-   13  TOOLKIT
+   15  TOOLKIT + GRAPHITE METERS
    ========================================================= */
 .toolkit-hero,
 .workshop-hero,
-.contact-hero {
+.contact-hero,
+.exhibit-hero {
     margin-bottom: clamp(2.8rem, 7vw, 4.4rem);
 }
 
 .toolkit-hero h2,
 .workshop-hero h2,
-.contact-hero h2 {
+.contact-hero h2,
+.exhibit-hero h2 {
     font-size: clamp(2.2rem, 7vw, 4rem);
     font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
     letter-spacing: -0.03em;
@@ -1100,14 +1795,13 @@ nav a[aria-current="page"] {
     gap: clamp(1rem, 2.4vw, 1.5rem);
 }
 
-/* Skill levels are stated, not decorated with fake meters */
 .skill-row {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 0.4rem 0.9rem;
-    padding: 0.72rem 0;
+    padding: 0.7rem 0;
     border-top: 1px solid var(--hairline-2);
 }
 
@@ -1117,21 +1811,105 @@ nav a[aria-current="page"] {
 }
 
 .skill-row dt {
-    font-size: 0.94rem;
+    font-size: 0.92rem;
     color: var(--chalk);
 }
 
 .skill-row dd {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
     margin: 0;
+}
+
+.skill-row dd span {
     font-family: var(--mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--chalk-3);
+    white-space: nowrap;
 }
 
-.skill-row dd.is-core {
+.skill-row dd.is-core span {
     color: var(--ember);
+}
+
+/* -- the meter: graphite shading, not a digital progress bar.
+      Five cells; the fill is a run of short strokes that darken
+      left to right, so the level reads as a shaded passage. --- */
+.meter {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    flex: none;
+    width: 6.4rem;
+    height: 0.55rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--hairline-2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+/* the empty cells, so the scale is always readable */
+.meter::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg,
+        var(--hairline) 0 1px,
+        transparent 1px calc(100% / 5));
+}
+
+/* A meter starts empty only while motion.js is running, so the
+   level is still visible if the script never arrives. */
+.meter-fill {
+    position: absolute;
+    inset: 0;
+    transform: scaleX(calc(var(--n, 0) / 5));
+    transform-origin: left center;
+    background: repeating-linear-gradient(90deg,
+        var(--graphite-hi) 0 0.3rem,
+        var(--graphite) 0.3rem 0.46rem,
+        var(--graphite-lo) 0.46rem 0.52rem,
+        transparent 0.52rem 1rem);
+    transition: transform 1.15s var(--ease-settle) var(--meter-delay, 0ms);
+}
+
+/* The shading is then drawn on, from empty, once the row it
+   belongs to is in view. */
+.js-motion .meter-fill {
+    transform: scaleX(0);
+}
+
+.js-motion .is-in .meter-fill,
+.js-motion.reveal-fallback .meter-fill {
+    transform: scaleX(calc(var(--n, 0) / 5));
+}
+
+/* small technical doodle set into a card corner */
+.doodle {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    width: 3.4rem;
+    height: 2.2rem;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.doodle path,
+.doodle circle,
+.doodle line {
+    fill: none;
+    stroke: var(--chalk-4);
+    stroke-width: 0.9;
+    vector-effect: non-scaling-stroke;
+}
+
+.doodle .d-accent {
+    stroke: var(--ember);
+    stroke-width: 1.1;
 }
 
 .journey-heading {
@@ -1144,7 +1922,6 @@ table {
     font-size: 0.94rem;
 }
 
-/* Tables scroll rather than forcing the page wide on phones */
 .table-wrap {
     max-width: 100%;
     overflow-x: auto;
@@ -1170,6 +1947,7 @@ td {
     padding: 0.85rem 0.9rem;
     text-align: left;
     border-bottom: 1px solid var(--hairline-2);
+    vertical-align: middle;
 }
 
 th {
@@ -1185,6 +1963,10 @@ td {
     color: var(--chalk-2);
 }
 
+td .meter {
+    vertical-align: middle;
+}
+
 tbody tr:hover td {
     color: var(--chalk);
     background: rgba(255, 255, 255, 0.018);
@@ -1192,7 +1974,7 @@ tbody tr:hover td {
 
 
 /* =========================================================
-   14  WORKSHOP / PROJECTS
+   16  WORKSHOP — technical studies
    ========================================================= */
 .workshop-grid {
     display: grid;
@@ -1216,7 +1998,6 @@ tbody tr:hover td {
     color: var(--ember);
 }
 
-/* Meta line: role, year, stack */
 .card-meta {
     display: flex;
     flex-wrap: wrap;
@@ -1232,10 +2013,9 @@ tbody tr:hover td {
 .card-meta span:not(:last-child)::after {
     content: "·";
     margin-left: 0.55rem;
-    color: var(--chalk-4);
+    color: var(--ink-500);
 }
 
-/* Bulleted list of real, verifiable features */
 .card-list {
     margin: 0 0 1.15rem;
     font-size: 0.925rem;
@@ -1258,12 +2038,25 @@ tbody tr:hover td {
     background: var(--chalk-4);
 }
 
+/* the two exits a study offers */
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem 1.4rem;
+    margin-top: auto;
+    padding-top: 1.3rem;
+}
+
+.card-actions .ink-btn {
+    align-self: center;
+}
+
 .card-link {
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    margin-top: auto;
     padding-bottom: 0.15rem;
     font-family: var(--mono);
     font-size: 0.685rem;
@@ -1280,21 +2073,445 @@ tbody tr:hover td {
     gap: 0.75rem;
 }
 
-.card-link.is-external::after {
-    content: "\2197";
-    font-size: 0.95em;
-    line-height: 1;
+/* WeConnect: the public platform and its administrative side are
+   one system, so they sit in one row and share a caption. */
+.study-pair {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem 1.5rem;
+}
+
+.study-pair figcaption {
+    flex: 1 1 12rem;
+    min-width: 0;
+    font-family: var(--hand);
+    font-size: 1.18rem;
+    line-height: 1.24;
+    color: var(--chalk-3);
+    text-align: right;
 }
 
 
 /* =========================================================
-   15  CONNECT
+   17  THE STUDIO CONSOLE
+   The Python exercise, running for real, presented as a small
+   sheet of working paper pinned to the page.
+   ========================================================= */
+.console {
+    position: relative;
+    margin-top: 1.5rem;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    background: var(--ink-850);
+    box-shadow: 0 22px 52px -28px rgba(0, 0, 0, 0.95);
+    overflow: hidden;
+}
+
+.console-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.7rem 1rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent);
+    border-bottom: 1px solid var(--hairline-2);
+}
+
+.console-bar .mono {
+    font-family: var(--mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.console-bar .grow {
+    flex: 1;
+}
+
+/* mode switches, and the way out */
+.console-modes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.console-modes button {
+    padding: 0.32rem 0.62rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: color 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.console-modes button:hover {
+    color: var(--chalk);
+    border-color: var(--ember-line);
+}
+
+.console-modes button[aria-pressed="true"] {
+    color: var(--ember);
+    background: var(--ember-soft);
+    border-color: var(--ember-line);
+}
+
+.console-close {
+    padding: 0.32rem 0.62rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: color 0.22s ease, border-color 0.22s ease;
+}
+
+.console-close:hover {
+    color: var(--ember);
+    border-color: var(--ember-line);
+}
+
+.console-close[hidden] {
+    display: none;
+}
+
+/* The key that draws the sheet in. */
+.console-open {
+    margin-top: 1.5rem;
+}
+
+.console-open[hidden] {
+    display: none;
+}
+
+.console-screen {
+    min-height: 8.5rem;
+    max-height: 21rem;
+    overflow-y: auto;
+    padding: 1rem 1.1rem;
+    font-family: var(--mono);
+    font-size: 0.815rem;
+    line-height: 1.75;
+    color: var(--chalk-2);
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.32), transparent 40%),
+        var(--ink-900);
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink-600) transparent;
+}
+
+.console-screen p {
+    max-width: none;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.console-screen .c-dim {
+    color: var(--chalk-4);
+}
+
+.console-screen .c-warn {
+    color: var(--ember);
+}
+
+.console-screen .c-good {
+    color: var(--chalk);
+}
+
+.console-screen .c-echo {
+    color: var(--graphite-hi);
+}
+
+/* the answer, underlined the way a result is on working paper */
+.console-screen .c-result {
+    color: var(--chalk);
+    border-left: 2px solid var(--ember);
+    padding-left: 0.7rem;
+    margin: 0.2rem 0;
+}
+
+.console-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.85rem 1rem 1rem;
+    border-top: 1px solid var(--hairline-2);
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.24));
+}
+
+.key {
+    min-width: 2.3rem;
+    min-height: 2.3rem;
+    padding: 0.3rem 0.7rem;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    color: var(--chalk-2);
+    background: linear-gradient(168deg, var(--ink-700), var(--ink-850));
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0 var(--sheen), 0 2px 0 rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+    transition:
+        transform 0.14s var(--ease-out-expo),
+        box-shadow 0.14s var(--ease-out-expo),
+        color 0.2s ease;
+}
+
+.key:hover {
+    color: var(--chalk);
+    border-color: var(--ember-line);
+}
+
+.key:active,
+.key.is-down {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.key.is-op {
+    color: var(--chalk-3);
+}
+
+.key.is-clear {
+    color: var(--chalk-3);
+    border-style: dashed;
+}
+
+.key.is-run {
+    min-width: 6.4rem;
+    color: var(--ember);
+    border-color: var(--ember-line);
+    background: linear-gradient(168deg, var(--ink-650), var(--ink-800));
+}
+
+/* the sheet draws itself in the first time it is opened. The
+   wrapper ships hidden, so a browser without JavaScript simply
+   never shows a console it cannot operate. */
+.console[hidden] {
+    display: none;
+}
+
+.js-motion .console {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transition: clip-path 0.9s var(--ease-settle), opacity 0.5s ease;
+}
+
+.console.is-open {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+}
+
+.console-foot {
+    margin-top: 0.9rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    line-height: 1.7;
+    color: var(--chalk-4);
+}
+
+.console-foot a {
+    color: var(--chalk-3);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.console-foot a:hover {
+    color: var(--ember);
+}
+
+
+/* =========================================================
+   18  THE EXHIBITION
+   Studies hung unevenly, the way work sits on a studio wall
+   before anyone has decided what the order is.
+   ========================================================= */
+.wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: clamp(1.4rem, 3.4vw, 2.6rem);
+    margin-top: 2rem;
+}
+
+.exhibit {
+    display: flex;
+    flex-direction: column;
+}
+
+/* [hidden] loses to display:flex, so the filter says so itself */
+.exhibit[hidden] {
+    display: none;
+}
+
+.exhibit .plate {
+    margin: 0 0 1.9rem;
+}
+
+.exhibit figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.3rem 0.9rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--hairline-2);
+}
+
+.exhibit h3 {
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+}
+
+.exhibit .cat {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+/* the pencil note beside each plate */
+.exhibit .note {
+    margin-top: 0.45rem;
+    font-family: var(--hand);
+    font-size: 1.08rem;
+    line-height: 1.25;
+    color: var(--chalk-3);
+}
+
+/* hover lifts a plate off the wall and magnifies what is on it */
+.exhibit .plate-stage {
+    transition: transform 0.55s var(--ease-out-expo), box-shadow 0.55s var(--ease-out-expo);
+}
+
+.exhibit .plate-img {
+    transition: transform 0.75s var(--ease-out-expo);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .exhibit:hover .plate-stage {
+        transform: translateY(-6px) rotate(0.4deg);
+        box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.6),
+            0 40px 62px -26px rgba(0, 0, 0, 1);
+    }
+
+    .exhibit:hover .plate-img {
+        transform: scale(1.06);
+    }
+}
+
+.exhibit-note {
+    margin-top: clamp(2.4rem, 6vw, 3.6rem);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    line-height: 1.75;
+    color: var(--chalk-4);
+}
+
+.filter-set {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1.4rem 0 0;
+    padding: 0;
+}
+
+/* The filter is a script-only convenience, so it only appears
+   once motion.js is running. Without it every study stays up. */
+.js-motion .filter-set {
+    display: flex;
+}
+
+.filter-status {
+    margin: 0.85rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--chalk-4);
+}
+
+.filter-set button {
+    padding: 0.42rem 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--chalk-3);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.filter-set button:hover {
+    color: var(--chalk);
+    border-color: var(--ember-line);
+}
+
+.filter-set button[aria-pressed="true"] {
+    color: var(--ember);
+    background: var(--ember-soft);
+    border-color: var(--ember-line);
+}
+
+
+/* =========================================================
+   19  CONNECT
    ========================================================= */
 .contact-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
     gap: clamp(0.9rem, 2.2vw, 1.3rem);
     margin-bottom: clamp(2.6rem, 6vw, 4rem);
+}
+
+.contact-card {
+    position: relative;
+    padding: clamp(1.35rem, 3vw, 1.8rem);
+    background:
+        linear-gradient(158deg, rgba(255, 255, 255, 0.038), transparent 48%),
+        var(--ink-850);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    box-shadow: 0 16px 38px -24px rgba(0, 0, 0, 0.9);
+    transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+
+.contact-card:hover {
+    border-color: rgba(212, 163, 115, 0.22);
+    transform: translateY(-2px);
+}
+
+.contact-card > i {
+    display: block;
+    margin-bottom: 0.9rem;
+    color: var(--ember);
+    font-size: 1.05rem;
+}
+
+.contact-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+}
+
+.contact-card p {
+    margin: 0;
+    color: var(--chalk-2);
+    font-size: 0.95rem;
 }
 
 .contact-grid {
@@ -1329,90 +2546,6 @@ tbody tr:hover td {
     font-size: 0.85em;
 }
 
-form {
-    margin-top: 1.6rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.4rem;
-    font-family: var(--mono);
-    font-size: 0.655rem;
-    font-weight: 500;
-    letter-spacing: 0.17em;
-    text-transform: uppercase;
-    color: var(--chalk-4);
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 0.78rem 0.9rem;
-    margin-bottom: 1.3rem;
-    background: rgba(0, 0, 0, 0.3);
-    color: var(--chalk);
-    font-size: 0.95rem;
-    border: 1px solid var(--hairline);
-    border-radius: 2px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
-    transition: border-color 0.28s var(--ease-out-expo), box-shadow 0.28s var(--ease-out-expo);
-}
-
-textarea {
-    resize: vertical;
-    min-height: 7rem;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: var(--chalk-4);
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: var(--ember-line);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 0 3px var(--ember-soft);
-}
-
-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--void);
-    background: linear-gradient(180deg, #e8c49b, var(--ember));
-    border: 0;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), filter 0.25s var(--ease-out-expo);
-}
-
-button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.07);
-    box-shadow: 0 10px 24px -12px rgba(212, 163, 115, 0.55);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-.form-note {
-    margin: 1.15rem 0 0;
-    font-family: var(--mono);
-    font-size: 0.665rem;
-    line-height: 1.65;
-    color: var(--chalk-4);
-}
-
 .sign-off {
     margin-top: 1.6rem;
     padding-top: 1.3rem;
@@ -1429,7 +2562,7 @@ button:active {
 
 
 /* =========================================================
-   16  SOCIAL LINKS
+   20  SOCIALS
    ========================================================= */
 .socials {
     padding: clamp(1.7rem, 4vw, 2.6rem);
@@ -1497,7 +2630,7 @@ button:active {
 
 
 /* =========================================================
-   17  FOOTER
+   21  FOOTER
    ========================================================= */
 .artist-footer {
     max-width: var(--shell);
@@ -1578,10 +2711,11 @@ button:active {
 
 
 /* =========================================================
-   18  SCROLL REVEAL
-   Progressive enhancement: [data-reveal] only starts hidden
-   once the root carries .js-motion, so no-JS is never blank.
+   22  REVEALS, CURSOR, PAGE WIPE
    ========================================================= */
+
+/* [data-reveal] only starts hidden once the root carries
+   .js-motion, so a page without JavaScript is never blank. */
 .js-motion [data-reveal] {
     opacity: 0;
     transform: translateY(1.1rem);
@@ -1595,28 +2729,135 @@ button:active {
     transform: none;
 }
 
-/* Set by the failsafe in index.html if motion.js never arrives */
 .js-motion.reveal-fallback [data-reveal] {
     opacity: 1;
     transform: none;
 }
 
-.js-motion.reveal-fallback .hero-line-inner {
-    transform: none;
-}
-
+.js-motion.reveal-fallback .hero-line-inner,
 .js-motion.reveal-fallback .hero-fade {
     opacity: 1;
     transform: none;
 }
 
+/* -- the cursor: a lead dot with a short trail, and a faint
+      sketch ring. Two elements and one transform per frame. --- */
+.cursor-lead,
+.cursor-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9200;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform;
+}
+
+.cursor-lead {
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    background: var(--chalk-2);
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(233, 229, 221, 0.4);
+}
+
+.cursor-trail {
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 1px solid rgba(233, 229, 221, 0.16);
+}
+
+.cursor-on .cursor-lead {
+    opacity: 0.85;
+    transition: opacity 0.4s ease;
+}
+
+.cursor-on .cursor-trail {
+    opacity: 1;
+    transition: opacity 0.6s ease 0.1s;
+}
+
+.cursor-lead.is-link,
+.cursor-trail.is-link {
+    border-color: var(--ember-line);
+    background: var(--ember);
+}
+
+/* -- page transition: a pencil stroke sweeps the sheet ------ */
+.page-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 9400;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        linear-gradient(102deg,
+            transparent 0%,
+            rgba(233, 229, 221, 0.03) 28%,
+            rgba(233, 229, 221, 0.1) 47%,
+            rgba(212, 163, 115, 0.16) 50%,
+            rgba(233, 229, 221, 0.08) 54%,
+            transparent 100%);
+    background-size: 260% 100%;
+    background-repeat: no-repeat;
+}
+
+.page-wipe svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.page-wipe path {
+    fill: none;
+    stroke: var(--chalk);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    opacity: 0;
+}
+
+.wiping .page-wipe {
+    opacity: 1;
+}
+
+.wiping .page-wipe path {
+    opacity: 0.5;
+    animation: wipeStroke 0.72s var(--ease-settle) forwards;
+}
+
+.wiping .page-wipe {
+    animation: wipeWash 0.72s ease-in forwards;
+}
+
+@keyframes wipeStroke {
+    0%   { stroke-dashoffset: 1600; opacity: 0.7; }
+    60%  { opacity: 0.4; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes wipeWash {
+    0%   { background-position: 130% 0; }
+    100% { background-position: -30% 0; }
+}
+
 
 /* =========================================================
-   19  RESPONSIVE
+   23  RESPONSIVE
    ========================================================= */
 @media (max-width: 62rem) {
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 52rem) {
+    /* plates and studies take a full column, so give them room */
+    .exhibit .plate {
+        --plate-tilt: -0.3deg;
     }
 }
 
@@ -1636,7 +2877,7 @@ button:active {
     }
 
     nav a {
-        font-size: 0.79rem;
+        font-size: 0.76rem;
     }
 
     /* Icons duplicate the adjacent label once stacked, so drop them
@@ -1645,22 +2886,20 @@ button:active {
         display: none;
     }
 
-    .artist-card {
-        grid-template-columns: 1fr;
+    .study-pair figcaption {
+        text-align: left;
     }
 
-    .profile-image {
-        max-width: 15rem;
+    .plate {
+        --plate-tilt: 0deg;
     }
 
-    .graphite-sheet {
-        width: min(84vw, 22rem);
+    .plate-note.is-right {
+        right: 0;
     }
 
-    .gs-skip {
-        right: 50%;
-        transform: translateX(50%);
-        text-align: center;
+    .quote-guides .g-shadow {
+        display: none;
     }
 
     table {
@@ -1684,23 +2923,37 @@ button:active {
         letter-spacing: 0.14em;
     }
 
-    .quote-block,
-    .story-quote {
-        padding-left: 1.15rem;
+    .quote-block {
+        padding-left: 1.1rem;
     }
 
-    .journey-path {
-        padding-left: 1.5rem;
+    .ruler {
+        padding-left: 1.6rem;
     }
 
     .timeline-item::before {
-        left: -1.5rem;
+        left: -1.6rem;
+    }
+
+    .card-actions .ink-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .meter {
+        width: 4.6rem;
+    }
+
+    .gs-skip {
+        right: 50%;
+        transform: translateX(50%);
+        text-align: center;
     }
 }
 
 
 /* =========================================================
-   20  REDUCED MOTION + PRINT
+   24  REDUCED MOTION + PRINT
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -1709,17 +2962,23 @@ button:active {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
+        transition-delay: 0ms !important;
         scroll-behavior: auto !important;
     }
 
-    /* The drawing stage is removed outright rather than merely
-       shortened, so no motion is shown at all */
+    /* The stage is removed outright rather than shortened, so no
+       drawing is shown at all. The quote is still on the page. */
     .graphite-stage {
         display: none !important;
     }
 
-    .grain {
-        animation: none;
+    .grain,
+    #studio-canvas,
+    .smudge,
+    .cursor-lead,
+    .cursor-trail,
+    .page-wipe {
+        display: none !important;
     }
 
     .js-motion [data-reveal] {
@@ -1727,18 +2986,40 @@ button:active {
         transform: none;
     }
 
-    .hero-line-inner {
-        transform: none;
-    }
-
+    .hero-line-inner,
     .hero-fade {
         opacity: 1;
         transform: none;
     }
 
+    .js-motion .sketch-rule {
+        transform: none;
+        opacity: 1;
+    }
+
+    /* plates show the finished photograph, no development */
+    .plate-img {
+        filter: grayscale(1) contrast(1.14) brightness(0.96);
+        clip-path: none;
+    }
+
+    .plate-tone,
+    .plate-hatch,
+    .plate-guides,
+    .plate-dust {
+        display: none;
+    }
+
+    .console {
+        clip-path: none;
+        opacity: 1;
+    }
+
     .card:hover,
-    button:hover,
-    .social-links a:hover {
+    .ink-btn:hover,
+    .contact-card:hover,
+    .social-links a:hover,
+    .exhibit:hover .plate-stage {
         transform: none;
     }
 }
@@ -1752,7 +3033,11 @@ button:active {
     body::before,
     body::after,
     .grain,
+    .construction,
+    .smudge,
+    #studio-canvas,
     .graphite-stage,
+    .page-wipe,
     header {
         display: none;
     }
@@ -1761,9 +3046,16 @@ button:active {
     .sketch-frame,
     .socials,
     .contact-form-card,
-    .contact-info-card {
+    .contact-info-card,
+    .tech-frame,
+    .console {
         border: 1px solid #999;
         box-shadow: none;
+    }
+
+    .plate-img {
+        filter: none;
+        clip-path: none;
     }
 
     a {

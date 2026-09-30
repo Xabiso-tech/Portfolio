@@ -4,382 +4,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Story | Xabiso Phendu</title>
-
+    <title>My Story &middot; Xabiso Phendu</title>
     <meta name="description"
-          content="How a graphite habit in Khayelitsha, Cape Town turned into full-stack development: the drawing years, structured learning, group backend work, and what I am building toward.">
-
+        content="How a graphite habit in Khayelitsha, Cape Town turned into full-stack development: the drawing years, structured learning, group back-end work, and what Xabiso Phendu is building toward.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <link rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0e12'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23d4a373' stroke-width='8'/></svg>">
-
-    <script>
-        document.documentElement.classList.add("js-motion");
-    </script>
+    <script>document.documentElement.className = "js-motion";</script>
 </head>
 
 <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="grain" aria-hidden="true"></div>
+    <canvas id="studio-canvas" aria-hidden="true"></canvas>
 
-<header>
-    <nav>
+    <div class="construction" aria-hidden="true">
+        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path
+                d="M120 120 Q800 84 1480 124 Q1512 500 1476 880 Q800 918 128 876 Q96 500 120 120Z" />
+            <path d="M120 120 L1476 880 M120 880 L1476 120" class="c-hatch" />
+            <path d="M120 500 L1480 500" class="c-hatch" />
+            <path d="M800 100 L800 900" class="c-hatch" />
+            <path d="M60 300 Q800 268 1540 302" class="c-hatch" />
+            <path d="M64 700 Q800 732 1536 698" class="c-hatch" />
+            <circle class="c-circle" cx="800" cy="500" r="380" />
+            <circle class="c-circle" cx="800" cy="500" r="300" />
+            <circle class="c-circle" cx="800" cy="500" r="210" />
+            <path d="M120 96 L120 144 M1560 96 L1560 144 M120 856 L120 904 M1560 856 L1560 904" />
+        </svg>
+    </div>
 
-        <h1>
-            <i class="fa-solid fa-book-open"></i> My Story
-        </h1>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="smudge" aria-hidden="true"></div>
+    <div class="cursor-lead" aria-hidden="true"></div>
+    <div class="cursor-trail" aria-hidden="true"></div>
 
-        <ul>
-            <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-            <li><a href="about.html" aria-current="page"><i class="fa-solid fa-book-open"></i> My Story</a></li>
-            <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
-            <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-            <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
-        </ul>
+    <div class="page-wipe" id="page-wipe" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 L100 0 L100 100 L0 100 Z" />
+        </svg>
+    </div>
 
-    </nav>
-</header>
+    <header>
+        <nav>
+            <h1><i class="fa-solid fa-circle-half-stroke"></i> Xabiso Phendu</h1>
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="about.html" aria-current="page"><i class="fa-solid fa-book-open"></i> My Story</a></li>
+                <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
+                <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
+                <li><a href="gallery.html"><i class="fa-regular fa-images"></i> Gallery</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main id="main" tabindex="-1">
 
-<main>
-
-<!-- OPENING -->
-<section>
-
-    <span class="eyebrow">The long version</span>
-
-    <h2 class="story-heading">How I ended up here</h2>
-
-    <p class="story-subtitle">Pencil first. Code second. Both slower than they look.</p>
-
-    <div class="artist-card">
-
-        <img src="images/1000125110.jpg"
-             alt="Portrait of Xabiso Phendu"
-             class="profile-image"
-             width="600"
-             height="600"
-             loading="lazy"
-             decoding="async">
-
-        <div class="artist-info">
-
-            <h3>Quick sketch</h3>
-
-            <p><strong>Name</strong> Xabiso Phendu</p>
-            <p><strong>Where</strong> Khayelitsha, Cape Town</p>
-            <p><strong>Building</strong> Full-stack web applications</p>
-            <p><strong>Drawing</strong> Graphite and charcoal</p>
-
+        <div class="exhibit-hero">
+            <span class="eyebrow" data-reveal>The long version</span>
+            <h2 data-etch>How I ended up here</h2>
+            <p class="toolkit-intro" data-reveal>Pencil first. Code second. Both slower than they look.</p>
         </div>
 
-    </div>
-
-    <p class="story-quote">
-        A sketch begins as uncertainty. So does growth.
-    </p>
-
-</section>
-
-
-<hr class="sketch-rule">
-
-
-<!-- CURIOSITY -->
-<section data-reveal>
-
-    <span class="eyebrow">01 &mdash; Curiosity</span>
-
-    <h2>It started with making marks</h2>
-
-    <p>
-        Before any of this was software, it was paper. Graphite and charcoal, mostly, in a
-        house in Khayelitsha where the light was never quite right and you learned to work
-        with what you had. I drew because I wanted to, and I kept going because drawing is
-        honest about how long things take.
-    </p>
-
-    <p>
-        What I did not expect was how much structure it would teach me. A face is not a face,
-        it is a set of planes and edges that happen to line up. A shadow is not one colour,
-        it is a gradient you have to earn stroke by stroke. When something looks wrong you
-        cannot argue with it, you just erase and go again. That instinct turned out to be the
-        single most useful thing I brought into programming.
-    </p>
-
-</section>
-
-
-<!-- LEARNING -->
-<section data-reveal>
-
-    <span class="eyebrow">02 &mdash; Learning</span>
-
-    <h2>Then the work got structured</h2>
-
-    <p>
-        Drawing is self-directed, which means it is also easy to avoid. I needed something
-        with deadlines and other people holding me to them, so I went into structured
-        coursework: HTML and CSS first, then JavaScript, then the parts I had no idea existed,
-        like SQL, PHP, Vue and Node.
-    </p>
-
-    <p>
-        Most of it was unglamorous. Conditionals, loops, functions, arrays, the DOM, error
-        handling, template literals, scope. I did them badly, then redid them. My GitHub is
-        mostly small exercises, and I am not going to pretend otherwise. But you cannot hold up
-        a framework you have not built something small with, and the small things are the ones
-        I remember.
-    </p>
-
-</section>
-
-
-<!-- EXPERIMENTATION -->
-<section data-reveal>
-
-    <span class="eyebrow">03 &mdash; Experimentation</span>
-
-    <h2>Projects that taught me the rules by breaking them</h2>
-
-    <p>
-        The <a href="projects.html">Workshop</a> is where the real learning sat. An image
-        gallery that taught me grid and lazy loading. A product store that taught me why
-        consistent spacing matters more than any colour choice. A booking form with a
-        validation bug I did not find until months later.
-    </p>
-
-    <p>
-        Each one looked finished right up until it did not, and each failure was specific and
-        fixable. That is the thing nobody tells you about learning to build: it is mostly
-        diagnosing, not inventing. You get very good at reading an error message and forming a
-        theory about what it means, then being wrong, then forming a better one.
-    </p>
-
-</section>
-
-
-<!-- PRACTICAL / BACKEND -->
-<section data-reveal>
-
-    <span class="eyebrow">04 &mdash; The part that changed direction</span>
-
-    <h2>Then I had to make the front end talk to a real database</h2>
-
-    <p>
-        This is where the portfolio stopped being a front-end exercise. On a four-person HR
-        system project I took the employee and performance review modules to the back end:
-        Express routes, controllers, models, MySQL tables, and a JWT sign-in flow, so the
-        pages I had built on the front end were reading live records instead of a JSON file
-        someone had typed in by hand.
-    </p>
-
-    <p>
-        The second team project, WeConnect, tested that on a much bigger scale. It is a B2B
-        marketplace where small businesses order stock from wholesalers, and my part was
-        delivery: the orders, payments and GPS tracking back end, and the pages that drew it
-        on a map. Six hundred commits by four people, and a database behind a managed host
-        that had to be reached over an encrypted connection. Reading somebody else's work is
-        a skill of its own, and it is one I only learned by being buried in it.
-    </p>
-
-    <p>
-        It was a different kind of problem. A bad layout is visible immediately, so you fix it
-        in a minute. A broken query is invisible until the page is empty for a reason you
-        cannot see. Learning to think about what the data is doing, not just what the screen
-        is doing, is the shift I am most grateful for.
-    </p>
-
-    <p>
-        I would still call myself a developer in training. But I know which side of the stack
-        I am drawn to, and I know I would rather build the part nobody sees if it is the part
-        that actually holds.
-    </p>
-
-</section>
-
-
-<!-- PURPOSE -->
-<section data-reveal>
-
-    <span class="eyebrow">05 &mdash; Purpose</span>
-
-    <h2>Why it matters outside the screen</h2>
-
-    <p>
-        I am not building this for a portfolio. I am in church every Sunday and I take that
-        seriously, because what you believe about people shows up in how you treat them. Chess
-        teaches me the same lesson from the other side: you lose gracefully, you do not fold.
-    </p>
-
-    <p>
-        In my community, gender-based violence and femicide are not statistics. They are
-        people. I am involved in awareness work because the argument is simple: this is
-        preventable, and prevention is somebody showing up.
-    </p>
-
-    <p>
-        The part I care about most is talking to younger boys. Not lecturing them, just being
-        honest about treating women well, about safety, about what a healthy attitude toward
-        someone actually looks like. A lot of that is just repetition, which is another thing
-        art taught me before code did.
-    </p>
-
-    <p>
-        Building software is how I contribute to that. Systems that make it easier to do the
-        right thing, or to notice when something is wrong, are worth more to me than anything
-        that is merely impressive.
-    </p>
-
-</section>
-
-
-<hr class="sketch-rule">
-
-
-<!-- BEYOND THE SCREEN -->
-<section data-reveal>
-
-    <span class="eyebrow">Off the clock</span>
-
-    <h2>Beyond the screen</h2>
-
-    <p>
-        What fills the time when I am not building something.
-    </p>
-
-    <ul class="sketch-notes">
-        <li>Graphite and charcoal drawing</li>
-        <li>Church, every Sunday</li>
-        <li>Chess</li>
-        <li>Awareness work on GBV and femicide</li>
-        <li>Mentoring younger boys</li>
-        <li>Reading and library visits</li>
-        <li>Physical activity</li>
-    </ul>
-
-</section>
-
-
-<!-- JOURNEY -->
-<section class="journey-path" data-reveal>
-
-    <span class="eyebrow">The shape of it</span>
-
-    <h2>The journey so far</h2>
-
-    <div class="timeline-item">
-        <strong>Artist first</strong>
-        <p>Years of graphite and charcoal, learning structure, proportion and how to correct a line.</p>
-    </div>
-
-    <div class="timeline-item">
-        <strong>Structured learning</strong>
-        <p>HTML, CSS, JavaScript, then the languages I did not know I needed: SQL, PHP, Vue, Node.</p>
-    </div>
-
-    <div class="timeline-item">
-        <strong>Small projects</strong>
-        <p>Gallery, store, booking form. Each one broken in a way that taught me something specific.</p>
-    </div>
-
-    <div class="timeline-item">
-        <strong>Crossing to the back end</strong>
-        <p>Employee and performance review modules in Express and MySQL, behind JWT authentication.</p>
-    </div>
-
-    <div class="timeline-item">
-        <strong>Now</strong>
-        <p>Full-stack work, reading more, and building things that are meant to be used.</p>
-    </div>
-
-</section>
-
-
-<!-- FORWARD -->
-<section data-reveal>
-
-    <span class="eyebrow">Next</span>
-
-    <h2>What I am building toward</h2>
-
-    <p>
-        A developer who can hold a whole system in their head, not just a screen. I want to be
-        the person who can take a vague idea, work out what the data needs to look like, and
-        then build the front end and the back end that agree with each other.
-    </p>
-
-    <p>
-        I am not there yet, and I would rather say so plainly than perform something I have not
-        learned. What I can promise is that I keep showing up, I keep correcting, and I would
-        rather build one thing properly than five things halfway.
-    </p>
-
-</section>
-
-
-<!-- CLOSING -->
-<section class="socials" data-reveal>
-
-    <h3 class="social-title">
-        <i class="fa-solid fa-compass"></i> See the work
-    </h3>
-
-    <p class="social-label">
-        The commit history behind everything described on this page.
-    </p>
-
-    <div class="social-links">
-
-        <a href="https://github.com/Xabiso-tech"
-           target="_blank"
-           rel="noopener noreferrer">
-            <i class="fa-brands fa-github"></i> GitHub
-        </a>
-
-        <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/"
-           target="_blank"
-           rel="noopener noreferrer">
-            <i class="fa-brands fa-linkedin"></i> LinkedIn
-        </a>
-
-    </div>
-
-</section>
-
-</main>
-
-
-<footer class="artist-footer">
-
-    <p class="footer-phrase">Drawn by curiosity. Guided by discipline.</p>
-    <p class="footer-signature">A portfolio where graphite lines meet digital structure.</p>
-
-    <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">My Story</a>
-        <a href="skills.html">Toolkit</a>
-        <a href="projects.html">Workshop</a>
-        <a href="contact.html">Connect</a>
-    </div>
-
-    <div class="footer-info">
-        <span>&copy; 2026 Xabiso Phendu</span>
-        <span class="footer-divider">&bull;</span>
-        <span>Full-Stack Developer in Training</span>
-        <span class="footer-divider">&bull;</span>
-        <a href="#top" class="back-to-top">Back to top &uarr;</a>
-    </div>
-
-</footer>
-
-<script src="motion.js" defer></script>
-
+        <section data-reveal>
+            <div class="plate" data-plate style="--plate-ratio: 755 / 696; --plate-tilt: -0.7deg">
+                <div class="plate-stage">
+                    <img class="plate-img" src="images/1000125110.jpg" width="755" height="696"
+                        alt="Portrait of Xabiso Phendu." decoding="async">
+                </div>
+                <span class="plate-note is-left">plate 0 &mdash; the sitter</span>
+            </div>
+
+            <hr class="sketch-rule" data-reveal>
+
+            <div class="card" data-reveal>
+                <h3>Quick sketch</h3>
+                <dl>
+                    <div class="skill-row">
+                        <dt>Name</dt>
+                        <dd><span>Xabiso Phendu</span></dd>
+                    </div>
+                    <div class="skill-row">
+                        <dt>Where</dt>
+                        <dd><span>Khayelitsha, Cape Town</span></dd>
+                    </div>
+                    <div class="skill-row">
+                        <dt>Building</dt>
+                        <dd><span>Full-stack web applications</span></dd>
+                    </div>
+                    <div class="skill-row">
+                        <dt>Drawing</dt>
+                        <dd><span>Graphite and charcoal</span></dd>
+                    </div>
+                </dl>
+            </div>
+
+            <blockquote class="quote-block" data-etch data-reveal>
+                <p class="quote-text">A sketch begins as uncertainty. So does growth.</p>
+                <p class="quote-author">Studio note</p>
+            </blockquote>
+        </section>
+
+        <hr class="sketch-rule" data-reveal>
+
+        <section data-reveal>
+            <span class="eyebrow">01 &mdash; Curiosity</span>
+            <h2 data-etch>It started with making marks</h2>
+
+            <p>
+                Before any of this was software, it was paper. Graphite and charcoal, mostly, in a
+                house in Khayelitsha where the light was never quite right and you learned to work
+                with what you had. I drew because I wanted to, and I kept going because drawing is
+                honest about how long things take.
+            </p>
+
+            <p>
+                What I did not expect was how much structure it would teach me. A face is not a
+                face, it is a set of planes and edges that happen to line up. A shadow is not one
+                colour, it is a gradient you have to earn stroke by stroke. When something looks
+                wrong you cannot argue with it, you just erase and go again. That instinct turned
+                out to be the single most useful thing I brought into programming.
+            </p>
+        </section>
+
+        <section data-reveal>
+            <span class="eyebrow">02 &mdash; Learning</span>
+            <h2 data-etch>Then the work got structured</h2>
+
+            <p>
+                Drawing is self-directed, which means it is also easy to avoid. I needed something
+                with deadlines and other people holding me to them, so I went into structured
+                coursework: HTML and CSS first, then JavaScript, then the parts I had no idea
+                existed, like SQL, PHP, Vue and Node.
+            </p>
+
+            <p>
+                Most of it was unglamorous. Conditionals, loops, functions, arrays, the DOM, error
+                handling, template literals, scope. I did them badly, then redid them. My GitHub is
+                mostly small exercises, and I am not going to pretend otherwise. But you cannot hold
+                up a framework you have not built something small with, and the small things are
+                the ones I remember.
+            </p>
+        </section>
+
+        <section data-reveal>
+            <span class="eyebrow">03 &mdash; Experimentation</span>
+            <h2 data-etch>Projects that taught me the rules by breaking them</h2>
+
+            <p>
+                The <a href="projects.html">Workshop</a> is where the real learning sat. An image
+                gallery that taught me grid and lazy loading. A product store that taught me why
+                consistent spacing matters more than any colour choice. A booking form with a
+                validation bug I did not find until months later.
+            </p>
+
+            <p>
+                Each one looked finished right up until it did not, and each failure was specific
+                and fixable. That is the thing nobody tells you about learning to build: it is
+                mostly diagnosing, not inventing. You get very good at reading an error message and
+                forming a theory about what it means, then being wrong, then forming a better one.
+            </p>
+        </section>
+
+        <section data-reveal>
+            <span class="eyebrow">04 &mdash; The part that changed direction</span>
+            <h2 data-etch>Then I had to make the front end talk to a real database</h2>
+
+            <p>
+                This is where the portfolio stopped being a front-end exercise. On a four-person HR
+                system project I took the employee and performance review modules to the back end:
+                Express routes, controllers, models, MySQL tables, and a JWT sign-in flow, so the
+                pages I had built on the front end were reading live records instead of a JSON file
+                someone had typed in by hand.
+            </p>
+
+            <p>
+                The second team project, WeConnect, tested that on a much bigger scale. It is a B2B
+                marketplace where small businesses order stock from wholesalers, and my part was
+                delivery: the orders, payments and GPS tracking back end, and the pages that drew it
+                on a map. Six hundred commits by four people, and a database behind a managed host
+                that had to be reached over an encrypted connection. Reading somebody else's work is
+                a skill of its own, and it is one I only learned by being buried in it.
+            </p>
+
+            <p>
+                It was a different kind of problem. A bad layout is visible immediately, so you fix
+                it in a minute. A broken query is invisible until the page is empty for a reason you
+                cannot see. Learning to think about what the data is doing, not just what the screen
+                is doing, is the shift I am most grateful for.
+            </p>
+
+            <p>
+                I would still call myself a developer in training. But I know which side of the
+                stack I am drawn to, and I know I would rather build the part nobody sees if it is
+                the part that actually holds.
+            </p>
+        </section>
+
+        <section data-reveal>
+            <span class="eyebrow">05 &mdash; Purpose</span>
+            <h2 data-etch>Why it matters outside the screen</h2>
+
+            <p>
+                I am not building this for a portfolio. I am in church every Sunday and I take that
+                seriously, because what you believe about people shows up in how you treat them.
+                Chess teaches me the same lesson from the other side: you lose gracefully, you do not
+                fold.
+            </p>
+
+            <p>
+                In my community, gender-based violence and femicide are not statistics. They are
+                people. I am involved in awareness work because the argument is simple: this is
+                preventable, and prevention is somebody showing up.
+            </p>
+
+            <p>
+                The part I care about most is talking to younger boys. Not lecturing them, just being
+                honest about treating women well, about safety, about what a healthy attitude toward
+                someone actually looks like. A lot of that is just repetition, which is another thing
+                art taught me before code did.
+            </p>
+
+            <p>
+                Building software is how I contribute to that. Systems that make it easier to do the
+                right thing, or to notice when something is wrong, are worth more to me than anything
+                that is merely impressive.
+            </p>
+        </section>
+
+        <hr class="sketch-rule" data-reveal>
+
+        <section data-reveal>
+            <span class="eyebrow">Off the clock</span>
+            <h2 data-etch>Beyond the screen</h2>
+
+            <p>What fills the time when I am not building something.</p>
+
+            <ul class="sketch-notes">
+                <li>Graphite and charcoal drawing</li>
+                <li>Church, every Sunday</li>
+                <li>Chess</li>
+                <li>Awareness work on GBV and femicide</li>
+                <li>Mentoring younger boys</li>
+                <li>Reading and library visits</li>
+                <li>Physical activity</li>
+            </ul>
+        </section>
+
+        <section class="journey-heading" data-reveal>
+            <span class="eyebrow">The shape of it</span>
+            <h2 data-etch>The journey so far</h2>
+
+            <div class="ruler">
+                <div class="timeline-item">
+                    <strong>Curiosity, on paper</strong>
+                    <p>Years of graphite and charcoal, learning structure, proportion and how to
+                        correct a line.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Structured learning</strong>
+                    <p>HTML, CSS, JavaScript, then the languages I did not know I needed: SQL, PHP,
+                        Vue, Node.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Small projects</strong>
+                    <p>Gallery, store, booking form. Each one broken in a way that taught me
+                        something specific.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Back-end work</strong>
+                    <p>Employee and performance review modules in Express, with routes, controllers
+                        and models separated.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Databases</strong>
+                    <p>MySQL schemas, parameterised queries and delivery data behind a managed host.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Full-stack</strong>
+                    <p>Connecting Vue pages to the WeConnect API and drawing courier locations on a map.</p>
+                </div>
+
+                <div class="timeline-item is-now">
+                    <strong>Purpose</strong>
+                    <p>Building useful systems, continuing to learn, and showing up for my community.</p>
+                </div>
+            </div>
+        </section>
+
+        <section data-reveal>
+            <span class="eyebrow">Next</span>
+            <h2 data-etch>What I am building toward</h2>
+
+            <p>
+                A developer who can hold a whole system in their head, not just a screen. I want to
+                be the person who can take a vague idea, work out what the data needs to look like,
+                and then build the front end and the back end that agree with each other.
+            </p>
+
+            <p>
+                I am not there yet, and I would rather say so plainly than perform something I have
+                not learned. What I can promise is that I keep showing up, I keep correcting, and I
+                would rather build one thing properly than five things halfway.
+            </p>
+        </section>
+
+        <section class="socials" data-reveal>
+            <h3 class="social-title">
+                <i class="fa-solid fa-compass"></i> See the work
+            </h3>
+
+            <p class="social-label">
+                The commit history behind everything described on this page.
+            </p>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank"
+                    rel="noopener noreferrer">
+                    <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="artist-footer">
+        <p class="footer-phrase">
+            Drawn by curiosity.<br>
+            Guided by discipline.
+        </p>
+
+        <p class="footer-signature">
+            <span class="hand">Xabiso Phendu</span><br>
+            <span class="mono">Web developer &middot; Cape Town, South Africa</span>
+        </p>
+
+        <div class="footer-links">
+            <a href="about.html">My Story</a>
+            <a href="skills.html">Toolkit</a>
+            <a href="projects.html">Workshop</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Connect</a>
+        </div>
+
+        <p class="footer-info">
+            <span>&copy; <span class="year">2026</span> Xabiso Phendu</span>
+            <span class="footer-divider">&bull;</span>
+            <span>Full-Stack Developer in Training</span>
+            <span class="footer-divider">&bull;</span>
+            <a href="#top" class="back-to-top">Back to top &uarr;</a>
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
+    <script src="motion.js" defer></script>
 </body>
 
 </html>

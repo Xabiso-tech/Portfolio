@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery &middot; Xabiso Phendu</title>
+    <meta name="description"
+        content="A hanging exhibition of graphite and charcoal studies: landscapes, portraits and architecture, mounted on the studio wall.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>document.documentElement.className = "js-motion";</script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <canvas id="studio-canvas" aria-hidden="true"></canvas>
+
+    <div class="construction" aria-hidden="true">
+        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path
+                d="M120 120 Q800 84 1480 124 Q1512 500 1476 880 Q800 918 128 876 Q96 500 120 120Z" />
+            <path d="M120 120 L1476 880 M120 880 L1476 120" class="c-hatch" />
+            <path d="M120 500 L1480 500" class="c-hatch" />
+            <path d="M800 100 L800 900" class="c-hatch" />
+            <path d="M60 300 Q800 268 1540 302" class="c-hatch" />
+            <path d="M64 700 Q800 732 1536 698" class="c-hatch" />
+            <circle class="c-circle" cx="800" cy="500" r="380" />
+            <circle class="c-circle" cx="800" cy="500" r="300" />
+            <circle class="c-circle" cx="800" cy="500" r="210" />
+            <path d="M120 96 L120 144 M1560 96 L1560 144 M120 856 L120 904 M1560 856 L1560 904" />
+        </svg>
+    </div>
+
+    <div class="grain" aria-hidden="true"></div>
+    <div class="smudge" aria-hidden="true"></div>
+    <div class="cursor-lead" aria-hidden="true"></div>
+    <div class="cursor-trail" aria-hidden="true"></div>
+
+    <div class="page-wipe" id="page-wipe" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 L100 0 L100 100 L0 100 Z" />
+        </svg>
+    </div>
+
+    <header>
+        <nav>
+            <h1><i class="fa-solid fa-circle-half-stroke"></i> Xabiso Phendu</h1>
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
+                <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
+                <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
+                <li><a href="gallery.html" aria-current="page"><i class="fa-regular fa-images"></i> Gallery</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+
+        <div class="exhibit-hero">
+            <span class="eyebrow" data-reveal>The wall</span>
+            <h2 data-etch>Twelve studies, hung where I left them</h2>
+            <p class="toolkit-intro" data-reveal>
+                Charcoal, graphite, and whatever board was to hand. This is where I get to work
+                without a client telling me what the drawing is supposed to say.
+            </p>
+        </div>
+
+        <div class="filter-set" data-filter-set role="group" aria-label="Filter the studies by category">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="landscape" aria-pressed="false">Landscapes</button>
+            <button type="button" data-filter="portrait" aria-pressed="false">Portraits</button>
+            <button type="button" data-filter="architecture" aria-pressed="false">Architecture</button>
+        </div>
+        <p class="filter-status" id="filter-status" role="status">All 12 studies on the wall.</p>
+
+        <div class="wall" data-reveal>
+
+            <figure class="exhibit" data-cat="landscape">
+                <div class="plate" data-plate style="--plate-ratio: 735 / 490">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/mountain-lake.jpg" width="735" height="490"
+                            loading="lazy" decoding="async"
+                            alt="A mountain lake landscape, drawn in charcoal, reflected in still water.">
+                    </div>
+                    <span class="plate-note is-right">the quiet part</span>
+                </div>
+                <figcaption>
+                    <h3>Lake and mountain</h3>
+                    <span class="cat">Landscapes</span>
+                </figcaption>
+                <p class="note">Echoes of the mountain lake.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="portrait">
+                <div class="plate" data-plate style="--plate-ratio: 736 / 923">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/freckles.jpg" width="736" height="923"
+                            loading="lazy" decoding="async"
+                            alt="A charcoal portrait study of a face, leaving the freckles in rather than smoothing them out.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Freckles</h3>
+                    <span class="cat">Portraits</span>
+                </figcaption>
+                <p class="note">A study in texture. I left them in.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="architecture">
+                <div class="plate" data-plate style="--plate-ratio: 735 / 999">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/city.jpg" width="735" height="999"
+                            loading="lazy" decoding="async"
+                            alt="A dense city skyline drawn from below, the buildings stacked vertically.">
+                    </div>
+                    <span class="plate-note is-left">weight</span>
+                </div>
+                <figcaption>
+                    <h3>City structure</h3>
+                    <span class="cat">Architecture</span>
+                </figcaption>
+                <p class="note">Vertical city, drawn for the weight of it.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="landscape">
+                <div class="plate" data-plate style="--plate-ratio: 736 / 414">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/sunrise.jpg" width="736" height="414"
+                            loading="lazy" decoding="async"
+                            alt="Sunrise over Table Mountain in South Africa, drawn in soft charcoal.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Table Mountain</h3>
+                    <span class="cat">Landscapes</span>
+                </figcaption>
+                <p class="note">Home, at the wrong hour.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="portrait">
+                <div class="plate" data-plate style="--plate-ratio: 736 / 1055">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/lady.jpg" width="736" height="1055"
+                            loading="lazy" decoding="async"
+                            alt="A charcoal portrait of a young woman in soft, low-contrast shading.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Charcoal portrait</h3>
+                    <span class="cat">Portraits</span>
+                </figcaption>
+                <p class="note">Mostly edges, very little line.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="architecture">
+                <div class="plate" data-plate style="--plate-ratio: 640 / 430">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/lake-bridge.jpg" width="640" height="430"
+                            loading="lazy" decoding="async"
+                            alt="A modern bridge structure spanning a lake, drawn in graphite.">
+                    </div>
+                    <span class="plate-note is-right">engineering as composition</span>
+                </div>
+                <figcaption>
+                    <h3>Lake bridge</h3>
+                    <span class="cat">Architecture</span>
+                </figcaption>
+                <p class="note">Where the engineering becomes the composition.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="landscape">
+                <div class="plate" data-plate style="--plate-ratio: 735 / 413">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/torii.jpg" width="735" height="413"
+                            loading="lazy" decoding="async"
+                            alt="A torii gate at dusk with Mount Fuji standing behind it.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Mount Fuji</h3>
+                    <span class="cat">Landscapes</span>
+                </figcaption>
+                <p class="note">The gate first, the mountain second.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="portrait">
+                <div class="plate" data-plate style="--plate-ratio: 736 / 852">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/student.jpg" width="736" height="852"
+                            loading="lazy" decoding="async"
+                            alt="A studio portrait of a teenage student, lit from one side.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Portrait study</h3>
+                    <span class="cat">Portraits</span>
+                </figcaption>
+                <p class="note">One lamp, one side of the face.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="architecture">
+                <div class="plate" data-plate style="--plate-ratio: 736 / 736">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/rome.jpg" width="736" height="736"
+                            loading="lazy" decoding="async"
+                            alt="The Colosseum in Rome lit by warm low sunlight.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Colosseum, Rome</h3>
+                    <span class="cat">Architecture</span>
+                </figcaption>
+                <p class="note">Stone, in the warmth of low sun.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="landscape">
+                <div class="plate" data-plate style="--plate-ratio: 736 / 415">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/greatwall.jpg" width="736" height="415"
+                            loading="lazy" decoding="async"
+                            alt="The Great Wall of China following the line of a ridge in sunlight.">
+                    </div>
+                    <span class="plate-note is-left">follow the ridge</span>
+                </div>
+                <figcaption>
+                    <h3>The Great Wall</h3>
+                    <span class="cat">Landscapes</span>
+                </figcaption>
+                <p class="note">The wall simply follows the ridge.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="portrait">
+                <div class="plate" data-plate style="--plate-ratio: 735 / 985">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/portrait-1.jpg" width="735" height="985"
+                            loading="lazy" decoding="async"
+                            alt="A graphite portrait of a smiling woman, the highlight left as bare paper.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Graphite portrait</h3>
+                    <span class="cat">Portraits</span>
+                </figcaption>
+                <p class="note">The highlight is bare paper. Nothing more.</p>
+            </figure>
+
+            <figure class="exhibit" data-cat="architecture">
+                <div class="plate" data-plate style="--plate-ratio: 735 / 490">
+                    <div class="plate-stage">
+                        <img class="plate-img" src="projects/my-gallery/church.jpg" width="735" height="490"
+                            loading="lazy" decoding="async"
+                            alt="Historic church architecture and stonework in raking light.">
+                    </div>
+                </div>
+                <figcaption>
+                    <h3>Ancient church</h3>
+                    <span class="cat">Architecture</span>
+                </figcaption>
+                <p class="note">Symmetry, and a very long shadow.</p>
+            </figure>
+
+        </div>
+
+        <p class="exhibit-note" data-reveal>
+            The filter is a convenience, not a requirement: with scripting off, every study stays
+            on the wall. Each plate holds the proportion it was drawn at, and each carries the
+            construction frame it was measured inside.
+        </p>
+
+        <p class="exhibit-note" data-reveal>
+            <a class="note-btn" href="projects.html">See the workshop <small>(the working files)</small></a>
+        </p>
+
+    </main>
+
+    <footer class="artist-footer">
+        <p class="footer-phrase">
+            Drawn slowly.<br>
+            Built to last.
+        </p>
+
+        <p class="footer-signature">
+            <span class="hand">Xabiso Phendu</span><br>
+            <span class="mono">Web developer &middot; Cape Town, South Africa</span>
+        </p>
+
+        <div class="footer-links">
+            <a href="about.html">My Story</a>
+            <a href="skills.html">Toolkit</a>
+            <a href="projects.html">Workshop</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Connect</a>
+        </div>
+
+        <p class="footer-info">
+            <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank"
+                rel="noopener noreferrer">LinkedIn</a>
+        </p>
+
+        <p class="footer-info">
+            &copy; <span class="year">2026</span> Xabiso Phendu &middot; every mark on this site was placed by hand
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
+    <script src="motion.js" defer></script>
+</body>
+
+</html>

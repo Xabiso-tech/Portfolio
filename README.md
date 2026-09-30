@@ -20,10 +20,11 @@ Static HTML, CSS and vanilla JavaScript. No build step, no framework, no bundler
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Home. A ~4.2 second pencil-drawing entrance, then who I am and where to go next. |
+| `index.html` | Home. A ~4.9 second pencil-drawing entrance, then who I am and where to go next. |
 | `about.html` | My Story. Where I started, what I actually work on, and what I care about outside it. |
 | `skills.html` | The Toolkit. Skills at honest levels, each one tied to something I built. |
 | `projects.html` | The Workshop. Two full-stack team projects, then the smaller front-end studies. |
+| `gallery.html` | The Gallery. Twelve graphite and charcoal studies with category filters. |
 | `contact.html` | Let's Connect. How to reach me, and which repository to read first. |
 
 Nested inside `projects/`:
@@ -33,7 +34,7 @@ Nested inside `projects/`:
 | `premium-car-products/` | AutoVault. A four-page Bootstrap 5.3 catalogue. |
 | `tech-gaming-products/` | NovaTech. A gaming hardware showcase with no framework. |
 | `booking-form/` | A form and schedule study with both of its known bugs fixed. |
-| `my-gallery/` | A filtering image gallery. |
+| `my-gallery/` | The original CSS-only filtering image gallery and its twelve image studies. |
 
 ---
 
@@ -57,7 +58,9 @@ and payroll. I built the employee and performance review back end, then rewired 
 matching front-end pages to read from it. Express 5, MySQL via `mysql2`, JWT, bcrypt, with
 routes, controllers, models and middleware kept in separate layers.
 
-Repository: [nikitamullerr/Group-4_HRSystem_Project2](https://github.com/nikitamullerr/Group-4_HRSystem_Project2)
+Live demo: [HR Tech Solutions](https://nikitamullerr.github.io/HR_System-Group-4/)
+
+Source: [nikitamullerr/Group-4_HRSystem_Project2](https://github.com/nikitamullerr/Group-4_HRSystem_Project2)
 
 **WeConnect**
 
@@ -67,7 +70,9 @@ end, the Leaflet map that draws a courier's last known position, and the locatio
 workflow that confirms pickup and destination before dispatch. Express 5 and MySQL over
 SSL behind a managed host, with a Vue 3 and Vite front end.
 
-Repository: [zahraamoerat/Project-3-E-Commerce1](https://github.com/zahraamoerat/Project-3-E-Commerce1)
+Live: [WeConnect](https://weconnect-bir9.onrender.com/landing) · [Admin](https://weconnect-admin4.onrender.com/)
+
+Source: [zahraamoerat/Project-3-E-Commerce1](https://github.com/zahraamoerat/Project-3-E-Commerce1)
 
 ---
 
@@ -85,19 +90,19 @@ sketched rules are SVG or CSS, so the look costs no image requests and no extra 
 The home page runs a pencil that draws the opening line, roughly 4.2 seconds, then lifts
 away to reveal the page. It is decorative and it is not in the way:
 
-- A skip control is keyboard reachable, and any key, click or scroll jumps straight past it.
+- The skip control is keyboard reachable; Escape, Enter, Space or its button skips the drawing.
 - A 6 second failsafe removes it even if the script never finishes.
 - Entrance states are only applied when scripting is available, so the page is fully
   readable with JavaScript off.
 - `prefers-reduced-motion: reduce` skips the drawing entirely and shows the page directly.
 - Every interactive control is keyboard reachable, with visible focus.
-- The gallery filters are real radio inputs, visually hidden but still focusable, so they
-  work with a keyboard and a screen reader.
+- The main gallery uses buttons with `aria-pressed` state and a live result count. The original
+  project study uses focusable radio inputs and CSS-only filtering.
 - Decorative art is `aria-hidden`; the Bootstrap carousel has controls and does not
   auto-rotate.
 
-Forms on this site are labelled honestly. The two study forms have no server behind them,
-so their buttons are disabled and say so, rather than pretending to submit.
+The form studies have no server behind them. AutoVault's contact action is disabled; the
+booking study demonstrates client-side form controls and does not send data to a service.
 
 ---
 
