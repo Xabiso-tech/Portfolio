@@ -71,8 +71,19 @@ Only dependencies already selected by the interrupted implementation are used.
 
 ## Git and deployment status
 
-Implementation is validated locally. Commit/push outcome is recorded below after
-attempting the authorized Git operations. No remote merge/deployment is yet verified.
+Implementation is validated and committed locally on techstament-redesign:
+
+- b1cc172 ? Complete cinematic TECHSTAMENT and accessible manuscript experience.
+- 8556a11 ? Verify manuscript journey and configure GitHub Pages deployment.
+- A subsequent documentation commit records the final push outcome below.
+
+The authorized git push -u origin techstament-redesign failed:
+"could not read Username for 'https://github.com': terminal prompts disabled".
+Git Credential Manager also failed to supply credentials when inspected outside
+the sandbox. No commits were pushed, no main merge occurred, and no deployment
+was performed. main and origin/main remain at 53c9e56. The working tree is clean
+after this progress update is committed. Do not bypass branch protections or
+force-push. Authenticate before continuing the remote workflow.
 The current public URL returns 200 but serves the older portfolio:
 https://xabiso-tech.github.io/Portfolio/
 
