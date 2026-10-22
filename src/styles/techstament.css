@@ -1,0 +1,700 @@
+
+/* ==========================================================
+   TECH'STAMENT — CINEMATIC DESIGN SYSTEM
+   Faith • Code • Testimony
+   ========================================================== */
+
+/* ---------- 1. DESIGN TOKENS ---------- */
+
+:root {
+  --ts-bg: #100b0d;
+  --ts-burgundy: #351c24;
+  --ts-burgundy-deep: #211117;
+  --ts-leather: #4b2530;
+
+  --ts-gold: #c5a46a;
+  --ts-gold-light: #f1d9a0;
+  --ts-gold-dark: #80613b;
+
+  --ts-parchment: #f3e7ce;
+  --ts-parchment-dark: #d9c5a1;
+
+  --ts-ink: #211c1b;
+  --ts-muted: #b9a895;
+
+  --ts-font-display: "Cinzel", Georgia, serif;
+  --ts-font-literary: "Cormorant Garamond", Georgia, serif;
+  --ts-font-body: "Inter", Arial, sans-serif;
+
+  --ts-ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ts-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- 2. RESET ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ts-bg);
+  color: var(--ts-parchment);
+  font-family: var(--ts-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ts-gold-light);
+  outline-offset: 5px;
+}
+
+::selection {
+  background: var(--ts-gold);
+  color: var(--ts-ink);
+}
+
+/* ---------- 3. ACCESSIBILITY ---------- */
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 1000;
+  padding: 12px 20px;
+  background: var(--ts-parchment);
+  color: var(--ts-ink);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 20px;
+}
+
+/* ---------- 4. INTRODUCTION ---------- */
+
+.intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100svh;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 42%,
+      rgba(91, 43, 43, 0.33),
+      transparent 54%
+    ),
+    linear-gradient(
+      160deg,
+      #211116 0%,
+      #120c0e 52%,
+      #080607 100%
+    );
+}
+
+/* ---------- 5. ATMOSPHERE ---------- */
+
+.intro-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  max-width: 950px;
+  max-height: 950px;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(198, 139, 68, 0.14) 0%,
+    rgba(113, 49, 45, 0.08) 36%,
+    transparent 70%
+  );
+  filter: blur(45px);
+  animation: ts-glow 9s ease-in-out infinite alternate;
+}
+
+.ambient-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 25%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.film-grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@keyframes ts-glow {
+  from {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
+
+/* ---------- 6. HEADER ---------- */
+
+.intro-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 28px clamp(20px, 5vw, 90px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-cross {
+  color: var(--ts-gold);
+  font-size: 25px;
+  line-height: 1;
+}
+
+.brand-name {
+  color: var(--ts-gold-light);
+  font-family: var(--ts-font-display);
+  font-size: clamp(12px, 1.1vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 42px);
+}
+
+.sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  padding: 10px 0;
+  background: transparent;
+  color: var(--ts-muted);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sound-toggle:hover,
+.skip-intro:hover {
+  color: var(--ts-gold-light);
+}
+
+.sound-icon {
+  font-size: 19px;
+}
+
+.sound-label,
+.skip-intro {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.skip-intro {
+  color: var(--ts-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* ---------- 7. INTRO TITLE ---------- */
+
+.intro-title {
+  position: relative;
+  z-index: 3;
+  margin-top: clamp(12px, 3vh, 38px);
+  padding: 0 20px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.intro-eyebrow {
+  margin: 0 0 12px;
+  color: var(--ts-gold);
+  font-size: clamp(9px, 0.85vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+}
+
+.intro-title h1 {
+  margin: 0;
+  font-family: var(--ts-font-display);
+  font-size: clamp(42px, 7vw, 112px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-shadow: 0 6px 35px rgba(0, 0, 0, 0.4);
+}
+
+.title-first {
+  color: var(--ts-parchment);
+}
+
+.title-second {
+  color: var(--ts-gold);
+}
+
+.intro-subtitle {
+  margin: 16px 0 0;
+  color: var(--ts-parchment-dark);
+  font-family: var(--ts-font-literary);
+  font-size: clamp(18px, 2.1vw, 28px);
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- 8. THREE.JS BOOK CANVAS ---------- */
+
+.book-canvas {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 1300px);
+  height: clamp(350px, 53vh, 660px);
+  flex-shrink: 0;
+  margin-top: -10px;
+  overflow: hidden;
+}
+
+.book-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+/* ---------- 9. OPEN TESTAMENT BUTTON ---------- */
+
+.intro-actions {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin: -12px 0 50px;
+  padding: 0 20px;
+}
+
+.open-testament {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  min-height: 64px;
+  padding: 19px 38px;
+  border: 1px solid var(--ts-gold);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(173, 125, 66, 0.12),
+      rgba(53, 28, 36, 0.75)
+    );
+  color: var(--ts-gold-light);
+  font-family: var(--ts-font-display);
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 20px rgba(197, 164, 106, 0.05),
+    0 12px 45px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.4s var(--ts-ease-cinematic),
+    box-shadow 0.4s ease,
+    background 0.4s ease;
+}
+
+.open-testament::before,
+.open-testament::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ts-gold);
+  transform: rotate(45deg);
+}
+
+.open-testament::before {
+  top: -5px;
+  left: -5px;
+}
+
+.open-testament::after {
+  bottom: -5px;
+  right: -5px;
+}
+
+.open-testament:hover {
+  transform: translateY(-4px);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(197, 164, 106, 0.26),
+      rgba(53, 28, 36, 0.9)
+    );
+  box-shadow:
+    0 0 35px rgba(197, 164, 106, 0.15),
+    0 18px 55px rgba(0, 0, 0, 0.45);
+}
+
+.open-testament:active {
+  transform: translateY(-1px);
+}
+
+.button-ornament {
+  color: var(--ts-gold);
+  font-size: 14px;
+}
+
+.interaction-hint {
+  margin: 0;
+  color: var(--ts-muted);
+  font-family: var(--ts-font-literary);
+  font-size: 17px;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- 10. INTRO FOOTER ---------- */
+
+.intro-footer {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 20px clamp(20px, 5vw, 90px) 28px;
+  color: rgba(217, 197, 161, 0.55);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+/* ---------- 11. PORTFOLIO SECTION ---------- */
+
+.portfolio {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(90px, 12vw, 160px) 24px;
+  background:
+    radial-gradient(
+      ellipse at top,
+      rgba(197, 164, 106, 0.15),
+      transparent 50%
+    ),
+    linear-gradient(
+      180deg,
+      #2d1c1d 0%,
+      #160f11 100%
+    );
+}
+
+.portfolio::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(70%, 700px);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ts-gold),
+    transparent
+  );
+}
+
+.portfolio-inner {
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.chapter-label {
+  margin: 0 0 18px;
+  color: var(--ts-gold);
+  font-family: var(--ts-font-display);
+  font-size: 12px;
+  letter-spacing: 0.35em;
+}
+
+.portfolio h2 {
+  margin: 0;
+  color: var(--ts-parchment);
+  font-family: var(--ts-font-literary);
+  font-size: clamp(44px, 6vw, 82px);
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.portfolio-introduction {
+  max-width: 690px;
+  margin: 30px auto 60px;
+  color: var(--ts-parchment-dark);
+  font-family: var(--ts-font-literary);
+  font-size: clamp(21px, 2.1vw, 28px);
+  line-height: 1.55;
+}
+
+/* ---------- 12. CHAPTER NAVIGATION ---------- */
+
+.chapter-navigation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  text-align: left;
+}
+
+.chapter-navigation a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 100px;
+  padding: 24px 30px;
+  border: 1px solid rgba(197, 164, 106, 0.25);
+  background: rgba(255, 248, 233, 0.035);
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.chapter-navigation a::after {
+  content: "→";
+  position: absolute;
+  right: 25px;
+  color: var(--ts-gold);
+  font-size: 23px;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+.chapter-navigation a:hover {
+  transform: translateY(-4px);
+  border-color: rgba(197, 164, 106, 0.65);
+  background: rgba(197, 164, 106, 0.08);
+}
+
+.chapter-navigation a:hover::after {
+  transform: translateX(5px);
+}
+
+.chapter-number {
+  color: var(--ts-gold);
+  font-family: var(--ts-font-literary);
+  font-size: 37px;
+  font-weight: 600;
+}
+
+.chapter-name {
+  padding-right: 30px;
+  color: var(--ts-parchment);
+  font-family: var(--ts-font-display);
+  font-size: clamp(12px, 1.2vw, 16px);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- 13. SCRIPTURE ---------- */
+
+.closing-scripture {
+  max-width: 700px;
+  margin: 100px auto 0;
+  padding: 45px 25px 0;
+  border-top: 1px solid rgba(197, 164, 106, 0.3);
+}
+
+.closing-scripture p {
+  margin: 0 0 18px;
+  color: var(--ts-parchment);
+  font-family: var(--ts-font-literary);
+  font-size: clamp(25px, 3vw, 38px);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.closing-scripture cite {
+  color: var(--ts-gold);
+  font-family: var(--ts-font-display);
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- 14. RESPONSIVE LAYOUT ---------- */
+
+@media (max-width: 768px) {
+  .intro-header {
+    padding: 22px 20px;
+  }
+
+  .brand-name {
+    font-size: 12px;
+    letter-spacing: 0.07em;
+  }
+
+  .header-controls {
+    gap: 15px;
+  }
+
+  .sound-label {
+    display: none;
+  }
+
+  .intro-title {
+    margin-top: 35px;
+  }
+
+  .intro-eyebrow {
+    letter-spacing: 0.18em;
+  }
+
+  .intro-title h1 {
+    font-size: clamp(35px, 8vw, 60px);
+    letter-spacing: 0.02em;
+  }
+
+  .book-canvas {
+    height: 43vh;
+    min-height: 300px;
+    margin-top: 0;
+  }
+
+  .intro-actions {
+    margin: 0 0 35px;
+  }
+
+  .open-testament {
+    min-height: 58px;
+    padding: 16px 22px;
+    gap: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .intro-footer {
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .intro-footer span:not(:first-child) {
+    display: none;
+  }
+
+  .chapter-navigation {
+    grid-template-columns: 1fr;
+  }
+
+  .chapter-navigation a {
+    min-height: 85px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand-cross {
+    font-size: 19px;
+  }
+
+  .brand-name {
+    font-size: 10px;
+  }
+
+  .skip-intro {
+    font-size: 9px;
+  }
+
+  .intro-subtitle {
+    font-size: 18px;
+  }
+
+  .book-canvas {
+    min-height: 270px;
+    height: 38vh;
+  }
+
+  .interaction-hint {
+    font-size: 15px;
+  }
+
+  .portfolio {
+    padding: 80px 18px;
+  }
+
+  .chapter-navigation a {
+    padding: 20px;
+  }
+}
+
+/* ---------- 15. REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .ambient-glow {
+    animation: none;
+  }
+}
