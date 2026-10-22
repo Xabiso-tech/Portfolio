@@ -1,0 +1,9 @@
+/* Validate static links under the real GitHub Pages subpath. */
+const fs=require('fs'),path=require('path'),assert=require('assert'),cp=require('child_process');
+const root=path.resolve(__dirname,'..');let files=[];
+function walk(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){if(['node_modules','.git','.qa'].includes(entry.name))continue;const p=path.join(dir,entry.name);if(entry.isDirectory())walk(p);else files.push(p);}}walk(root);
+let checked=0;for(const file of files.filter(p=>p.endsWith('.html'))){const s=fs.readFileSync(file,'utf8');const ids=new Set([...s.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));for(const match of s.matchAll(/(?:href|src)="([^"]+)"/g)){let url=match[1].replaceAll('&amp;','&');if(/^(https?:|mailto:|tel:|data:)/i.test(url))continue;url=url.split('?')[0];const [p,hash]=url.split('#');assert(!p.startsWith('/'),'Root-relative URL: '+file+' '+url);const target=p?path.resolve(path.dirname(file),decodeURIComponent(p)):file;assert(fs.existsSync(target),'Missing '+url+' in '+file);if(hash&&path.extname(target)==='.html'){const content=fs.readFileSync(target,'utf8');assert(content.includes('id="'+hash+'"'),'Missing anchor '+url+' in '+file);}checked++;}
+const allIds=[...s.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.size,allIds.length,'Duplicate IDs in '+file);}
+for(const name of ['motion.js','theme.js','sketchbook.js','drafting-table.js'])cp.execFileSync(process.execPath,['--check',path.join(root,name)]);
+const home=fs.readFileSync(path.join(root,'index.html'),'utf8');assert(home.includes('Impediment to action advances action. What stands in the way becomes the way.'));assert(home.includes('class="testimonials" hidden'));
+console.log('PASS: '+checked+' local references, unique HTML IDs, full quotation, hidden testimonials and JavaScript syntax.');

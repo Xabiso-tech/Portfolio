@@ -1,253 +1,981 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xabiso Phendu &middot; Full-Stack Web Developer</title>
-    <meta name="description"
-        content="Xabiso Phendu is a full-stack web developer from Cape Town, building responsive interfaces and practical web applications with frontend, backend and database technologies.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=d0d9e70">
-    <script>document.documentElement.className = "js-motion";</script>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Xabiso Phendu | The Living Sketchbook</title>
+
+  <meta name="description"
+        content="Explore the living sketchbook of Xabiso Phendu, a full-stack web developer from Cape Town.">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Typography: editorial serif, handwritten notes, technical labels. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Existing design and the new sketchbook foundation. -->
+  <link rel="stylesheet" href="style.css?v=sketchbook-1">
+  <link rel="stylesheet" href="sketchbook.css">
+
+  <script>
+    document.documentElement.classList.add("js-motion");
+  </script>
+
+  <!-- Apply the saved light/dark preference before rendering. -->
+  <script src="theme.js"></script>
+
+  <!-- Homepage-specific cinematic composition. -->
+  <style>
+    .living-home {
+      --page-ivory: #f5f0e6;
+      --pencil-ink: #39352f;
+      --warm-accent: #b56e4e;
+    }
+
+    /* The first spread feels like two physical book pages. */
+    .living-home .opening-spread {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 5vw, 5rem);
+      min-height: min(760px, 85svh);
+      padding: clamp(3rem, 6vw, 6rem)
+               clamp(1.2rem, 4vw, 4rem);
+      isolation: isolate;
+    }
+
+    .living-home .opening-spread::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(
+          90deg,
+          transparent 49.7%,
+          rgba(64, 55, 45, .13) 50%,
+          transparent 50.4%
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0 32px,
+          rgba(65, 55, 42, .035) 33px
+        ),
+        var(--paper, var(--page-ivory));
+      border-radius: 8px 16px 16px 8px;
+      box-shadow:
+        0 26px 70px rgba(45, 35, 23, .16),
+        inset 14px 0 24px rgba(65, 50, 30, .06);
+    }
+
+    .living-home .opening-spread::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 49.8%;
+      z-index: -1;
+      width: 14px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(52, 42, 31, .09),
+        transparent
+      );
+      pointer-events: none;
+    }
+
+    .living-home .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .living-home .hero-title {
+      margin: .5rem 0 1.4rem;
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: .91;
+      letter-spacing: -.055em;
+    }
+
+    .living-home .hero-title em {
+      color: var(--warm-accent);
+      font-weight: 450;
+    }
+
+    .living-home .hero-description {
+      max-width: 36ch;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    }
+
+    .living-home .developer-label {
+      font-family: var(--mono, monospace);
+      font-size: .73rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .living-home .hero-art {
+      position: relative;
+      margin: 0;
+      min-height: 480px;
+      display: grid;
+      place-items: center;
+      overflow: visible;
+      cursor: crosshair;
+    }
+
+    /* An original vector drawing: no external image needed. */
+    .living-home .architectural-drawing {
+      width: 100%;
+      max-width: 650px;
+      overflow: visible;
+      filter: drop-shadow(0 16px 12px rgba(40, 32, 24, .08));
+    }
+
+    .architectural-drawing .construction-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: .65;
+      stroke-dasharray: 5 9;
+      opacity: .22;
+    }
+
+    .architectural-drawing .pencil-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .architectural-drawing .fine-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: .9;
+      stroke-linecap: round;
+      opacity: .65;
+    }
+
+    .architectural-drawing .hatch-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: .85;
+      opacity: .38;
+    }
+
+    .architectural-drawing .accent-line {
+      fill: none;
+      stroke: var(--warm-accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    /* Draw the main outlines progressively on first reveal. */
+    .js-motion .architectural-drawing .pencil-line {
+      stroke-dasharray: 1600;
+      stroke-dashoffset: 1600;
+      animation: pencil-reveal 3.4s ease forwards;
+    }
+
+    .js-motion .architectural-drawing .fine-line {
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: pencil-reveal 2.6s ease 1s forwards;
+    }
+
+    .js-motion .architectural-drawing .hatch-line {
+      opacity: 0;
+      animation: hatching-reveal 1.2s ease 2.4s forwards;
+    }
+
+    @keyframes pencil-reveal {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes hatching-reveal {
+      to { opacity: .38; }
+    }
+
+    .living-home .drawing-note {
+      position: absolute;
+      font-family: var(--hand, cursive);
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      color: var(--warm-accent);
+      pointer-events: none;
+      transform: rotate(-6deg);
+    }
+
+    .living-home .note-top {
+      top: 7%;
+      right: -2%;
+    }
+
+    .living-home .note-bottom {
+      bottom: 14%;
+      left: -2%;
+      transform: rotate(4deg);
+    }
+
+    .living-home .art-caption {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      font: .65rem/1.6 var(--mono, monospace);
+      letter-spacing: .08em;
+      opacity: .65;
+    }
+
+    .living-home .spread-folio {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(70, 55, 40, .18);
+      font: .62rem var(--mono, monospace);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .living-home .chapter-intro {
+      position: relative;
+      max-width: 760px;
+      margin: clamp(5rem, 10vw, 9rem) auto;
+      text-align: center;
+    }
+
+    .living-home .chapter-intro::before {
+      content: "✳";
+      display: block;
+      margin-bottom: 1rem;
+      font-size: 2.3rem;
+      color: var(--warm-accent);
+    }
+
+    .living-home .project-diptych {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1.2rem, 3vw, 2.8rem);
+      margin-top: 2rem;
+    }
+
+    .living-home .project-sheet {
+      position: relative;
+      display: block;
+      min-height: 340px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      background: var(--paper, #f8f4eb);
+      border: 1px solid rgba(75, 60, 45, .22);
+      box-shadow: 5px 9px 0 rgba(90, 72, 50, .06);
+      transform: rotate(var(--sheet-rotation, -1deg));
+      transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+    }
+
+    .living-home .project-sheet:nth-child(2) {
+      --sheet-rotation: 1.4deg;
+    }
+
+    .living-home .project-sheet:hover {
+      transform: rotate(0deg) translateY(-8px);
+      box-shadow: 8px 18px 25px rgba(75, 55, 30, .12);
+    }
+
+    .living-home .project-sheet::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 42%;
+      width: 75px;
+      height: 24px;
+      background: rgba(187, 148, 91, .25);
+      transform: rotate(-4deg);
+    }
+
+    .living-home .project-sheet h3 {
+      margin: 1.5rem 0 .9rem;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+    }
+
+    .living-home .project-sheet .hand {
+      display: block;
+      margin-top: 2rem;
+    }
+
+    .living-home .technical-annotation {
+      display: block;
+      font: .65rem/1.6 var(--mono, monospace);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: .65;
+    }
+
+    .living-home .sketch-divider {
+      width: 100%;
+      height: 90px;
+      margin: 2rem 0;
+      overflow: visible;
+    }
+
+    .living-home .sketch-divider path {
+      fill: none;
+      stroke: var(--warm-accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 1400;
+      stroke-dashoffset: 1400;
+      transition: stroke-dashoffset 2s ease;
+    }
+
+    .living-home .sketch-divider.is-drawn path {
+      stroke-dashoffset: 0;
+    }
+
+    @media (max-width: 800px) {
+      .living-home .opening-spread,
+      .living-home .project-diptych {
+        grid-template-columns: 1fr;
+      }
+
+      .living-home .opening-spread {
+        min-height: auto;
+      }
+
+      .living-home .opening-spread::before {
+        background: var(--paper, var(--page-ivory));
+      }
+
+      .living-home .opening-spread::after {
+        display: none;
+      }
+
+      .living-home .hero-art {
+        min-height: 330px;
+      }
+
+      .living-home .spread-folio {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js-motion .architectural-drawing .pencil-line,
+      .js-motion .architectural-drawing .fine-line {
+        animation: none;
+        stroke-dashoffset: 0;
+      }
+
+      .js-motion .architectural-drawing .hatch-line {
+        animation: none;
+        opacity: .38;
+      }
+
+      .living-home .project-sheet {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
-<body>
-    <a class="skip-link" href="#main">Skip to content</a>
+<body id="top" class="living-home">
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
 
-    <!-- the studio: dust, construction lines, grain, and the hand -->
-    <canvas id="studio-canvas" aria-hidden="true"></canvas>
+  <!-- Existing atmospheric background layers. -->
+  <canvas id="studio-canvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="smudge" aria-hidden="true"></div>
+  <div class="cursor-lead" aria-hidden="true"></div>
+  <div class="cursor-trail" aria-hidden="true"></div>
 
-    <div class="construction" aria-hidden="true">
-        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path
-                d="M120 120 Q800 84 1480 124 Q1512 500 1476 880 Q800 918 128 876 Q96 500 120 120Z" />
-            <path d="M120 120 L1476 880 M120 880 L1476 120" class="c-hatch" />
-            <path d="M120 500 L1480 500" class="c-hatch" />
-            <path d="M800 100 L800 900" class="c-hatch" />
-            <path d="M60 300 Q800 268 1540 302" class="c-hatch" />
-            <path d="M64 700 Q800 732 1536 698" class="c-hatch" />
-            <circle class="c-circle" cx="800" cy="500" r="380" />
-            <circle class="c-circle" cx="800" cy="500" r="300" />
-            <circle class="c-circle" cx="800" cy="500" r="210" />
-            <path d="M120 96 L120 144 M1560 96 L1560 144 M120 856 L120 904 M1560 856 L1560 904" />
+  <div class="page-wipe"
+       id="page-wipe"
+       aria-hidden="true">
+    <svg viewBox="0 0 100 100"
+         preserveAspectRatio="none">
+      <path d="M0 0H100V100H0Z"></path>
+    </svg>
+  </div>
+
+  <!-- First-visit sketchbook cover. -->
+  <dialog class="book-cover"
+          id="book-cover"
+          aria-labelledby="cover-title">
+
+    <div class="cover-binding" aria-hidden="true"></div>
+
+    <span class="eyebrow">
+      Volume 01 / A developer's illustrated journey
+    </span>
+
+    <p class="cover-name" id="cover-title">
+      The Living<br>
+      <em>Sketchbook.</em>
+    </p>
+
+    <p class="cover-subtitle">
+      XABISO PHENDU · FULL-STACK WEB DEVELOPER
+    </p>
+
+    <p class="hand">
+      Every great application begins with a first line.
+    </p>
+
+    <svg class="cover-strokes"
+         viewBox="0 0 700 100"
+         aria-hidden="true">
+      <path
+        d="M20 70 Q210 14 670 55
+           M30 80 Q360 30 655 64
+           M80 93 L620 30">
+      </path>
+    </svg>
+
+    <blockquote>
+      Impediment to action advances action.
+      What stands in the way becomes the way.
+      <cite>— Marcus Aurelius</cite>
+    </blockquote>
+
+    <button class="ink-btn"
+            type="button"
+            data-open-book>
+      Open the sketchbook ↗
+    </button>
+
+    <button class="cover-skip"
+            type="button"
+            data-open-book>
+      Skip introduction
+    </button>
+  </dialog>
+
+  <!-- Main chapter navigation. -->
+  <header>
+    <nav aria-label="Main navigation">
+      <h1>
+        <a href="index.html">Xabiso Phendu</a>
+      </h1>
+
+      <ul>
+        <li>
+          <a href="index.html" aria-current="page">Home</a>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Toolkit</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li class="nav-gallery">
+          <a href="gallery.html">Gallery</a>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <button
+        class="theme-toggle"
+        type="button"
+        aria-label="Switch to midnight sketchbook"
+        aria-pressed="false"
+        hidden>
+        ◐ <span>Midnight paper</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main" data-page="home" tabindex="-1">
+
+    <!-- CHAPTER I: THE FIRST STROKE -->
+    <section id="home" class="opening-spread">
+
+      <div class="hero-copy">
+        <span class="eyebrow">
+          Chapter I / The First Stroke
+        </span>
+
+        <p class="hand hero-kicker">
+          Somewhere between an idea and a possibility...
+        </p>
+
+        <h2 class="hero-title">
+          Xabiso<br>
+          <em>Phendu.</em>
+        </h2>
+
+        <p class="developer-label">
+          Full-Stack Web Developer
+        </p>
+
+        <p class="hero-description">
+          I take ideas from their first rough sketches
+          to responsive interfaces, connected systems
+          and working software.
+        </p>
+
+        <div class="hero-actions">
+          <a class="ink-btn" href="projects.html">
+            Explore my work ↗
+          </a>
+
+          <a class="note-btn" href="about.html">
+            Read my story
+          </a>
+        </div>
+
+        <div class="hero-location">
+          <span class="location-dot" aria-hidden="true"></span>
+          Cape Town, South Africa
+        </div>
+      </div>
+
+      <!-- Original vector artwork drawn directly in the HTML.
+           Its outlines animate like pencil strokes. -->
+      <figure class="hero-art">
+        <span class="drawing-note note-top">
+          first, the idea ↘
+        </span>
+
+        <svg
+          class="architectural-drawing"
+          viewBox="0 0 620 650"
+          role="img"
+          aria-labelledby="drawing-title drawing-desc">
+
+          <title id="drawing-title">
+            A developer's illustrated workspace
+          </title>
+
+          <desc id="drawing-desc">
+            A hand-drawn laptop, architectural guides,
+            technical notes, pencils and geometric studies.
+          </desc>
+
+          <!-- Construction guides. -->
+          <g class="construction-line">
+            <path d="M30 100H590M30 210H590M30 320H590"></path>
+            <path d="M30 430H590M30 540H590"></path>
+            <path d="M120 40V600M310 40V600M500 40V600"></path>
+            <circle cx="310" cy="310" r="235"></circle>
+            <circle cx="310" cy="310" r="180"></circle>
+            <path d="M70 80L560 570M550 80L70 570"></path>
+          </g>
+
+          <!-- Laptop display and keyboard. -->
+          <g class="pencil-line">
+            <path d="
+              M126 210
+              L456 183
+              Q472 182 475 199
+              L486 419
+              L143 444
+              Z">
+            </path>
+
+            <path d="
+              M145 230
+              L454 206
+              L464 399
+              L161 420
+              Z">
+            </path>
+
+            <path d="
+              M143 444
+              L486 419
+              L548 470
+              L84 501
+              Z">
+            </path>
+
+            <path d="
+              M84 501
+              Q80 512 98 514
+              L533 486
+              Q550 483 548 470">
+            </path>
+
+            <path d="
+              M180 449
+              L470 430
+              L502 458
+              L153 480
+              Z">
+            </path>
+          </g>
+
+          <!-- A tiny code editor inside the laptop. -->
+          <g class="fine-line">
+            <path d="M184 261L210 249L184 278"></path>
+            <path d="M242 244L222 296"></path>
+            <path d="M253 245L281 258L255 275"></path>
+
+            <path d="M188 316L347 304"></path>
+            <path d="M188 335L410 317"></path>
+            <path d="M188 355L314 345"></path>
+            <path d="M188 375L365 360"></path>
+
+            <path d="M179 457L460 440"></path>
+            <path d="M164 466L480 446"></path>
+            <path d="M220 484L413 472"></path>
+          </g>
+
+          <!-- Pencil hatching gives the drawing depth. -->
+          <g class="hatch-line">
+            <path d="M130 215L145 200M130 235L155 209"></path>
+            <path d="M131 255L161 221M134 277L162 248"></path>
+            <path d="M455 190L476 212M454 209L478 233"></path>
+
+            <path d="M90 497L115 475M107 499L134 472"></path>
+            <path d="M125 496L153 470M143 494L170 468"></path>
+            <path d="M162 493L189 466M181 491L207 465"></path>
+          </g>
+
+          <!-- Drafting pencil alongside the laptop. -->
+          <g class="pencil-line">
+            <path d="
+              M508 128
+              L523 116
+              L566 180
+              L552 192
+              Z">
+            </path>
+
+            <path d="M552 192L566 180L576 214Z"></path>
+            <path d="M514 124L559 187"></path>
+          </g>
+
+          <!-- Compass / geometry study. -->
+          <g class="fine-line">
+            <circle cx="93" cy="139" r="51"></circle>
+            <path d="M93 71V207M25 139H161"></path>
+            <path d="M57 102L129 176"></path>
+            <path d="M55 176L131 103"></path>
+
+            <path d="M500 536L565 592L457 601Z"></path>
+            <path d="M500 536L505 593"></path>
+          </g>
+
+          <!-- Accent strokes connect art to code. -->
+          <g class="accent-line">
+            <path d="M170 285Q225 220 300 242"></path>
+            <path d="M330 288Q382 269 423 281"></path>
+            <path d="M468 112Q499 88 527 101"></path>
+          </g>
+
+          <!-- Technical labels. -->
+          <g
+            fill="currentColor"
+            font-size="13"
+            font-family="monospace"
+            opacity=".65">
+
+            <text x="38" y="57">FIG 01 / THE PROCESS</text>
+            <text x="354" y="565">IDEA → INTERFACE</text>
+            <text x="353" y="583">INTERFACE → SYSTEM</text>
+            <text x="38" y="590">DRAWN WITH INTENTION</text>
+          </g>
         </svg>
+
+        <span class="drawing-note note-bottom">
+          ...then we build it.
+        </span>
+
+        <figcaption class="art-caption">
+          FIG. 01 — AN IDEA UNDER CONSTRUCTION
+        </figcaption>
+      </figure>
+
+      <div class="spread-folio">
+        <span>Art in the process. Code at the core.</span>
+        <a href="#selected-work">Explore the next spread ↓</a>
+        <span>001 / 006</span>
+      </div>
+    </section>
+
+    <!-- Hand-drawn section transition. -->
+    <svg
+      class="sketch-divider"
+      viewBox="0 0 1200 90"
+      preserveAspectRatio="none"
+      aria-hidden="true">
+
+      <path d="
+        M10 42
+        Q170 12 310 45
+        T600 42
+        T900 38
+        T1190 42">
+      </path>
+    </svg>
+
+    <!-- THE PHILOSOPHY -->
+    <section class="chapter-intro" data-reveal>
+      <span class="eyebrow">
+        A note in the margin
+      </span>
+
+      <h2 data-etch>
+        Every masterpiece starts unfinished.
+      </h2>
+
+      <blockquote class="quote-block">
+        <p class="quote-text">
+          “Impediment to action advances action.
+          What stands in the way becomes the way.”
+        </p>
+
+        <p class="quote-author">
+          Marcus Aurelius
+        </p>
+      </blockquote>
+
+      <p class="lede">
+        The sketchbook is the visual language.
+        Building software is the journey.
+      </p>
+    </section>
+
+    <!-- SELECTED DEVELOPMENT WORK -->
+    <section id="selected-work" data-reveal>
+      <span class="eyebrow">
+        Chapter preview / Selected software
+      </span>
+
+      <h2 data-etch>
+        From sketch to screen.
+      </h2>
+
+      <p class="lede">
+        Two team applications that taught me how interfaces,
+        APIs and databases come together.
+      </p>
+
+      <div class="project-diptych">
+
+        <a class="project-sheet"
+           href="projects.html#weconnect">
+
+          <span class="technical-annotation">
+            Study 001 / E-commerce
+          </span>
+
+          <h3>WeConnect ↗</h3>
+
+          <p>
+            A B2B marketplace connecting buyers and suppliers,
+            with orders, payments, deliveries and location tracking.
+          </p>
+
+          <span class="technical-annotation">
+            Vue · Express · MySQL · Leaflet
+          </span>
+
+          <span class="hand">
+            Connecting the moving parts.
+          </span>
+        </a>
+
+        <a class="project-sheet"
+           href="projects.html#hr-tech">
+
+          <span class="technical-annotation">
+            Study 002 / Human resources
+          </span>
+
+          <h3>HR Tech Solutions ↗</h3>
+
+          <p>
+            A team-built HR application featuring employee
+            management and performance review functionality.
+          </p>
+
+          <span class="technical-annotation">
+            Express · MySQL · REST APIs
+          </span>
+
+          <span class="hand">
+            People, records and systems.
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- THE CODING JOURNEY -->
+    <section data-reveal>
+      <span class="eyebrow">
+        Chapter II / Behind the Sketchbook
+      </span>
+
+      <h2 data-etch>
+        Learning by making.
+      </h2>
+
+      <p class="lede">
+        I arrived at Life Choices Academy knowing very little
+        about programming.
+      </p>
+
+      <p>
+        From my first HTML and CSS pages, I progressed through
+        JavaScript, backend development, databases and
+        collaborative application projects.
+      </p>
+
+      <p>
+        The process still guides me: understand the problem,
+        build something useful, test it, and improve it.
+      </p>
+
+      <div class="hero-actions">
+        <a class="ink-btn" href="about.html">
+          Explore my journey ↗
+        </a>
+
+        <a class="note-btn" href="skills.html">
+          Open the Artist's Toolkit
+        </a>
+      </div>
+    </section>
+
+    <!-- INVITATION TO INTERACT -->
+    <section class="chapter-intro" data-reveal>
+      <span class="eyebrow">
+        A sketchbook you can touch
+      </span>
+
+      <h2 data-etch>
+        Leave your own mark.
+      </h2>
+
+      <p class="lede">
+        The Drafting Table is an interactive drawing space
+        where you can sketch, experiment and export your work.
+      </p>
+
+      <a class="ink-btn"
+         href="skills.html#drafting-table">
+        Enter the Drafting Table ↗
+      </a>
+    </section>
+
+    <!-- CONTACT -->
+    <section data-reveal>
+      <span class="eyebrow">
+        The next chapter
+      </span>
+
+      <h2 data-etch>
+        Let's make something meaningful.
+      </h2>
+
+      <p class="lede">
+        Explore my code, follow my development journey,
+        or reach out to discuss an opportunity.
+      </p>
+
+      <div class="hero-actions">
+        <a class="ink-btn" href="contact.html">
+          Leave a note ↗
+        </a>
+
+        <a class="note-btn"
+           href="https://github.com/Xabiso-tech"
+           target="_blank"
+           rel="noopener noreferrer">
+          Explore GitHub
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Closing signature. -->
+  <footer class="artist-footer">
+    <p class="footer-phrase">
+      Software, built carefully.<br>
+      Skills, built through practice.
+    </p>
+
+    <p class="footer-signature">
+      <span class="hand">Xabiso Phendu</span><br>
+      <span class="mono">
+        Full-Stack Web Developer · Cape Town
+      </span>
+    </p>
+
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="skills.html">Toolkit</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
     </div>
 
-    <div class="grain" aria-hidden="true"></div>
-    <div class="smudge" aria-hidden="true"></div>
-    <div class="cursor-lead" aria-hidden="true"></div>
-    <div class="cursor-trail" aria-hidden="true"></div>
+    <p class="footer-info">
+      <a href="https://github.com/Xabiso-tech"
+         target="_blank"
+         rel="noopener noreferrer">GitHub</a>
 
-    <!-- the graphite transition, reused by every page -->
-    <div class="page-wipe" id="page-wipe" aria-hidden="true">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0 0 L100 0 L100 100 L0 100 Z" />
-        </svg>
-    </div>
+      <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/"
+         target="_blank"
+         rel="noopener noreferrer">LinkedIn</a>
+    </p>
 
-    <!-- ============================================================
-         THE OPENING ARTWORK
-         Four strokes of construction, then a Stoic line, then the
-         sheet lifts and the studio is revealed behind it.
-         The stage is hidden unless motion.js claims it, so the page
-         is never blocked on a script that never runs.
-         ============================================================ -->
-    <div class="graphite-stage" id="graphite-stage" hidden>
-        <div class="quote-sheet" id="gs-sheet">
+    <p class="footer-info">
+      © <span class="year">2026</span> Xabiso Phendu
+    </p>
+  </footer>
 
-            <svg class="quote-guides" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
-                <path class="g-shadow" data-draw="0"
-                    d="M26 20 Q500 9 974 22 Q989 200 972 380 Q500 393 28 378 Q11 200 26 20Z" />
-                <path data-draw="0"
-                    d="M26 20 Q500 9 974 22 Q989 200 972 380 Q500 393 28 378 Q11 200 26 20Z" />
+  <!-- Existing scripts remain active. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+          defer></script>
 
-                <path class="g-shadow" data-draw="1" d="M12 200 L988 200" />
-                <path data-draw="1" d="M12 200 L988 200" />
-                <path data-draw="1" d="M18 100 Q500 95 982 102" />
-                <path data-draw="1" d="M18 312 Q500 318 982 310" />
+  <script src="motion.js" defer></script>
+  <script src="sketchbook.js" defer></script>
 
-                <path class="g-shadow" data-draw="2" d="M44 372 L956 28" />
-                <path data-draw="2" d="M44 372 L956 28" />
-                <path data-draw="2" d="M13 188 L35 212 M35 188 L13 212" />
-                <path data-draw="2" d="M987 188 L965 212 M965 188 L987 212" />
-                <path data-draw="2" d="M488 6 L512 6" />
-            </svg>
+  <!-- New animation engine from File 2. -->
+  <script src="living-sketchbook.js" defer></script>
 
-            <p class="quote-lines" id="gs-quote">Impediment to action advances action.</p>
+  <!-- Draw the long pencil divider when it becomes visible. -->
+  <script>
+    (() => {
+      const divider = document.querySelector(
+        '.sketch-divider'
+      );
 
-            <svg class="quote-marks" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true">
-                <path style="--mark-delay: 0ms" d="M64 336 L312 292 M74 354 L324 306 M88 372 L340 320" />
-                <path style="--mark-delay: 140ms" d="M734 92 L958 136 M744 74 L962 116" />
-                <path style="--mark-delay: 280ms" d="M126 58 L162 42 M134 78 L176 56" />
-                <path style="--mark-delay: 420ms" d="M44 122 L246 108" stroke-width="9" />
-                <path style="--mark-delay: 560ms" d="M416 342 L524 338 M654 62 L706 58" />
-            </svg>
+      if (!divider) return;
 
-            <div class="quote-shade" aria-hidden="true"></div>
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
 
-            <span class="gs-nib" id="gs-nib" aria-hidden="true"></span>
-            <div class="gs-dust" id="gs-dust" aria-hidden="true"></div>
-        </div>
+      if (reduced || !('IntersectionObserver' in window)) {
+        divider.classList.add('is-drawn');
+        return;
+      }
 
-        <p class="gs-attribution">Marcus Aurelius &middot; Meditations</p>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
 
-        <div class="gs-progress" aria-hidden="true">
-            <span id="gs-progress-bar"></span>
-        </div>
+          entry.target.classList.add('is-drawn');
+          observer.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.2
+      });
 
-        <button type="button" class="gs-skip" id="gs-skip">Skip intro</button>
-    </div>
-
-    <header>
-        <nav>
-            <h1><i class="fa-solid fa-circle-half-stroke"></i> Xabiso Phendu</h1>
-            <ul>
-                <li><a href="index.html" aria-current="page"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
-                <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
-                <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
-                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main id="main" tabindex="-1">
-
-        <section id="home">
-            <span class="eyebrow" data-reveal>Full-stack web developer</span>
-
-            <h2 class="hero-title" data-reveal>
-                <span class="hero-line"><span class="hero-line-inner">Building useful</span></span>
-                <span class="hero-line"><span class="hero-line-inner">web applications.</span></span>
-            </h2>
-
-            <p class="hero-tagline" data-reveal>
-                <span>Frontend</span>
-                <span>Backend</span>
-                <span>Databases</span>
-                <span>Full-stack</span>
-            </p>
-
-            <p class="hero-fade hero-fade-1" data-reveal>
-                I started at Life Choices Academy with little coding experience. Since then, I have
-                built responsive interfaces, worked with APIs and MySQL-backed applications, and
-                contributed to team projects across the stack.
-            </p>
-
-            <p class="hero-fade hero-fade-2" data-reveal>
-                This portfolio follows that development through projects, technical experiments
-                and the tools behind them.
-            </p>
-
-            <div class="hero-signoff" data-reveal>
-                <span class="hand">Xabiso Phendu</span>
-                <span class="mono">Developer &middot; Cape Town</span>
-            </div>
-
-            <div class="hero-actions" data-reveal>
-                <a class="ink-btn" href="projects.html">
-                    <i class="fa-solid fa-arrow-right-long"></i> See the workshop
-                </a>
-                <a class="note-btn" href="about.html">Read my story <small>(5 min)</small></a>
-            </div>
-        </section>
-
-        <hr class="sketch-rule" data-reveal>
-
-        <section data-reveal>
-            <blockquote class="quote-block" data-etch>
-                <p class="quote-text">
-                    &ldquo;Impediment to action advances action.&rdquo;
-                </p>
-                <p class="quote-author">Marcus Aurelius &middot; Meditations</p>
-            </blockquote>
-        </section>
-
-        <section data-reveal>
-            <h2 data-etch>Learning through the work</h2>
-
-            <p class="lede">
-                The graphite studio is the visual language. The subject is how web applications are
-                planned, built and improved.
-            </p>
-
-            <p>
-                At Life Choices Academy I moved from HTML, CSS and JavaScript fundamentals into
-                programming, databases and application structure. Project work gave those topics
-                practical context: interfaces had to use real data, and backend changes had to fit
-                the way people used the product.
-            </p>
-
-            <p>
-                I use the same process across the work: understand the requirement, build a small
-                piece, test it in context and revise what does not hold up. The projects here show
-                that progression from frontend exercises to team applications with APIs and
-                database-backed features.
-            </p>
-        </section>
-
-        <section data-reveal>
-            <h2 data-etch>Follow the work</h2>
-
-            <p class="lede">
-                Project code and professional updates are available on GitHub and LinkedIn.
-            </p>
-
-            <div class="socials">
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank"
-                        rel="noopener noreferrer">
-                        <i class="fa-brands fa-linkedin-in"></i> LinkedIn
-                    </a>
-                    <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-brands fa-github"></i> GitHub
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="artist-footer">
-        <p class="footer-phrase">
-            Software, built carefully.<br>
-            Skills, built through practice.
-        </p>
-
-        <p class="footer-signature">
-            <span class="hand">Xabiso Phendu</span><br>
-            <span class="mono">Web developer &middot; Cape Town, South Africa</span>
-        </p>
-
-        <div class="footer-links">
-            <a href="about.html">My Story</a>
-            <a href="skills.html">Toolkit</a>
-            <a href="projects.html">Workshop</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Connect</a>
-        </div>
-
-        <p class="footer-info">
-            <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank"
-                rel="noopener noreferrer">LinkedIn</a>
-        </p>
-
-        <p class="footer-info">
-            &copy; <span class="year">2026</span> Xabiso Phendu &middot; web development presented through a graphite studio
-        </p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
-    <script src="motion.js" defer></script>
+      observer.observe(divider);
+    })();
+  </script>
 </body>
-
 </html>

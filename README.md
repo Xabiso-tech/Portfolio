@@ -1,138 +1,121 @@
-# Xabiso Phendu | Full-Stack Web Developer
+# Xabiso Phendu - The Living Sketchbook
 
-**A developer portfolio presented through a graphite studio.**
+A six-page, buildless developer portfolio: warm ivory graphite paper by default,
+with a persistent midnight charcoal medium. Software development is the professional
+subject; drawing is the presentation language and a personal interest.
 
-This portfolio documents my development journey from Life Choices Academy into frontend,
-backend, database and full-stack web application work. The graphite styling is the visual
-language of the site; software development is its subject.
+## Run locally
 
-Static HTML, CSS and vanilla JavaScript. No build step, no framework, no bundler. Push to
-`main` and GitHub Pages serves it.
+Node.js 24 or later is recommended for the included browser checker. The website
+itself uses plain HTML, CSS and browser JavaScript and needs no npm installation.
 
----
-
-## Live Website
-
-[https://xabiso-tech.github.io/Portfolio/](https://xabiso-tech.github.io/Portfolio/)
-
----
-
-## Pages
-
-| Page | What it is |
-| --- | --- |
-| `index.html` | Home. Full-stack developer identity, an animated Marcus Aurelius quote, and routes into the work. |
-| `about.html` | My Story. Learning web development at Life Choices Academy and applying it in projects. |
-| `skills.html` | The Toolkit. Practical levels across frontend, backend, databases, frameworks and deployment. |
-| `projects.html` | The Workshop. Team applications, individual studies and technical project details. |
-| `gallery.html` | Workshop Gallery. A personal collection of visual studies, linked from the Workshop. |
-| `contact.html` | Connect. Professional opportunities, collaborations and direct contact links. |
-
-Nested inside `projects/`:
-
-| Project | What it is |
-| --- | --- |
-| `premium-car-products/` | AutoVault. A four-page Bootstrap 5.3 catalogue. |
-| `tech-gaming-products/` | NovaTech. A gaming hardware showcase with no framework. |
-| `booking-form/` | A form and schedule study with both of its known bugs fixed. |
-| `my-gallery/` | The original CSS-only filtering image gallery and its twelve image studies. |
-
----
-
-## Technologies Used
-
-- HTML5
-- CSS3 (custom properties, grid, flexbox, `prefers-reduced-motion`)
-- Vanilla JavaScript, Python, PHP, Node.js and Express
-- Vue and Bootstrap 5.3 (used in the AutoVault study)
-- MySQL, SQL, REST APIs, Git and GitHub
-- GitHub Pages deployment
-
----
-
-## Featured Work
-
-**HR Tech Solutions**
-
-A four-person team project: an HR system covering employee records, attendance, time off
-and payroll. I built the employee and performance review back end, then rewired the
-matching front-end pages to read from it. Express 5, MySQL via `mysql2`, JWT, bcrypt, with
-routes, controllers, models and middleware kept in separate layers.
-
-Live demo: [HR Tech Solutions](https://nikitamullerr.github.io/HR_System-Group-4/)
-
-Source: [nikitamullerr/Group-4_HRSystem_Project2](https://github.com/nikitamullerr/Group-4_HRSystem_Project2)
-
-**WeConnect**
-
-A B2B marketplace where small businesses order stock from wholesalers: 608 commits, 24
-tables, four contributors. I owned delivery — the orders, payments and GPS tracking back
-end, the Leaflet map that draws a courier's last known position, and the location setup
-workflow that confirms pickup and destination before dispatch. Express 5 and MySQL over
-SSL behind a managed host, with a Vue 3 and Vite front end.
-
-Live: [WeConnect](https://weconnect-bir9.onrender.com/landing) · [Admin](https://weconnect-admin4.onrender.com/)
-
-Source: [zahraamoerat/Project-3-E-Commerce1](https://github.com/zahraamoerat/Project-3-E-Commerce1)
-
----
-
-## Design Direction
-
-The graphite studio is a presentation style rather than the portfolio's subject. Charcoal
-surfaces, construction marks, grain and image reveals frame the software work without
-turning the site into an artist portfolio. Photographs settle back to their source colours.
-
----
-
-## Motion & Accessibility
-
-The home page builds the quote “Impediment to action advances action.” through staged
-construction marks, lettering and tonal development, then reveals the portfolio. The full
-sequence is about five seconds and can be skipped:
-
-- The skip control is keyboard reachable; Escape, Enter, Space or its button skips the intro.
-- A 6 second failsafe removes it even if the script never finishes.
-- Entrance states are only applied when scripting is available, so the page is fully
-  readable with JavaScript off.
-- `prefers-reduced-motion: reduce` skips the drawing entirely and shows the page directly.
-- Every interactive control is keyboard reachable, with visible focus.
-- The Workshop Gallery uses buttons with `aria-pressed` state and a live result count. The original
-  project study uses focusable radio inputs and CSS-only filtering.
-- Decorative art is `aria-hidden`; the Bootstrap carousel has controls and does not
-  auto-rotate.
-
-Life Choices Academy provided technical instruction alongside personal-development training
-in communication, leadership, transformation and coaching. Drawing remains a hobby and
-occasional side hustle; it informs the graphite styling but is not a professional skill track.
-
-The form studies have no server behind them. AutoVault's contact action is disabled; the
-booking study demonstrates client-side form controls and does not send data to a service.
-
----
-
-## Local Testing
-
-There is no build command, because there is no build. To preview:
-
-```bash
-python -m http.server 8000
+```sh
+npm run dev
+npm test
+npm run test:browser
 ```
 
-Then open `http://localhost:8000/`. The site also has to work under the `/Portfolio/`
-subpath GitHub Pages serves it from, so check links and image paths there too.
+On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`.
+Open http://127.0.0.1:8000/Portfolio/ . The server also supports the root URL.
+Alternatively, serve this directory with any static HTTP server.
 
----
+## Architecture
 
-## Author
+- `index.html`: optional sketchbook cover, the full Marcus Aurelius quotation,
+  original drafting illustration, developer identity and selected team applications.
+- `about.html`: factual journey, replaceable original photograph and scroll-drawn timeline.
+- `skills.html`: experience levels, existing calculator and the Drafting Table.
+- `projects.html`: concise software exhibits, actual local demo screenshots,
+  explicitly labelled team application concept diagrams and expandable technical notes.
+- `gallery.html`: all twelve original studies, category filters and a modal viewer.
+- `contact.html`: direct LinkedIn/GitHub contact and existing application links.
+- `style.css`: established component layouts and retained image/calculator styles.
+- `sketchbook.css`: medium tokens, compositions, responsive rules and native page turns.
+- `theme.js`: saved preference before first paint; first-time visitors get light paper.
+- `motion.js`: retained reveals, developing image plates, calculator, gallery filters and tilt.
+- `sketchbook.js`: theme control, cover, native dialog viewer and timeline.
+- `drafting-table.js`: standalone drawing application.
+- `scripts/`: local server, static checks and Chrome browser verification.
 
-**Xabiso Phendu**
+The existing `projects/` and `skills/` demos and all original images remain intact.
+All production links and assets use relative URLs to work under `/Portfolio/`.
 
-Full-Stack Web Developer &middot; Cape Town, South Africa.
+## The Drafting Table
 
-- LinkedIn: [linkedin.com/in/xabiso-phendu-ab6347414](https://www.linkedin.com/in/xabiso-phendu-ab6347414/)
-- GitHub: [github.com/Xabiso-tech](https://github.com/Xabiso-tech)
+Pencil and textured charcoal, 2H/HB/2B/6B grades, adjustable size and darkness,
+eraser, undo/redo, undoable clear, ivory/white/toned paper, optional grid and PNG
+export. Pointer capture handles mouse, pen and touch. Keyboard users can focus
+the canvas, move with arrows (Shift for larger steps), and toggle a stroke with Space.
 
----
+Strokes use a fixed 1200 by 800 vector coordinate space. Responsive CSS resizing
+preserves the drawing. Undo replays deterministic marks onto a separate ink canvas;
+the eraser removes ink without erasing the paper. PNG export composites paper, grid
+and ink without the keyboard position marker. Artwork is not uploaded or saved across reloads.
 
-*Full-stack development, explored through a graphite studio.*
+## Motion, accessibility and fallbacks
+
+Native cross-document View Transitions give supported browsers a quick paper turn
+without intercepting links or delaying navigation. Mobile uses a simpler fade.
+Unsupported browsers navigate normally. Browser back/forward behavior stays native.
+Reduced motion disables transitions, reveals immediately and skips the cover.
+
+The first home visit in a browser offers a cover with Open and Skip controls;
+Escape also closes it. It never waits for a timer. A full, permanent quotation also
+appears in the homepage content. Native modal dialogs handle focus and Escape.
+Skip links, visible focus, semantic controls, live filter status and descriptive image
+text are retained. Professional content and links remain readable without JavaScript.
+
+## Assets and honest integration points
+
+- The portrait remains `images/1000125110.jpg`; replace its file and dimensions to
+  introduce your own self-portrait later.
+- `images/drafting-study.svg` is a programmatic design illustration, not a claim
+  that Xabiso personally drew it.
+- `images/previews/` contains actual screenshots of the unchanged local demos.
+  Team application previews are concept diagrams, not fabricated screenshots.
+- No current PDF CV was supplied. Home, About and Contact explicitly identify the
+  pending CV and link to LinkedIn. To integrate one, add a verified PDF and replace
+  the pending labels with ordinary relative `<a download>` links. Do not label a
+  draft as a completed CV.
+- The hidden `.testimonials` component in index.html is reserved for approved,
+  genuine quotations. No endorsements are invented.
+- Contact uses real profiles; there is no contact backend.
+
+## Dependencies
+
+The existing package lists GSAP, page-flip, Rough.js, Lenis, Lottie Web and Three.js.
+They remain available for future work, but this implementation loads none of these
+runtimes. CSS, SVG, Canvas and native browser APIs implement the current experience.
+The existing Google Fonts and Font Awesome CDN references remain; system fonts
+and readable text links provide fallbacks. Production never references node_modules.
+
+## Verification
+
+`npm test` checks relative links, file/anchor existence, duplicate IDs, quotation,
+hidden testimonials and JavaScript syntax across main and nested HTML pages.
+`npm run test:browser` uses a hidden headless Chrome and Node's native DevTools
+connection; it installs no browser framework. Set `CHROME_PATH` if Chrome is not
+at the default Windows location. Screenshots and test downloads go to ignored `.qa/`.
+The browser and test server are closed when the run ends.
+
+To regenerate the authentic local preview images after changing a nested demo:
+`node scripts/browser-check.cjs --update-previews`.
+
+## Deploy to GitHub Pages
+
+No build is necessary. Publish the repository root using the existing GitHub Pages
+branch configuration. Keep all six HTML files, both CSS files, the four browser
+scripts, favicon, images, projects and skills directories together. The expected
+public path is https://xabiso-tech.github.io/Portfolio/ . No domain-root assumption,
+local dependency path, site registration, commit, push or deployment is required by
+the redesign itself. Review changes before committing and publishing.
+
+## Professional links
+
+- LinkedIn: https://www.linkedin.com/in/xabiso-phendu-ab6347414/
+- GitHub: https://github.com/Xabiso-tech
+- WeConnect: https://weconnect-bir9.onrender.com/landing
+- WeConnect admin: https://weconnect-admin4.onrender.com/
+- WeConnect source: https://github.com/zahraamoerat/Project-3-E-Commerce1
+- HR Tech demo: https://nikitamullerr.github.io/HR_System-Group-4/
+- HR Tech source: https://github.com/nikitamullerr/Group-4_HRSystem_Project2

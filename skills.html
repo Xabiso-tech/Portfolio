@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Toolkit &middot; Xabiso Phendu</title>
+    <title>The Artist&#8217;s Toolkit &mdash; Xabiso Phendu</title>
     <meta name="description"
         content="A practical overview of Xabiso Phendu's web development skills: HTML, CSS, JavaScript, Vue, Bootstrap, PHP, Node.js, Express, MySQL, SQL, APIs, Python, Git and deployment.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -13,8 +13,310 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=d0d9e70">
+    <link rel="stylesheet" href="style.css?v=sketchbook-1">
     <script>document.documentElement.className = "js-motion";</script>
+    <link rel="stylesheet" href="sketchbook.css">
+    <script src="theme.js"></script>
+    
+<!-- Chapter III: The Artist's Toolkit visual design -->
+<style>
+  /* ==========================================================
+     THE LIVING SKETCHBOOK — THE ARTIST'S TOOLKIT
+     Styles are limited to the Skills page.
+     ========================================================== */
+
+  body:has(main[data-page="skills"]) {
+    --toolkit-graphite: #403a34;
+    --toolkit-copper: #b77755;
+    --toolkit-line: rgba(89, 72, 51, .2);
+  }
+
+  /* The page feels like a large physical drafting sheet. */
+  main[data-page="skills"] {
+    position: relative;
+    isolation: isolate;
+  }
+
+  main[data-page="skills"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(
+        rgba(96, 76, 55, .035) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(96, 76, 55, .035) 1px,
+        transparent 1px
+      );
+    background-size: 40px 40px;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
+  }
+
+  /* The introductory title becomes a dramatic book spread. */
+  main[data-page="skills"] .toolkit-hero {
+    position: relative;
+    max-width: 1150px;
+    margin: 2rem auto 5rem;
+    padding: clamp(3rem, 7vw, 7rem)
+             clamp(1.5rem, 5vw, 5rem);
+    min-height: 400px;
+    border: 1px solid var(--toolkit-line);
+    background:
+      radial-gradient(
+        ellipse at 90% 15%,
+        rgba(183, 119, 85, .11),
+        transparent 45%
+      ),
+      var(--paper, #f7f2e8);
+    box-shadow:
+      12px 15px 0 rgba(85, 63, 43, .045),
+      0 22px 60px rgba(54, 41, 27, .08);
+  }
+
+  main[data-page="skills"] .toolkit-hero::after {
+    content: "FIG. 03 / THE WORKSHOP";
+    position: absolute;
+    right: 22px;
+    bottom: 19px;
+    font: 10px "IBM Plex Mono", monospace;
+    letter-spacing: .14em;
+    opacity: .5;
+  }
+
+  main[data-page="skills"] .toolkit-hero h2 {
+    max-width: 950px;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(3.4rem, 8vw, 7.6rem);
+    line-height: 1.02;
+    letter-spacing: -.055em;
+  }
+
+  main[data-page="skills"] .toolkit-intro {
+    max-width: 620px;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.85;
+  }
+
+  /* An illustrated workbench header. */
+  .toolkit-workbench-art {
+    position: relative;
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto 5rem;
+    padding: 2rem;
+    border: 1px solid var(--toolkit-line);
+    background: var(--paper, #f7f2e8);
+    box-shadow: 7px 10px 0 rgba(83, 60, 37, .07);
+    transform: rotate(-.5deg);
+  }
+
+  .toolkit-workbench-art svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 330px;
+    overflow: visible;
+  }
+
+  .toolkit-workbench-art .workbench-outline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .toolkit-workbench-art .workbench-detail {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: .48;
+  }
+
+  .toolkit-workbench-art .workbench-accent {
+    fill: none;
+    stroke: var(--toolkit-copper);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .toolkit-workbench-art figcaption {
+    margin-top: 1rem;
+    font: 11px "IBM Plex Mono", monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .6;
+  }
+
+  /* Technology cards resemble annotated technical studies. */
+  main[data-page="skills"] .toolkit-grid > * {
+    position: relative;
+    border: 1px solid var(--toolkit-line);
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0 29px,
+        rgba(91, 70, 48, .035) 30px
+      ),
+      var(--paper, #f8f4ec);
+    box-shadow: 5px 7px 0 rgba(80, 59, 38, .055);
+    transition:
+      transform .35s ease,
+      box-shadow .35s ease;
+  }
+
+  main[data-page="skills"] .toolkit-grid > *:hover {
+    transform: translateY(-7px) rotate(-.5deg);
+    box-shadow: 9px 15px 25px rgba(80, 59, 38, .12);
+  }
+
+  main[data-page="skills"] .toolkit-grid > *::after {
+    content: "TECHNICAL STUDY";
+    position: absolute;
+    top: 12px;
+    right: 13px;
+    font: 9px "IBM Plex Mono", monospace;
+    letter-spacing: .1em;
+    opacity: .4;
+    pointer-events: none;
+  }
+
+  /* The Drafting Table becomes the main workbench. */
+  main[data-page="skills"] .drafting-table {
+    position: relative;
+    margin-block: 6rem;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    border: 1px solid var(--toolkit-line);
+    background: var(--paper, #f7f2e8);
+    box-shadow:
+      0 22px 55px rgba(53, 38, 22, .1),
+      inset 0 0 0 7px rgba(125, 96, 64, .025);
+  }
+
+  main[data-page="skills"] .drafting-table::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 44%;
+    width: 110px;
+    height: 29px;
+    background: rgba(182, 142, 85, .28);
+    transform: rotate(-4deg);
+    pointer-events: none;
+  }
+
+  main[data-page="skills"] .drafting-heading h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(2.6rem, 5vw, 4.7rem);
+    line-height: 1.1;
+  }
+
+  /* Preserve all original drawing controls and IDs. */
+  main[data-page="skills"] .draft-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .8rem;
+    padding: 1rem;
+    margin-bottom: .8rem;
+    border: 1px solid var(--toolkit-line);
+    background: rgba(124, 95, 64, .045);
+  }
+
+  main[data-page="skills"] .draft-controls button,
+  main[data-page="skills"] .draft-controls select {
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  main[data-page="skills"] .draft-controls button:focus-visible,
+  main[data-page="skills"] .draft-controls select:focus-visible,
+  main[data-page="skills"] .draft-controls input:focus-visible {
+    outline: 2px solid var(--toolkit-copper);
+    outline-offset: 3px;
+  }
+
+  main[data-page="skills"] .draft-surface {
+    position: relative;
+    overflow: hidden;
+    border: 9px solid rgba(119, 94, 67, .13);
+    box-shadow:
+      inset 0 3px 12px rgba(57, 41, 24, .09),
+      0 12px 30px rgba(57, 41, 24, .08);
+  }
+
+  main[data-page="skills"] #drawing-canvas {
+    display: block;
+    max-width: 100%;
+    touch-action: none;
+  }
+
+  /* The calculator is presented as a desk instrument. */
+  main[data-page="skills"] #studio-console {
+    border: 1px solid var(--toolkit-line);
+    box-shadow: 10px 14px 0 rgba(79, 56, 35, .08);
+  }
+
+  main[data-page="skills"] .console-screen {
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  /* Handwritten marginalia. */
+  .toolkit-margin-note {
+    width: fit-content;
+    max-width: 360px;
+    margin: 2rem auto;
+    font-family: "Caveat", cursive;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    line-height: 1.2;
+    text-align: center;
+    color: var(--toolkit-copper);
+    transform: rotate(-3deg);
+  }
+
+  .toolkit-margin-note::after {
+    content: "↗";
+    display: inline-block;
+    margin-left: .4rem;
+    transform: rotate(12deg);
+  }
+
+  @media (max-width: 700px) {
+    main[data-page="skills"] .toolkit-hero {
+      min-height: auto;
+    }
+
+    .toolkit-workbench-art {
+      padding: 1rem;
+      transform: none;
+    }
+
+    main[data-page="skills"] .draft-controls {
+      align-items: stretch;
+    }
+
+    main[data-page="skills"] .drafting-table {
+      padding: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    main[data-page="skills"] .toolkit-grid > * {
+      transition: none;
+    }
+  }
+</style>
+
 </head>
 
 <body id="top">
@@ -50,24 +352,24 @@
     </div>
 
     <header>
-        <nav>
+        <nav aria-label="Main navigation">
             <h1><i class="fa-solid fa-circle-half-stroke"></i> Xabiso Phendu</h1>
             <ul>
                 <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="skills.html" aria-current="page"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
-                <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
-                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
-        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch to midnight sketchbook" aria-pressed="false" hidden>&#9680; <span>Midnight paper</span></button></nav>
     </header>
 
-    <main id="main" tabindex="-1">
+    <main data-page="skills" id="main" tabindex="-1">
 
         <div class="toolkit-hero">
             <span class="eyebrow" data-reveal>What I reach for</span>
-            <h2 data-etch>Web development tools</h2>
+            <h2 data-etch>The Artist&#8217;s Toolkit</h2>
             <p class="toolkit-intro" data-reveal>
                 Technologies I have learned and applied through coursework, individual studies and
                 team projects. The levels reflect my current experience, with examples of the work
@@ -79,7 +381,119 @@
             </div>
         </div>
 
-        <hr class="sketch-rule" data-reveal>
+        
+<!-- An original SVG drawing of a developer's workbench. -->
+<figure class="toolkit-workbench-art">
+  <svg
+    viewBox="0 0 1000 320"
+    role="img"
+    aria-labelledby="workbench-title workbench-desc">
+
+    <title id="workbench-title">
+      The developer's drafting workbench
+    </title>
+
+    <desc id="workbench-desc">
+      A pencil illustration of a computer, code,
+      connected components, measuring tools and a database.
+    </desc>
+
+    <!-- Background construction lines. -->
+    <g class="workbench-detail">
+      <path d="M20 80H980M20 160H980M20 240H980"></path>
+      <path d="M160 15V305M340 15V305"></path>
+      <path d="M520 15V305M700 15V305"></path>
+      <path d="M880 15V305"></path>
+    </g>
+
+    <!-- The main computer screen. -->
+    <g class="workbench-outline">
+      <path d="
+        M335 45
+        L685 45
+        L685 244
+        L335 244
+        Z">
+      </path>
+
+      <path d="M347 57H673V231H347Z"></path>
+      <path d="M510 244V270"></path>
+      <path d="M457 270H563"></path>
+      <path d="M440 283H580"></path>
+    </g>
+
+    <!-- Code inside the screen. -->
+    <g class="workbench-detail">
+      <path d="M371 92L390 80L371 68"></path>
+      <path d="M410 68L396 96"></path>
+      <path d="M417 68L436 80L417 92"></path>
+
+      <path d="M370 120H540"></path>
+      <path d="M390 138H630"></path>
+      <path d="M390 156H568"></path>
+      <path d="M370 174H601"></path>
+      <path d="M390 192H512"></path>
+      <path d="M370 210H554"></path>
+    </g>
+
+    <!-- Frontend component sketch. -->
+    <g class="workbench-outline">
+      <rect x="65" y="75" width="180" height="150" rx="3"></rect>
+      <path d="M65 105H245"></path>
+      <rect x="85" y="126" width="54" height="70"></rect>
+      <path d="M155 132H223"></path>
+      <path d="M155 151H218"></path>
+      <path d="M155 170H204"></path>
+    </g>
+
+    <!-- Database sketch. -->
+    <g class="workbench-outline">
+      <ellipse cx="834" cy="110" rx="75" ry="24"></ellipse>
+      <path d="M759 110V219"></path>
+      <path d="M909 110V219"></path>
+      <path d="M759 219Q834 266 909 219"></path>
+      <path d="M759 164Q834 211 909 164"></path>
+    </g>
+
+    <!-- Data flows between the drawings. -->
+    <g class="workbench-accent">
+      <path d="M249 154H327"></path>
+      <path d="M319 147L328 154L319 161"></path>
+
+      <path d="M692 154H750"></path>
+      <path d="M742 147L751 154L742 161"></path>
+
+      <path d="M370 270Q510 312 650 270"></path>
+    </g>
+
+    <!-- Technical annotations. -->
+    <g
+      fill="currentColor"
+      font-family="monospace"
+      font-size="13"
+      opacity=".75">
+
+      <text x="70" y="60">01 / INTERFACE</text>
+      <text x="338" y="28">02 / APPLICATION LOGIC</text>
+      <text x="760" y="65">03 / DATABASE</text>
+      <text x="435" y="310">BUILD / TEST / REFINE</text>
+    </g>
+  </svg>
+
+  <figcaption>
+    Fig. 03 — Structure, behaviour and data,
+    connected into one working application.
+  </figcaption>
+</figure>
+
+<p class="toolkit-margin-note">
+  Every tool has a purpose. The challenge is learning
+  when and how to use it.
+</p>
+
+
+        <section class="drafting-table" id="drafting-table" aria-labelledby="draft-title"><span class="eyebrow">An interactive JavaScript study / Make your mark</span><div class="drafting-heading"><h2 id="draft-title">The Drafting Table</h2><span class="hand">Where creativity meets code.</span></div><p class="draft-help" id="draft-help">Draw with a mouse, pen or finger. Choose a medium, adjust your mark, then save your own study. Your drawing stays on this page and is not uploaded.</p><noscript><p>Enable JavaScript to use the drawing tools. The rest of the toolkit remains available below.</p></noscript><div id="draft-app" hidden><div class="draft-controls" role="group" aria-label="Drawing tools"><button type="button" data-tool="pencil" aria-pressed="true">Pencil</button><button type="button" data-tool="charcoal" aria-pressed="false">Charcoal</button><button type="button" data-tool="eraser" aria-pressed="false">Eraser</button><label>Grade <select id="pencil-grade"><option value=".25">2H</option><option value=".5" selected>HB</option><option value=".75">2B</option><option value="1">6B</option></select></label><label>Size <input id="brush-size" type="range" min="1" max="40" value="4"><output id="size-value">4</output></label><label>Darkness <input id="brush-opacity" type="range" min="10" max="100" value="70"><output id="opacity-value">70%</output></label></div><div class="draft-controls" role="group" aria-label="Canvas actions"><button type="button" id="draft-undo" disabled>&#8630; Undo</button><button type="button" id="draft-redo" disabled>&#8631; Redo</button><button type="button" id="draft-clear">Clear</button><label>Paper <select id="draft-paper"><option value="ivory">Ivory</option><option value="white">White</option><option value="toned">Toned</option></select></label><label><input id="draft-grid" type="checkbox"> Construction grid</label><button type="button" id="draft-export">Export PNG &#8595;</button></div><div class="draft-surface"><canvas id="drawing-canvas" width="1200" height="800" tabindex="0" aria-label="Drawing canvas. Use pointer or touch to draw. Use arrow keys to move a drawing point, Space to begin or end a keyboard stroke." aria-describedby="draft-help keyboard-help"></canvas></div><p class="draft-help" id="keyboard-help">Keyboard: focus the canvas, use arrow keys to position the point, and Space to start or finish a stroke. Shift + arrow moves further. Undo and redo buttons work with the keyboard.</p><p class="draft-status" id="draft-status" role="status">A blank page. Start anywhere.</p></div><button class="secret-note" type="button" aria-pressed="false" data-secret="Every expert was once staring at a blank page. Keep going.">A note under the pencil &#8599;</button></section>
+<hr class="sketch-rule" data-reveal>
 
         <section data-reveal>
             <span class="eyebrow">Browser interface</span>
@@ -747,11 +1161,11 @@
         </p>
 
         <div class="footer-links">
-            <a href="about.html">My Story</a>
+            <a href="about.html">About</a>
             <a href="skills.html">Toolkit</a>
-            <a href="projects.html">Workshop</a>
+            <a href="projects.html">Projects</a>
             <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Connect</a>
+            <a href="contact.html">Contact</a>
         </div>
 
         <p class="footer-info">
@@ -765,6 +1179,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
     <script src="motion.js" defer></script>
+    <script src="sketchbook.js" defer></script>
+<script src="drafting-table.js" defer></script>
+<!-- Shared sketchbook navigation and pencil animations -->
+<script src="living-sketchbook.js" defer></script>
 </body>
 
 </html>
