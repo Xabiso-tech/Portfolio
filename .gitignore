@@ -8,3 +8,9 @@ node_modules/
 # Build output (if we introduce a build tool)
 
 # Local browser verification artifacts
+# TECHSTAMENT build files
+node_modules/
+dist/
+.vite/
+.env
+.env.local

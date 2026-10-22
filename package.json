@@ -4,9 +4,12 @@
   "description": "The Living Sketchbook - a full-stack developer portfolio with an interactive graphite drawing studio.",
   "main": "motion.js",
   "scripts": {
-    "dev": "node scripts/serve.cjs",
+    "dev": "vite",
     "test": "node scripts/check.cjs",
-    "test:browser": "node scripts/browser-check.cjs"
+    "test:browser": "node scripts/browser-check.cjs",
+    "preview": "vite preview",
+    "build": "vite build",
+    "dev:legacy": "node scripts/serve.cjs"
   },
   "repository": {
     "type": "git",
