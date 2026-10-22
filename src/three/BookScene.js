@@ -1,635 +1,529 @@
+/* ==========================================================
+   TECH'STAMENT — THE BOOK SCENE
+
+   Owns the renderer, the room, the camera and the animation
+   that carries the visitor from darkness to the open book.
+
+   THE SEQUENCE
+   ------------
+     1. darkness            the renderer is lit at zero exposure
+     2. the light comes up  the lamp warms and the cover appears
+     3. the cover           held long enough to read the lettering
+     4. the pull-back       the whole book on its wooden table
+     5. the opening         the cover swings on the spine hinge
+     6. the spread          the camera looks down on the pages
+
+   Every step is a promise, so the application controller can
+   wait for the picture to settle before it does anything else.
+
+   THE SHOTS
+   ---------
+   Each shot declares the points it must contain rather than a
+   camera position, so the framing survives any shape of window.
+   On a narrow screen the spread shot becomes a single-page shot,
+   because a two-page spread on a phone is unreadably small.
+   ========================================================== */
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 
-/*
-  TECH'STAMENT
-  Cinematic Bible — refined introduction
+import { Bible, BOOK, PAGE_Y } from './Bible.js';
+import { Lighting } from './Lighting.js';
+import { DustMotes } from './DustMotes.js';
+import { CameraDirector } from './CameraDirector.js';
+import { createWoodMaps, createEnvironment } from './textures.js';
 
-  Darkness → illuminated leather cover →
-  camera pullback → physical opening
-*/
+/** Below this width the reader is shown one page at a time. */
+export const SINGLE_PAGE_BREAKPOINT = 860;
 
+/** The names of the shots, in the order the story visits them. */
+export const SHOT_NAMES = ['cover', 'reveal', 'opening', 'spread', 'spread-single'];
+
+/**
+ * The named shots. `direction` is the vector from the target to
+ * the camera, so the elevation and the bearing of the shot are
+ * read straight off it.
+ *
+ * Every shot is built from the geometry of the actual book, so the
+ * framing is always correct: the close-up really does contain the
+ * gilt board, and the reading shot really does contain the open
+ * spread.
+ */
 export class BookScene {
-  constructor(container) {
+  constructor(container, { reducedMotion = false } = {}) {
     this.container = container;
-    this.isOpen = false;
-    this.isAnimating = false;
+    this.reducedMotion = reducedMotion;
     this.isDestroyed = false;
     this.timelines = [];
+    this.paused = false;
 
-    this.reducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color('#030202');
-
-    this.camera = new THREE.PerspectiveCamera(
-      38, 1, 0.1, 100
-    );
-
-    // Begin above the leather cover.
-    this.camera.position.set(0, 3.5, 0.4);
-    this.cameraTarget = new THREE.Vector3(0, 0.3, 0);
-    this.camera.lookAt(this.cameraTarget);
-
+    /* ---- Renderer ------------------------------------------- */
+    /* alpha: true keeps the canvas transparent so the room's
+       CSS gradient shows through. There is never a visible
+       rectangular edge where the canvas ends. */
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: false
+      alpha: true,
+      powerPreference: 'high-performance',
     });
 
-    this.renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio || 1, 2)
-    );
-
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-
-    // True darkness at the beginning.
     this.renderer.toneMappingExposure = 0;
+    this.renderer.setClearColor(0x000000, 0);
 
     this.renderer.domElement.style.display = 'block';
-    this.renderer.domElement.style.width = '100%';
-    this.renderer.domElement.style.height = '100%';
+    this.renderer.domElement.setAttribute('aria-hidden', 'true');
+    container.appendChild(this.renderer.domElement);
 
-    this.container.appendChild(this.renderer.domElement);
+    /* ---- Scene ---------------------------------------------- */
+    this.scene = new THREE.Scene();
+    this.scene.fog = new THREE.FogExp2(0x0a0507, 0.16);
 
-    this.createMaterials();
-    this.createLighting();
-    this.createTable();
+    this.camera = new THREE.PerspectiveCamera(46, 1, 0.1, 60);
+    this.director = new CameraDirector(this.camera);
+    this.director.idle = !reducedMotion;
 
-    this.book = new THREE.Group();
-    this.scene.add(this.book);
+    /* A tiny picture of the room, so the gilt has something to
+       reflect and reads as metal rather than as yellow paint. */
+    this.environment = createEnvironment(this.renderer);
+    this.scene.environment = this.environment.texture;
 
-    this.createBook();
+    /* ---- The room ------------------------------------------- */
+    this.lighting = new Lighting(this.scene);
+    this.buildTable();
+
+    /* ---- The book ------------------------------------------- */
+    this.bible = new Bible(this.renderer);
+    this.scene.add(this.bible.group);
+
+    this.dust = new DustMotes(this.scene);
+
+    /* ---- The shots ------------------------------------------ */
+    this.buildShots();
+
+    this.clock = new THREE.Clock();
+    this.elapsed = 0;
 
     this.onResize = () => this.resize();
     window.addEventListener('resize', this.onResize);
+    window.addEventListener('orientationchange', this.onResize);
+
+    /* A hidden tab must not keep burning frames. */
+    this.onVisibility = () => this.handleVisibility();
+    document.addEventListener('visibilitychange', this.onVisibility);
 
     this.resize();
+    this.director.snap('cover');
     this.animate();
   }
 
-  createMaterials() {
-    const standard = (color, roughness, metalness = 0) =>
-      new THREE.MeshStandardMaterial({
-        color, roughness, metalness
-      });
+  /* ------------------------------------------------------------
+     THE SHOTS
+     ------------------------------------------------------------ */
 
-    this.leather = standard('#451321', 0.88);
-    this.leatherEdge = standard('#240a13', 0.92);
-    this.raisedLeather = standard('#542032', 0.9);
-    this.gold = standard('#d5ae66', 0.27, 0.78);
-    this.oldGold = standard('#96703a', 0.42, 0.62);
-    this.paper = standard('#ebdbb8', 0.96);
-    this.gilding = standard('#bd9856', 0.45, 0.46);
-    this.wood = standard('#24130e', 0.88);
+  /**
+   * Register the framed shots.
+   *
+   * Each shot declares the points it must contain rather than a
+   * camera position, so the framing survives any shape of window.
+   * On a narrow screen the spread shot becomes a single-page shot,
+   * because a two-page spread on a phone is unreadably small.
+   */
+  buildShots() {
+    const bible = this.bible;
+    const { width } = BOOK;
 
-    this.ownedMaterials = [
-      this.leather,
-      this.leatherEdge,
-      this.raisedLeather,
-      this.gold,
-      this.oldGold,
-      this.paper,
-      this.gilding,
-      this.wood
-    ];
+    /* Close over the closed cover. Every line of lettering is
+       inside the frame, and the light is nearly overhead so the
+       type is not foreshortened into illegibility. */
+    this.director.addShot('cover', {
+      target: new THREE.Vector3(width / 2, bible.closedTop, 0),
+      direction: new THREE.Vector3(0.14, 0.9, 0.41),
+      points: bible.coverCorners(),
+      fill: 0.86,
+    });
+
+    /* Pulled back: the book sits on a wooden table in a dark
+       room, with the lamp throwing a long shadow. The book only
+       fills part of the frame, because the room around it is the
+       point of the shot. */
+    this.director.addShot('reveal', {
+      target: new THREE.Vector3(width / 2, 0.24, 0),
+      direction: new THREE.Vector3(0.33, 0.62, 0.71),
+      points: bible.bookCorners(),
+      fill: 0.55,
+    });
+
+    /* Half way through the opening, when the cover is up in the
+       air and the pages are just appearing. The frame has to hold
+       the swinging board, the apex it reaches, and the open book
+       it is falling towards. */
+    this.director.addShot('opening', {
+      target: new THREE.Vector3(0, 0.45, 0),
+      direction: new THREE.Vector3(0.28, 0.66, 0.7),
+      points: [...bible.bookCorners(), ...bible.swingApex(), ...bible.openCorners()],
+      fill: 0.68,
+    });
+
+    /* Looking down on the open spread. */
+    this.director.addShot('spread', {
+      target: new THREE.Vector3(0, PAGE_Y, 0),
+      direction: new THREE.Vector3(0, 0.927, 0.375),
+      points: bible.openCorners(),
+      fill: 0.92,
+    });
+
+    /* The same shot on a phone: one page, filling the frame. */
+    this.director.addShot('spread-single', {
+      target: new THREE.Vector3(width / 2, PAGE_Y, 0),
+      direction: new THREE.Vector3(0, 0.927, 0.375),
+      points: bible.pageQuad(),
+      fill: 0.92,
+    });
+
+    return this;
   }
 
-  createLighting() {
-    // Lights remain ready; exposure controls the reveal.
-    this.ambient = new THREE.AmbientLight('#ffe0b3', 0.65);
-    this.scene.add(this.ambient);
+  /* ------------------------------------------------------------
+     THE TABLE
+     ------------------------------------------------------------ */
 
-    this.keyLight = new THREE.SpotLight(
-      '#ffd5a0',
-      115,
-      25,
-      Math.PI / 3,
-      0.65
-    );
+  buildTable() {
+    const wood = createWoodMaps({ size: 1024, seed: 33 });
+    wood.map.repeat.set(6, 6);
+    wood.normalMap.repeat.set(6, 6);
+    wood.ormMap.repeat.set(6, 6);
 
-    this.keyLight.position.set(-3, 8, 4);
-    this.keyLight.castShadow = true;
-    this.keyLight.shadow.mapSize.set(1024, 1024);
-    this.scene.add(this.keyLight);
-    this.scene.add(this.keyLight.target);
+    this.woodMaps = wood;
 
-    this.rimLight = new THREE.PointLight(
-      '#d18a50', 24, 15
-    );
+    const material = new THREE.MeshStandardMaterial({
+      map: wood.map,
+      normalMap: wood.normalMap,
+      roughnessMap: wood.ormMap,
+      metalnessMap: wood.ormMap,
+      color: 0x8a6a4e,
+      roughness: 1,
+      metalness: 1,
+      envMapIntensity: 0.35,
+    });
 
-    this.rimLight.position.set(4, 4, -3);
-    this.scene.add(this.rimLight);
-  }
-
-  createTable() {
-    const table = this.box(
-      25, 0.5, 25,
-      this.wood,
-      0, -0.65, 0
-    );
-
+    const geometry = new THREE.BoxGeometry(24, 0.6, 24);
+    const table = new THREE.Mesh(geometry, material);
+    /* The surface of the table sits exactly at y = 0. */
+    table.position.set(0, -0.3, 0);
     table.receiveShadow = true;
     this.scene.add(table);
+
+    this.table = table;
   }
 
-  box(w, h, d, material, x = 0, y = 0, z = 0) {
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(w, h, d),
-      material
-    );
+  /* ------------------------------------------------------------
+     THE INTRO
+     ------------------------------------------------------------ */
 
-    mesh.position.set(x, y, z);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    return mesh;
-  }
-
-  createBook() {
-    // Back leather cover.
-    this.book.add(
-      this.box(
-        4.05, 0.14, 5.35,
-        this.leather, 0, -0.35, 0
-      )
-    );
-
-    // Thick gilded page block.
-    this.book.add(
-      this.box(
-        3.72, 0.52, 5.04,
-        [
-          this.gilding,
-          this.gilding,
-          this.paper,
-          this.paper,
-          this.gilding,
-          this.gilding
-        ],
-        0.05, 0, 0
-      )
-    );
-
-    // Fine page-edge lines.
-    for (let i = 0; i < 36; i++) {
-      this.book.add(
-        this.box(
-          0.009, 0.003, 4.98,
-          this.oldGold,
-          1.918,
-          -0.25 + i * 0.014,
-          0
-        )
-      );
-    }
-
-    // Spine.
-    this.book.add(
-      this.box(
-        0.33, 0.82, 5.32,
-        this.leatherEdge,
-        -1.94, 0, 0
-      )
-    );
-
-    // Raised gold spine bands.
-    [-1.95, -0.95, 0.95, 1.95].forEach(z => {
-      this.book.add(
-        this.box(
-          0.35, 0.84, 0.055,
-          this.oldGold,
-          -1.94, 0, z
-        )
-      );
-    });
-
-    this.createFrontCover();
-  }
-
-  createFrontCover() {
-    // The hinge rotates the cover and ALL its decorations.
-    this.coverHinge = new THREE.Group();
-    this.coverHinge.position.set(-1.9, 0.34, 0);
-    this.book.add(this.coverHinge);
-
-    this.coverHinge.add(
-      this.box(
-        4.05, 0.16, 5.35,
-        this.leather,
-        1.9, 0, 0
-      )
-    );
-
-    // Raised leather panel.
-    this.coverHinge.add(
-      this.box(
-        3.7, 0.016, 5,
-        this.raisedLeather,
-        1.9, 0.088, 0
-      )
-    );
-
-    // Interior lining.
-    this.coverHinge.add(
-      this.box(
-        3.75, 0.012, 5.05,
-        this.leatherEdge,
-        1.9, -0.087, 0
-      )
-    );
-
-    this.createCoverFrame();
-    this.createCoverCross();
-    this.createPermanentCoverText();
-  }
-
-  createCoverFrame() {
-    const y = 0.11;
-
-    // Outer rectangular frame.
-    [-2.28, 2.28].forEach(z => {
-      this.coverHinge.add(
-        this.box(
-          3.28, 0.018, 0.035,
-          this.gold, 1.9, y, z
-        )
-      );
-    });
-
-    [0.26, 3.54].forEach(x => {
-      this.coverHinge.add(
-        this.box(
-          0.035, 0.018, 4.56,
-          this.gold, x, y, 0
-        )
-      );
-    });
-
-    // Inner decorative frame.
-    [-2.12, 2.12].forEach(z => {
-      this.coverHinge.add(
-        this.box(
-          2.95, 0.012, 0.015,
-          this.oldGold, 1.9, y, z
-        )
-      );
-    });
-
-    [0.43, 3.37].forEach(x => {
-      this.coverHinge.add(
-        this.box(
-          0.015, 0.012, 4.24,
-          this.oldGold, x, y, 0
-        )
-      );
-    });
-
-    // Ornamental corner medallions.
-    for (const x of [0.43, 3.37]) {
-      for (const z of [-2.12, 2.12]) {
-        const ornament = new THREE.Mesh(
-          new THREE.TorusGeometry(
-            0.11, 0.016, 8, 32
-          ),
-          this.gold
-        );
-
-        ornament.rotation.x = Math.PI / 2;
-        ornament.position.set(x, 0.125, z);
-
-        this.coverHinge.add(ornament);
-      }
-    }
-  }
-
-  createCoverCross() {
-    const cross = new THREE.Group();
-
-    cross.position.set(1.9, 0.15, 0.3);
-
-    cross.add(
-      this.box(
-        0.16, 0.045, 1.15,
-        this.gold, 0, 0, 0
-      )
-    );
-
-    cross.add(
-      this.box(
-        0.83, 0.045, 0.16,
-        this.gold, 0, 0, -0.19
-      )
-    );
-
-    const ring = new THREE.Mesh(
-      new THREE.TorusGeometry(
-        0.63, 0.023, 10, 64
-      ),
-      this.oldGold
-    );
-
-    ring.rotation.x = Math.PI / 2;
-    ring.position.y = 0.025;
-    cross.add(ring);
-
-    this.coverHinge.add(cross);
-  }
-
-  createPermanentCoverText() {
-    /*
-      All words are painted onto ONE transparent
-      texture attached to the leather cover.
-
-      They never fade independently.
-    */
-
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 1536;
-
-    const ctx = canvas.getContext('2d');
-
-    ctx.clearRect(0, 0, 1024, 1536);
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    const gold = '#efd19a';
-
-    const write = (text, y, font, color = gold) => {
-      ctx.font = font;
-      ctx.fillStyle = color;
-      ctx.shadowColor = 'rgba(0,0,0,0.85)';
-      ctx.shadowBlur = 8;
-      ctx.shadowOffsetY = 3;
-      ctx.fillText(text, 512, y, 850);
-      ctx.shadowBlur = 0;
-      ctx.shadowOffsetY = 0;
-    };
-
-    // The official title, permanently on the cover.
-    write(
-      "TECH'STAMENT",
-      290,
-      'bold 91px Georgia, serif'
-    );
-
-    write(
-      'CHRIST IN MY JOURNEY THROUGH CODE',
-      390,
-      'italic 32px Georgia, serif',
-      '#d6b67b'
-    );
-
-    // Central area deliberately left clear
-    // for the raised gold cross.
-
-    write(
-      'FAITH  •  PURPOSE  •  CODE',
-      1150,
-      'bold 34px Georgia, serif'
-    );
-
-    write(
-      'XABISO PHENDU',
-      1260,
-      'bold 53px Georgia, serif'
-    );
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = Math.min(
-      8,
-      this.renderer.capabilities.getMaxAnisotropy()
-    );
-
-    const lettering = new THREE.Mesh(
-      new THREE.PlaneGeometry(3.55, 5.05),
-      new THREE.MeshBasicMaterial({
-        map: texture,
-        transparent: true,
-        depthWrite: false,
-        side: THREE.DoubleSide
-      })
-    );
-
-    // Lay the lettering flat on the upper leather face.
-    lettering.rotation.x = -Math.PI / 2;
-    lettering.position.set(1.9, 0.124, 0);
-
-    this.coverHinge.add(lettering);
-  }
-
-  playIntro() {
+  /**
+   * Play the cinematic opening: darkness, the lamp coming up on
+   * the cover, a hold, and then the pull-back.
+   *
+   * @param {object} [options]
+   * @param {Function} [options.onLight] called the moment the lamp
+   *        starts to rise, so that the loading veil can be lifted
+   *        exactly as the light appears
+   */
+  playIntro({ onLight = null } = {}) {
     if (this.isDestroyed) return Promise.resolve();
 
-    // Set an explicit initial state, including when the scene is replayed.
-    this.camera.position.set(0, 3.5, 0.4);
-    this.cameraTarget.set(0, 0.3, 0);
-    this.book.rotation.y = 0;
+    this.director.snap('cover');
+    this.lighting.aimAt(BOOK.width / 2, this.bible.closedTop - 0.05, 0);
 
-    const finalPosition = { x: 0.4, y: 5.15, z: 6.55 };
-    const finalTarget = { x: 0, y: 0, z: 0 };
-
-    // Accessibility: avoid a prolonged reveal for reduced-motion visitors.
     if (this.reducedMotion) {
-      this.renderer.toneMappingExposure = 1.25;
-      this.camera.position.set(
-        finalPosition.x,
-        finalPosition.y,
-        finalPosition.z
-      );
-      this.cameraTarget.set(
-        finalTarget.x,
-        finalTarget.y,
-        finalTarget.z
-      );
-      this.book.rotation.y = -0.12;
+      /* No cinematic movement: arrive at the reveal shot and
+         let the light simply be there. */
+      this.renderer.toneMappingExposure = 1.15;
+      this.lighting.setLevel(1);
+      this.director.snap('reveal');
+      onLight?.();
       return Promise.resolve();
     }
 
-    this.renderer.toneMappingExposure = 0;
+    return new Promise((resolve) => {
+      this._introResolve = resolve;
 
-    return new Promise(resolve => {
-      const timeline = gsap.timeline({ onComplete: resolve });
+      const timeline = gsap.timeline({
+        onComplete: () => {
+          this._introResolve = null;
+          this._introTimeline = null;
+          resolve();
+        },
+      });
+      this._introTimeline = timeline;
       this.timelines.push(timeline);
 
-      // 0.0–0.7s: allow the first dark frame to register.
+      /* A beat of true darkness so the first light has weight. */
       timeline.to({}, { duration: 0.7 });
 
-      // 0.7–2.5s: reveal the same physical cover with warm light.
+      /* The veil lifts as the lamp starts to rise, so the visitor
+         watches the room appear rather than a finished picture. */
+      timeline.add(() => onLight?.(), 0.4);
+
+      /* The lamp warms up. The exposure and the key light come
+         together, so the cover seems to be found rather than
+         switched on. */
       timeline.to(this.renderer, {
-        toneMappingExposure: 1.25,
-        duration: 1.8,
-        ease: 'power2.inOut'
+        toneMappingExposure: 1.15,
+        duration: 2.1,
+        ease: 'power2.inOut',
+      }, 0.45);
+
+      timeline.to(this.lighting, {
+        roomLevel: 1,
+        duration: 2.1,
+        ease: 'power2.inOut',
+      }, 0.45);
+
+      /* Hold on the cover so the lettering can be read. */
+      timeline.to({}, { duration: 1.7 });
+
+      /* The pull-back. */
+      timeline.add(() => {
+        this.director.moveTo('reveal', 3, { ease: 'power2.inOut' });
       });
 
-      // 2.5–3.3s: hold so the cover can be read.
-      timeline.to({}, { duration: 0.8 });
+      timeline.to({}, { duration: 3.2 });
 
-      // 3.3–6.5s: a single, continuous pullback to the waiting shot.
-      timeline.to(this.camera.position, {
-        ...finalPosition,
-        duration: 3.2,
-        ease: 'power2.inOut'
-      });
-
-      timeline.to(this.cameraTarget, {
-        ...finalTarget,
-        duration: 3.2,
-        ease: 'power2.inOut'
-      }, '<');
-
-      timeline.to(this.book.rotation, {
-        y: -0.12,
-        duration: 3.2,
-        ease: 'power2.inOut'
-      }, '<');
-
-      // 6.5–7.0s: the final shot remains still before controls appear.
-      timeline.to({}, { duration: 0.5 });
+      /* A last breath before the invitation appears. */
+      timeline.to({}, { duration: 0.4 });
     });
   }
 
+  /**
+   * Stop the introduction where it stands.
+   *
+   * Somebody who cannot wait for the cinema must not be left with
+   * a camera that keeps drifting afterwards, so the timeline is
+   * killed and the promise is released at once.
+   */
+  cancelIntro() {
+    this._introTimeline?.kill();
+    this._introTimeline = null;
+
+    if (this._introResolve) {
+      const resolve = this._introResolve;
+      this._introResolve = null;
+      resolve();
+    }
+  }
+
+  /* ------------------------------------------------------------
+     OPENING THE BOOK
+     ------------------------------------------------------------ */
+
+  /**
+   * Swing the front cover open on its spine hinge, then settle
+   * the camera over the open spread.
+   */
   open() {
-    if (
-      this.isOpen ||
-      this.isAnimating ||
-      this.isDestroyed
-    ) {
-      return Promise.resolve();
-    }
+    if (this.isDestroyed) return Promise.resolve();
 
-    this.isAnimating = true;
+    const duration = this.reducedMotion ? 0.01 : 2.6;
+    const state = { open: 0 };
 
-    const duration = this.reducedMotion ? 0 : 2.8;
+    /* The camera drifts back as the cover comes up, so that both
+       halves of the book stay in frame. */
+    this.director.moveTo('opening', duration * 0.8, { ease: 'power2.inOut' });
 
-    return new Promise(resolve => {
+    this.lighting.aimAt(0, PAGE_Y, 0);
+
+    return new Promise((resolve) => {
       const timeline = gsap.timeline({
         onComplete: () => {
-          this.isOpen = true;
-          this.isAnimating = false;
+          this.bible.setOpen(1);
           resolve();
-        }
+        },
       });
-
       this.timelines.push(timeline);
 
-      timeline.to(this.coverHinge.rotation, {
-        z: Math.PI - 0.12,
+      /* The cover rotates about the spine. The easing is
+         deliberately slow at the start — the cover has to break
+         the book's weight before it moves — and quick through
+         the middle, where it is only falling. */
+      timeline.to(state, {
+        open: 1,
         duration,
-        ease: 'power2.inOut'
-      });
+        ease: 'power2.inOut',
+        onUpdate: () => this.bible.setOpen(state.open),
+      }, 0);
 
-      timeline.to(
-        this.camera.position,
-        {
-          x: 0,
-          y: 7.5,
-          z: 5,
-          duration: duration * 0.9,
-          ease: 'power2.inOut'
-        },
-        0
-      );
+      /* The pages are lit as they appear. */
+      timeline.to(this.lighting, {
+        pageLevel: 1,
+        duration: duration * 0.55,
+        ease: 'power2.out',
+      }, duration * 0.4);
+    }).then(() => this.director.moveTo(this.spreadShot, this.reducedMotion ? 0 : 1.4));
+  }
+
+  /* ------------------------------------------------------------
+     THE SPREAD
+     ------------------------------------------------------------ */
+
+  /** True when the reader is shown one page at a time. */
+  get isSinglePage() {
+    return window.matchMedia(`(max-width: ${SINGLE_PAGE_BREAKPOINT}px)`).matches;
+  }
+
+  /** The name of the shot that frames the reading surface. */
+  get spreadShot() {
+    return this.isSinglePage ? 'spread-single' : 'spread';
+  }
+
+  /** The four world corners of the open spread. */
+  spreadQuad() {
+    return this.bible.spreadQuad();
+  }
+
+  /** The world corners of the right-hand page only (mobile). */
+  pageQuad() {
+    return this.bible.pageQuad();
+  }
+
+  /**
+   * Project a world point to CSS pixels, in page coordinates.
+   *
+   * @param {THREE.Vector3} point
+   * @returns {{x: number, y: number}}
+   */
+  screenPoint(point) {
+    const rect = this.container.getBoundingClientRect();
+    const projected = this.director.screenPoint(point, rect.width, rect.height);
+
+    return {
+      x: projected.x + rect.left,
+      y: projected.y + rect.top,
+    };
+  }
+
+  /**
+   * The screen corners of the spread, ready to be handed to the
+   * homography that lays the manuscript over the book.
+   *
+   * @param {boolean} single true for the one-page phone layout
+   */
+  spreadCorners(single = false) {
+    const quad = single ? this.pageQuad() : this.spreadQuad();
+    return quad.map((point) => this.screenPoint(point));
+  }
+
+  /* ------------------------------------------------------------
+     THE READING ROOM
+     ------------------------------------------------------------ */
+
+  /**
+   * Dim the room once the manuscript takes over, so the reading
+   * surface is the brightest thing on screen while the book is
+   * still faintly visible behind it.
+   */
+  dim(amount = 0.42) {
+    return new Promise((resolve) => {
+      gsap.to(this.renderer, {
+        toneMappingExposure: amount,
+        duration: this.reducedMotion ? 0.01 : 1.1,
+        ease: 'power2.inOut',
+        onComplete: resolve,
+      });
     });
   }
 
-  close() {
-    if (
-      !this.isOpen ||
-      this.isAnimating ||
-      this.isDestroyed
-    ) {
-      return Promise.resolve();
-    }
+  /* ------------------------------------------------------------
+     FRAME
+     ------------------------------------------------------------ */
 
-    this.isAnimating = true;
+  resize() {
+    const width = this.container.clientWidth;
+    const height = this.container.clientHeight;
+    if (!width || !height) return;
 
-    const duration = this.reducedMotion ? 0 : 2;
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height, false);
 
-    return new Promise(resolve => {
-      const timeline = gsap.timeline({
-        onComplete: () => {
-          this.isOpen = false;
-          this.isAnimating = false;
-          resolve();
-        }
-      });
-
-      this.timelines.push(timeline);
-
-      timeline.to(this.coverHinge.rotation, {
-        z: 0,
-        duration,
-        ease: 'power2.inOut'
-      });
-    });
+    /* The framing of every shot depends on the shape of the
+       window, so the current shot is solved again. */
+    this.director.reframe();
   }
 
   animate() {
     if (this.isDestroyed) return;
 
-    this.animationFrame = requestAnimationFrame(
-      () => this.animate()
-    );
+    /* A hidden tab must not burn frames: the loop keeps its place
+       but stops drawing until the reader comes back. */
+    if (this.paused) {
+      this.animationFrame = requestAnimationFrame(() => this.animate());
+      return;
+    }
 
-    this.camera.lookAt(this.cameraTarget);
+    this.animationFrame = requestAnimationFrame(() => this.animate());
+
+    const delta = Math.min(this.clock.getDelta(), 0.05);
+    this.elapsed += delta;
+
+    if (!this.reducedMotion) {
+      this.dust.update(delta);
+    }
+
+    this.director.update(this.elapsed);
     this.renderer.render(this.scene, this.camera);
   }
 
-  resize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
+  /* ------------------------------------------------------------
+     STAYING QUIET
+     ------------------------------------------------------------ */
 
-    if (!width || !height) return;
-
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-
-    this.renderer.setSize(width, height);
+  /** Stop drawing. */
+  pause() {
+    this.paused = true;
   }
 
-  destroy() {
+  /** Start drawing again. */
+  resume() {
+    if (!this.paused) return;
+    this.paused = false;
+    /* The clock has been running under the pause, so it is reset
+       here or the first frame back would jump. */
+    this.clock.getDelta();
+  }
+
+  /** React to the tab being hidden or shown. */
+  handleVisibility() {
+    if (document.hidden) {
+      this.pause();
+    } else {
+      this.resume();
+    }
+  }
+
+  dispose() {
     this.isDestroyed = true;
-
-    this.timelines.forEach(timeline => timeline.kill());
-
+    this.timelines.forEach((timeline) => timeline.kill());
     cancelAnimationFrame(this.animationFrame);
     window.removeEventListener('resize', this.onResize);
-
-    const geometries = new Set();
-    const materials = new Set();
-    const textures = new Set();
-
-    this.scene.traverse(object => {
-      if (object.geometry) {
-        geometries.add(object.geometry);
-      }
-
-      if (object.material) {
-        const list = Array.isArray(object.material)
-          ? object.material
-          : [object.material];
-
-        list.forEach(material => materials.add(material));
-      }
-    });
-
-    materials.forEach(material => {
-      if (material.map) textures.add(material.map);
-      material.dispose();
-    });
-
-    geometries.forEach(geometry => geometry.dispose());
-    textures.forEach(texture => texture.dispose());
-
+    window.removeEventListener('orientationchange', this.onResize);
+    document.removeEventListener('visibilitychange', this.onVisibility);
+    this.director.dispose();
+    this.dust.dispose();
+    this.bible.dispose();
+    this.lighting.dispose();
+    this.table.geometry.dispose();
+    this.table.material.dispose();
+    Object.values(this.woodMaps).forEach((texture) => texture.dispose());
+    this.environment?.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();
   }
 }
+
+export { BOOK, PAGE_Y };

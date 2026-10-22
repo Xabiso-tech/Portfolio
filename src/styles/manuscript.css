@@ -1,0 +1,1117 @@
+/* ==============================================================
+   TECH'STAMENT - the manuscript
+
+   The pages are rendered at a fixed design size (1200 x 900 for a
+   two-page spread) and then scaled to fit the viewport with a
+   transform. That keeps the typography identical on every screen
+   instead of letting it collapse on a phone.
+
+   Layout order:
+     1. tokens
+     2. the reading frame (toolbar, contents)
+     3. the spread and its pages
+     4. the turning leaf
+     5. manuscript typography
+     6. responsive + reduced motion
+   ============================================================== */
+
+/* ---------- 1. TOKENS ---------- */
+
+.manuscript {
+  --ms-page-bg: #f0e3c6;
+  --ms-page-bg-2: #e6d5b1;
+  --ms-page-edge: #d8c49c;
+  --ms-ink: #2c241f;
+  --ms-ink-soft: #5d5044;
+  --ms-ink-faint: #8a7a68;
+  --ms-gold: #a07c3f;
+  --ms-gold-light: #c9a24a;
+  --ms-rule: rgba(160, 124, 63, 0.42);
+  --ms-shadow: rgba(0, 0, 0, 0.55);
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: calc(var(--ts-bar-height) + 1rem) 1rem 1.5rem;
+  /* The room behind the pages is darkened by .manuscript__backdrop
+     rather than by this element, so that the 3D book can still be
+     seen through the reading surface. */
+  background: transparent;
+}
+
+.manuscript[hidden] {
+  display: none;
+}
+
+/* The darkened room. It fades in only once the manuscript has
+   flattened out of the physical book. */
+.manuscript__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 46%, rgba(58, 20, 30, 0.55), transparent 72%),
+    linear-gradient(175deg, rgba(21, 11, 15, 0.94) 0%, rgba(10, 5, 7, 0.97) 60%, rgba(5, 2, 3, 0.99) 100%);
+}
+
+/* ---------- 2. READING FRAME ---------- */
+
+.manuscript__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  height: var(--ts-bar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  border-bottom: 1px solid rgba(176, 138, 74, 0.16);
+  background: linear-gradient(180deg, rgba(10, 5, 7, 0.92), rgba(10, 5, 7, 0.55));
+  backdrop-filter: blur(6px);
+}
+
+.manuscript__bar-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 2vw, 1.4rem);
+}
+
+.manuscript__bar-group--meta {
+  gap: clamp(0.75rem, 2.5vw, 1.6rem);
+}
+
+.turn-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(176, 138, 74, 0.35);
+  color: rgba(215, 186, 122, 0.9);
+  font-family: var(--ts-font-ui);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  transition:
+    background 0.3s var(--ts-ease-soft),
+    border-color 0.3s var(--ts-ease-soft),
+    color 0.3s var(--ts-ease-soft);
+}
+
+.turn-button:hover:not(:disabled) {
+  border-color: var(--ts-gold-light);
+  background: rgba(176, 138, 74, 0.14);
+  color: var(--ts-gold-bright);
+}
+
+.turn-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.turn-button--quiet {
+  border-color: transparent;
+  color: rgba(215, 186, 122, 0.62);
+}
+
+.page-indicator {
+  color: rgba(215, 186, 122, 0.68);
+  font-family: var(--ts-font-ui);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- 3. CONTENTS OVERLAY ---------- */
+
+.contents {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(6, 3, 4, 0.86);
+  backdrop-filter: blur(7px);
+}
+
+.contents[hidden] {
+  display: none;
+}
+
+.contents__inner {
+  width: min(30rem, 100%);
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2rem 2rem 1.6rem;
+  border: 1px solid rgba(176, 138, 74, 0.34);
+  background: linear-gradient(160deg, #1b1015, #100a0d);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.6);
+}
+
+.contents__label {
+  margin: 0 0 1.2rem;
+  color: var(--ts-gold);
+  font-family: var(--ts-font-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  text-align: center;
+}
+
+.contents__list {
+  margin: 0 0 1.4rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: contents;
+}
+
+.contents__list li {
+  counter-increment: contents;
+  border-bottom: 1px solid rgba(176, 138, 74, 0.14);
+}
+
+.contents__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.85rem 0.25rem;
+  color: var(--ts-parchment);
+  font-family: var(--ts-font-literary);
+  font-size: 1.08rem;
+  text-align: left;
+  transition: color 0.25s var(--ts-ease-soft);
+}
+
+.contents__link::before {
+  content: counter(contents, upper-roman);
+  min-width: 2.2rem;
+  color: var(--ts-gold);
+  font-family: var(--ts-font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.contents__link:hover {
+  color: var(--ts-gold-bright);
+}
+
+.contents__folio {
+  margin-left: auto;
+  color: var(--ts-gold);
+  font-family: var(--ts-font-ui);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+}
+
+.contents__close {
+  display: block;
+  margin: 0 auto;
+}
+
+/* ---------- 4. THE SPREAD ---------- */
+
+/* The spread is a fixed-size sheet of design pixels that is then
+   moved by a transform. Its origin is the top left corner, so a
+   matrix3d can map the design rectangle exactly onto the four
+   corners of the physical book. */
+.spread {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1200px;
+  height: 900px;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.spread[hidden] {
+  display: none;
+}
+
+.spread__book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 2600px;
+  perspective-origin: 50% 42%;
+  transform-style: preserve-3d;
+}
+
+/* Two page slots and a single turning leaf. */
+.page-slot,
+.leaf {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  backface-visibility: hidden;
+}
+
+.page-slot--left {
+  left: 0;
+}
+
+.page-slot--right {
+  left: 50%;
+}
+
+.page-slot {
+  z-index: 2;
+}
+
+/* ---------- 5. THE PAGE ITSELF ---------- */
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 46px 52px 42px;
+  overflow: hidden;
+  color: var(--ms-ink);
+  background:
+    linear-gradient(105deg, rgba(255, 250, 235, 0.55) 0%, rgba(255, 250, 235, 0) 38%),
+    radial-gradient(ellipse 120% 90% at 12% 6%, #f6ecd6 0%, var(--ms-page-bg) 46%, var(--ms-page-bg-2) 100%);
+  box-shadow:
+    inset 0 0 44px rgba(120, 88, 46, 0.16),
+    inset 0 0 0 1px rgba(120, 88, 46, 0.08);
+}
+
+/* Paper fibres. */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.35'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* Aged edges: the page darkens toward its outer border. */
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0, 0, 0, 0) 58%, rgba(122, 86, 42, 0.16) 100%);
+}
+
+/* Gold hairline frame. */
+.page__frame {
+  position: absolute;
+  inset: 22px;
+  pointer-events: none;
+  border: 1px solid rgba(160, 124, 63, 0.36);
+}
+
+.page__frame::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(160, 124, 63, 0.18);
+}
+
+.page__body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Running head and folio. */
+.page__head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(160, 124, 63, 0.22);
+  color: var(--ms-ink-faint);
+  font-family: var(--ts-font-ui);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.page__folio {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(160, 124, 63, 0.18);
+  color: var(--ms-ink-faint);
+  font-family: var(--ts-font-display);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+/* ---------- 6. THE TURNING LEAF ---------- */
+
+/* The leaf hangs on the gutter: its spine edge is the hinge it
+   turns about, exactly as the physical book turns about its own. */
+.leaf {
+  z-index: 4;
+  left: 50%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.leaf--left {
+  left: 0;
+  transform-origin: right center;
+}
+
+.leaf__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.leaf__face--back {
+  transform: rotateY(180deg);
+}
+
+/* The page stack: a thin bright edge on the fore-edge of a turning leaf. */
+.leaf__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(60, 42, 20, 0) 0%,
+    rgba(60, 42, 20, 0.35) 55%,
+    rgba(255, 250, 235, 0.75) 88%,
+    rgba(255, 250, 235, 0.95) 100%
+  );
+  opacity: 0;
+}
+
+.leaf--right .leaf__edge {
+  right: -1px;
+}
+
+.leaf--left .leaf__edge {
+  left: -1px;
+  transform: scaleX(-1);
+}
+
+/* Moving shadow cast by the turning leaf. */
+.leaf__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(40, 24, 8, 0.55) 0%,
+    rgba(40, 24, 8, 0.12) 38%,
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+
+.leaf--left .leaf__shade {
+  background: linear-gradient(
+    270deg,
+    rgba(40, 24, 8, 0.55) 0%,
+    rgba(40, 24, 8, 0.12) 38%,
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+
+/* Shadow the leaf throws across the page it is leaving. The
+   opacity is driven by a custom property that the page-turn
+   animation writes, so the shadow can fade in step with the
+   leaf without any extra elements. */
+.page-slot--right::after,
+.page-slot--left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--shadow, 0);
+  z-index: 3;
+  background: linear-gradient(90deg, rgba(30, 18, 6, 0.5), rgba(30, 18, 6, 0) 45%);
+}
+
+.page-slot--left::after {
+  background: linear-gradient(270deg, rgba(30, 18, 6, 0.5), rgba(30, 18, 6, 0) 45%);
+}
+
+/* ---------- 7. MANUSCRIPT TYPOGRAPHY ---------- */
+
+.page h2,
+.page h3,
+.page h4 {
+  font-family: var(--ts-font-display);
+  font-weight: 500;
+  color: var(--ms-ink);
+}
+
+.page h2 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+.page h3 {
+  margin: 22px 0 8px;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a3b2c;
+}
+
+.page h4 {
+  margin: 16px 0 4px;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ms-gold);
+}
+
+.page p {
+  margin: 0 0 12px;
+  font-family: var(--ts-font-literary);
+  font-size: 16.5px;
+  line-height: 1.62;
+  color: var(--ms-ink);
+  hyphens: auto;
+}
+
+.page p.lede {
+  font-size: 18px;
+  line-height: 1.55;
+  color: #3a302a;
+}
+
+.page em {
+  font-style: italic;
+}
+
+.page strong {
+  font-weight: 600;
+  color: #241c17;
+}
+
+.page a {
+  color: #7a5a24;
+  text-decoration-color: rgba(122, 90, 36, 0.45);
+  text-underline-offset: 3px;
+}
+
+.page a:hover {
+  color: var(--ms-gold);
+  text-decoration-color: currentColor;
+}
+
+.page ul,
+.page ol {
+  margin: 0 0 12px;
+  padding-left: 1.15em;
+  font-family: var(--ts-font-literary);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.page li {
+  margin-bottom: 6px;
+}
+
+.page li::marker {
+  color: var(--ms-gold);
+}
+
+.page blockquote {
+  margin: 16px 0;
+  padding: 12px 0 12px 18px;
+  border-left: 2px solid rgba(160, 124, 63, 0.5);
+  font-family: var(--ts-font-literary);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #443a30;
+}
+
+.page blockquote cite {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--ts-font-ui);
+  font-size: 9.5px;
+  font-style: normal;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ms-gold);
+}
+
+.page .verse {
+  margin: 20px 0;
+  padding: 18px 16px;
+  border-top: 1px solid rgba(160, 124, 63, 0.34);
+  border-bottom: 1px solid rgba(160, 124, 63, 0.34);
+  text-align: center;
+  font-family: var(--ts-font-literary);
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.5;
+  color: #3d3229;
+}
+
+.page .verse span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--ts-font-ui);
+  font-size: 9.5px;
+  font-style: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ms-gold);
+}
+
+/* Illuminated initial. */
+.dropcap::first-letter {
+  float: left;
+  margin: 4px 9px 0 0;
+  font-family: var(--ts-font-display);
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 0.82;
+  color: #8a2f28;
+  text-shadow: 0 1px 0 rgba(160, 124, 63, 0.4);
+}
+
+/* Ornamental divider. */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  color: var(--ms-gold);
+}
+
+.ornament::before,
+.ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(160, 124, 63, 0) 0%,
+    rgba(160, 124, 63, 0.45) 50%,
+    rgba(160, 124, 63, 0) 100%
+  );
+}
+
+.ornament span {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+
+.ornament svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+/* Chapter opener block. */
+.chapter-opener {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(160, 124, 63, 0.3);
+}
+
+.chapter-opener__numeral {
+  margin: 0 0 2px;
+  color: var(--ms-gold);
+  font-family: var(--ts-font-display);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.chapter-opener__title {
+  margin: 0;
+  font-family: var(--ts-font-display);
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.chapter-opener__sub {
+  margin: 6px 0 0;
+  font-family: var(--ts-font-literary);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ms-ink-soft);
+}
+
+/* Title page. */
+.title-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+.title-page__mark {
+  font-size: 30px;
+  color: var(--ms-gold);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.title-page__name {
+  margin: 0;
+  font-family: var(--ts-font-display);
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  color: #3c1a1a;
+  text-shadow: 0 1px 0 rgba(160, 124, 63, 0.35);
+}
+
+.title-page__rule {
+  width: 92px;
+  height: 1px;
+  margin: 20px 0;
+  background: linear-gradient(90deg, transparent, var(--ms-gold), transparent);
+}
+
+.title-page__sub {
+  margin: 0;
+  font-family: var(--ts-font-literary);
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.35;
+  color: #4a3c30;
+}
+
+.title-page__author {
+  margin: 34px 0 0;
+  font-family: var(--ts-font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #4a3b2c;
+}
+
+.title-page__pillars {
+  margin: 12px 0 0;
+  font-family: var(--ts-font-ui);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ms-gold);
+}
+
+/* Contents list on the page. */
+.contents-page {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contents-page li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 9px;
+  font-family: var(--ts-font-literary);
+  font-size: 16px;
+}
+
+.contents-page .toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(92, 74, 51, 0.4);
+  transform: translateY(-4px);
+}
+
+.contents-page .toc-folio {
+  font-family: var(--ts-font-display);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ms-gold);
+}
+
+/* Skill register. */
+.skill-register {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  margin: 4px 0 6px;
+}
+
+.skill-register__item {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(160, 124, 63, 0.2);
+}
+
+.skill-register__name {
+  display: block;
+  font-family: var(--ts-font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #3c3128;
+}
+
+.skill-register__note {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--ts-font-literary);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ms-ink-soft);
+}
+
+/* Project plate. */
+.plate {
+  margin: 14px 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(160, 124, 63, 0.34);
+  background: rgba(255, 250, 235, 0.34);
+}
+
+.plate__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 4px;
+  font-family: var(--ts-font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #352a22;
+}
+
+.plate__index {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ms-gold);
+}
+
+.plate__text {
+  margin: 0 0 8px;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.plate__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.plate__tags li {
+  margin: 0;
+  padding: 2px 7px;
+  border: 1px solid rgba(160, 124, 63, 0.36);
+  font-family: var(--ts-font-ui);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6c5330;
+}
+
+.plate__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plate__links li {
+  margin: 0;
+}
+
+.plate__links a {
+  font-family: var(--ts-font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Figure plate for artwork and screenshots. */
+.figure {
+  margin: 10px 0 4px;
+}
+
+.figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(160, 124, 63, 0.4);
+  box-shadow: 0 6px 18px rgba(60, 40, 14, 0.22);
+}
+
+.figure figcaption {
+  margin-top: 6px;
+  font-family: var(--ts-font-literary);
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--ms-ink-soft);
+}
+
+.figure--pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.figure--pair figcaption {
+  grid-column: 1 / -1;
+}
+
+/* Keep the project screenshot within its authored page without shrinking type. */
+.page[data-page-id="frontend-studies-b"] .figure img {
+  max-height: 280px;
+  object-fit: contain;
+  object-position: top;
+}
+
+/* Level meter used in the skill register. */
+.level {
+  display: inline-flex;
+  gap: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.level i {
+  width: 5px;
+  height: 5px;
+  border: 1px solid rgba(160, 124, 63, 0.7);
+}
+
+.level i.on {
+  background: var(--ms-gold);
+}
+
+/* The drawn cross. It is a shape rather than a glyph, so it looks
+   the same on every machine. */
+.mark-cross {
+  display: block;
+  color: var(--ms-gold);
+}
+
+/* A chain of steps, the way the work actually runs. */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 6px;
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(160, 124, 63, 0.26);
+  background: rgba(255, 250, 235, 0.32);
+}
+
+.flow__step {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 6px 9px;
+  border: 1px solid rgba(160, 124, 63, 0.4);
+  background: rgba(240, 227, 198, 0.72);
+  font-family: var(--ts-font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #4a3b2c;
+}
+
+.flow__arrow {
+  display: flex;
+  align-items: center;
+  color: var(--ms-gold);
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* The same chain, written downwards: used where the sequence is
+   too long to read across a page. */
+.flow--tall {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.flow--tall .flow__arrow {
+  align-self: center;
+  transform: rotate(90deg);
+}
+
+/* The honest table of levels. */
+.levels {
+  width: 100%;
+  margin: 6px 0 12px;
+  border-collapse: collapse;
+  font-family: var(--ts-font-literary);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.levels th,
+.levels td {
+  padding: 5px 7px;
+  border-bottom: 1px solid rgba(160, 124, 63, 0.2);
+  text-align: left;
+  vertical-align: top;
+}
+
+.levels thead th {
+  border-bottom: 1px solid rgba(160, 124, 63, 0.45);
+  font-family: var(--ts-font-ui);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ms-gold);
+}
+
+.levels tbody td:nth-child(2) {
+  font-weight: 600;
+  color: #3c3128;
+  white-space: nowrap;
+}
+
+.levels tbody td:nth-child(3) {
+  color: var(--ms-ink-soft);
+}
+
+/* A title page that shares its space with other matter. */
+.title-page--compact {
+  height: auto;
+  min-height: 0;
+  padding: 26px 0 10px;
+}
+
+/* ---------- 8. RESPONSIVE ---------- */
+
+/* Below 860px the spread becomes a single page. */
+@media (max-width: 860px) {
+  .spread {
+    width: 480px;
+    height: 720px;
+  }
+
+  .page-slot--left {
+    display: none;
+  }
+
+  .page-slot--right {
+    left: 0;
+    width: 100%;
+  }
+
+  .leaf {
+    width: 100%;
+  }
+
+  .leaf--left {
+    transform-origin: left center;
+  }
+
+  .page {
+    padding: 34px 32px 30px;
+  }
+
+  .page p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 520px) {
+  :root { --ts-bar-height: 6.5rem; }
+  .manuscript__bar {
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.65rem;
+  }
+  .manuscript__bar-group { width: 100%; justify-content: center; gap: 0.6rem; }
+  .manuscript__bar-group:first-child { justify-content: flex-start; }
+  .manuscript__bar-group--meta { justify-content: space-evenly; }
+  .page-indicator { position: absolute; right: 0.7rem; top: 1rem; letter-spacing: 0.08em; }
+  #sound-toggle-read .control-button__label { display: inline; }
+
+  .manuscript {
+    padding: calc(var(--ts-bar-height) + 0.5rem) 0.5rem 0.75rem;
+  }
+
+  .turn-button {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+  }
+
+  .page-indicator {
+    font-size: 0.52rem;
+  }
+}
+
+/* ---------- 9. REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    transition: none !important;
+  }
+}
+
+/* Continuous reading uses the same content without fixed-height clipping. */
+.continuous[hidden] { display: none; }
+.manuscript.is-continuous { overflow-y: auto; justify-content: flex-start; }
+.is-continuous .manuscript__bar { position: fixed; }
+.continuous { width: min(760px, 100%); display: grid; gap: 24px; padding-bottom: 24px; }
+.continuous__page { scroll-margin-top: calc(var(--ts-bar-height) + 16px); }
+.continuous .page { height: auto; min-height: 600px; }
+.continuous .page__body { overflow: visible; flex: auto; }
+@media (max-width: 860px) {
+  .page-slot--right .page__body { overflow-y: auto; }
+  .continuous .page { min-height: 0; padding: 34px 28px; }
+  .continuous .page p { font-size: 19px; }
+}

@@ -1,628 +1,468 @@
-
 /* ==========================================================
-   TECH'STAMENT — CINEMATIC APPLICATION CONTROLLER
+   TECH'STAMENT — THE APPLICATION CONTROLLER
 
-   Experience:
-   1. Darkness
-   2. Light reveals the Bible cover
-   3. Camera pulls back to reveal the Bible on a table
-   4. OPEN THE TESTAMENT button appears
-   5. Visitor opens the Bible
-   6. Portfolio content is revealed
+   This file is the conductor. It owns the order of the
+   experience and nothing else; the picture belongs to the Three.js
+   scene, the reading belongs to the manuscript, and the sound
+   belongs to the synthesiser.
 
+   THE JOURNEY
+   -----------
+     1.  boot          fonts, textures and the room are prepared
+     2.  darkness      the scene starts at zero exposure
+     3.  the light     the lamp comes up on the cover
+     4.  the reveal    the camera pulls back to the whole book
+     5.  the invitation  OPEN THE TESTAMENT appears
+     6.  the opening   the cover swings on the spine hinge
+     7.  the handoff   the manuscript is laid onto the open pages
+     8.  the reading   the pages flatten out and the room dims
+
+   Every step waits for the one before it, so the visitor is
+   never shown a half-finished picture.
    ========================================================== */
 
+import './styles/techstament.css';
+import './styles/manuscript.css';
+
 import { gsap } from 'gsap';
+
 import { BookScene } from './three/BookScene.js';
+import { Manuscript } from './manuscript/Manuscript.js';
+import { PAGES, CHAPTERS } from './manuscript/content.js';
+import { SoundDesign } from './audio/SoundDesign.js';
+import { bindSoundToggle } from './ui/SoundToggle.js';
 
-// ----------------------------------------------------------
-// 1. HTML ELEMENTS
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   1. THE DOM
+   ---------------------------------------------------------- */
 
-const bookContainer = document.querySelector('#book-canvas');
-const intro = document.querySelector('#intro');
-const introHeader = document.querySelector('.intro-header');
-const introTitle = document.querySelector('.intro-title');
-const introActions = document.querySelector('.intro-actions');
-const introFooter = document.querySelector('.intro-footer');
+const el = {
+  body: document.body,
+  scene: document.querySelector('#scene'),
+  loader: document.querySelector('#loader'),
+  intro: document.querySelector('#intro'),
+  header: document.querySelector('.intro__header'),
+  actions: document.querySelector('#intro-actions'),
+  footer: document.querySelector('.intro__footer'),
+  glow: document.querySelector('.atmosphere__glow'),
+  openButton: document.querySelector('#open-testament'),
+  skipButton: document.querySelector('#skip-intro'),
+  soundButton: document.querySelector('#sound-toggle'),
+  soundButtonRead: document.querySelector('#sound-toggle-read'),
+  fallback: document.querySelector('#fallback'),
+  fallbackButton: document.querySelector('#fallback-open'),
+  skipLink: document.querySelector('.skip-link'),
+};
 
-const openButton = document.querySelector('#open-testament');
-const portfolio = document.querySelector('#portfolio');
-const portfolioHeading = document.querySelector('#portfolio-heading');
+/* ----------------------------------------------------------
+   2. STATE
+   ---------------------------------------------------------- */
 
-const soundButton = document.querySelector('#sound-toggle');
-const soundLabel = document.querySelector('.sound-label');
-
-const skipLinks = document.querySelectorAll(
-  'a[href="#portfolio"]'
-);
-
-// ----------------------------------------------------------
-// 2. APPLICATION STATE
-// ----------------------------------------------------------
-
-let bookScene = null;
-let introTimeline = null;
-
-let hasOpened = false;
-let isOpening = false;
-let introFinished = false;
-let transitionCancelled = false;
-
-const prefersReducedMotion = window.matchMedia(
+const reducedMotion = window.matchMedia(
   '(prefers-reduced-motion: reduce)'
 ).matches;
 
-// ----------------------------------------------------------
-// 3. INITIAL DISPLAY
-// ----------------------------------------------------------
+const state = {
+  /** 'booting' | 'invited' | 'opening' | 'reading' */
+  phase: 'booting',
+  book: null,
+  manuscript: null,
+  sound: new SoundDesign(),
+  cancelled: false,
+  /** True once the reader has asked to skip the cinema. */
+  skipRequested: false,
+  /** True once the skip has actually been carried out. */
+  skipStarted: false,
+  /** True when the 3D room could not be built at all. */
+  bookFailed: false,
+};
 
-function prepareIntroduction() {
-  // The Bible canvas remains visible, but its lighting
-  // starts nearly black inside the Three.js scene.
+/* ----------------------------------------------------------
+   3. SMALL HELPERS
+   ---------------------------------------------------------- */
 
-  gsap.set(introHeader, {
-    autoAlpha: 0
+const wait = (milliseconds) =>
+  new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
+const nextFrame = () =>
+  new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+/** Fade an element out of sight and take it out of the flow. */
+function fadeOut(node, duration = 0.6) {
+  if (!node) return Promise.resolve();
+
+  return new Promise((resolve) => {
+    gsap.to(node, {
+      autoAlpha: 0,
+      duration: reducedMotion ? 0.01 : duration,
+      ease: 'power2.inOut',
+      onComplete: resolve,
+    });
+  });
+}
+
+/** Fade an element into sight. */
+function fadeIn(node, duration = 0.8, delay = 0) {
+  if (!node) return;
+
+  gsap.to(node, {
+    autoAlpha: 1,
+    duration: reducedMotion ? 0.01 : duration,
+    delay: reducedMotion ? 0 : delay,
+    ease: 'power2.out',
+  });
+}
+
+/* ----------------------------------------------------------
+   4. FONTS
+   ----------------------------------------------------------
+
+   The lettering on the cover is painted into a canvas texture at
+   runtime, which means the typefaces have to be in the browser
+   before the texture is drawn. Waiting here is the difference
+   between a cover that reads TECH'STAMENT and a cover that reads
+   TECH'STAMENT in Times New Roman.
+   ---------------------------------------------------------- */
+
+async function waitForFonts() {
+  if (!document.fonts) return;
+
+  const wanted = [
+    '700 100px Cinzel',
+    '500 100px Cinzel',
+    '400 100px "Cormorant Garamond"',
+    'italic 400 100px "Cormorant Garamond"',
+    '600 100px Inter',
+  ];
+
+  try {
+    await Promise.race([
+      Promise.all(wanted.map((font) => document.fonts.load(font, 'TECHSTAMENT'))),
+      wait(4000),
+    ]);
+  } catch (error) {
+    /* A missing typeface is survivable: the canvas falls back to
+       the serif stack declared in the stylesheet. */
+  }
+
+  /* Never hold the whole experience hostage to a slow font. */
+  await Promise.race([
+    document.fonts.ready,
+    wait(4000),
+  ]);
+}
+
+/* ----------------------------------------------------------
+   5. THE MANUSCRIPT
+   ---------------------------------------------------------- */
+
+function buildManuscript() {
+  state.manuscript = new Manuscript({
+    pages: PAGES,
+    chapters: CHAPTERS,
+    reducedMotion,
+    onChange: () => {
+      /* The dry whisper of paper. */
+      state.sound.play('page');
+    },
   });
 
-  gsap.set(introTitle, {
-    autoAlpha: 0
-  });
+  state.manuscript.mount();
+}
 
-  gsap.set(introActions, {
+/* ----------------------------------------------------------
+   6. THE ROOM
+   ---------------------------------------------------------- */
+
+function buildRoom() {
+  try {
+    state.book = new BookScene(el.scene, { reducedMotion });
+    return true;
+  } catch (error) {
+    console.error(
+      "TECH'STAMENT: the 3D room could not be started.",
+      error
+    );
+    return false;
+  }
+}
+
+/* ----------------------------------------------------------
+   7. THE LOADER
+
+   The veil stays over the room until the lamp actually starts to
+   rise, so the visitor sees darkness and then light rather than a
+   finished picture appearing out of nowhere.
+   ---------------------------------------------------------- */
+
+function hideLoader() {
+  if (!el.loader) return;
+
+  gsap.to(el.loader, {
     autoAlpha: 0,
-    y: 25
+    duration: reducedMotion ? 0.01 : 0.7,
+    ease: 'power2.inOut',
+    onComplete: () => el.loader.remove(),
   });
-
-  gsap.set(introFooter, {
-    autoAlpha: 0
-  });
-
-  if (openButton) {
-    openButton.disabled = true;
-  }
-
-  // Prevent the old title from covering the close-up.
-  // The Bible cover itself carries the TECH'STAMENT name.
-  if (introTitle) {
-    introTitle.setAttribute('aria-hidden', 'true');
-  }
 }
 
-// ----------------------------------------------------------
-// 4. CREATE THE 3D BIBLE
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   8. THE INVITATION
+   ---------------------------------------------------------- */
 
-function initializeBook() {
-  if (!bookContainer) return;
+function revealInvitation() {
+  if (state.phase !== 'booting') return;
 
-  try {
-    bookScene = new BookScene(bookContainer);
+  state.phase = 'invited';
 
-    console.log(
-      "TECH'STAMENT: Cinematic Bible scene initialized."
-    );
-  } catch (error) {
-    console.error(
-      "TECH'STAMENT: Unable to initialize the Bible.",
-      error
-    );
+  gsap.set(el.actions, { autoAlpha: 0, y: 26 });
+  gsap.set(el.footer, { autoAlpha: 0 });
 
-    bookContainer.classList.add('book-canvas--fallback');
-  }
+  if (el.openButton) el.openButton.disabled = false;
+
+  fadeIn(el.actions, 0.9);
+  fadeIn(el.footer, 0.7, 0.35);
 }
 
-// ----------------------------------------------------------
-// 5. CINEMATIC INTRODUCTION
-// ----------------------------------------------------------
-
-async function playCinematicIntroduction() {
-  if (!bookScene) {
-    showReadyInterface();
-    return;
-  }
-
-  // Respect accessibility preferences.
-  if (prefersReducedMotion) {
-    await bookScene.playIntro();
-
-    if (!transitionCancelled) {
-      showReadyInterface();
-    }
-
-    return;
-  }
-
-  // The 3D scene controls the spotlight and camera.
-  // It starts with the camera close to the leather cover.
-  try {
-    await bookScene.playIntro();
-  } catch (error) {
-    console.error(
-      "TECH'STAMENT: Introduction animation failed.",
-      error
-    );
-  }
-
-  if (transitionCancelled) return;
-
-  // Only now reveal the controls.
-  showReadyInterface();
-}
-
-// ----------------------------------------------------------
-// 6. REVEAL THE INVITATION
-// ----------------------------------------------------------
-
-function showReadyInterface() {
-  if (transitionCancelled || hasOpened) return;
-
-  introFinished = true;
-
-  if (openButton) {
-    openButton.disabled = false;
-  }
-
-  if (prefersReducedMotion) {
-    gsap.set(
-      [introHeader, introActions, introFooter],
-      {
-        autoAlpha: 1,
-        y: 0
-      }
-    );
-
-    return;
-  }
-
-  introTimeline = gsap.timeline({
-    defaults: {
-      ease: 'power2.out'
-    }
-  });
-
-  introTimeline
-    .to(introHeader, {
-      autoAlpha: 1,
-      duration: 0.8
-    })
-    .to(
-      introActions,
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 1.1
-      },
-      '-=0.3'
-    )
-    .to(
-      introFooter,
-      {
-        autoAlpha: 1,
-        duration: 0.8
-      },
-      '-=0.6'
-    );
-}
-
-// ----------------------------------------------------------
-// 7. OPEN THE TESTAMENT
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   9. OPENING THE BOOK
+   ---------------------------------------------------------- */
 
 async function openTestament() {
-  if (
-    !introFinished ||
-    isOpening ||
-    hasOpened
-  ) {
-    return;
+  if (state.phase !== 'invited' || !state.book) return;
+
+  state.phase = 'opening';
+
+  if (el.openButton) {
+    el.openButton.disabled = true;
+    el.openButton.setAttribute('aria-busy', 'true');
   }
 
-  isOpening = true;
+  /* The invitation gets out of the way before the cover moves. */
+  await Promise.all([fadeOut(el.actions, 0.5), fadeOut(el.footer, 0.5)]);
 
-  if (openButton) {
-    openButton.disabled = true;
-    openButton.setAttribute('aria-busy', 'true');
+  state.sound.play('leather');
+
+  try {
+    await state.book.open();
+  } catch (error) {
+    console.error("TECH'STAMENT: the book failed to open.", error);
   }
 
-  // Hide the invitation before the Bible opens.
-  if (!prefersReducedMotion) {
-    await new Promise(resolve => {
-      gsap.to(
-        [introActions, introFooter],
-        {
-          autoAlpha: 0,
-          y: 20,
-          duration: 0.65,
-          ease: 'power2.inOut',
-          onComplete: resolve
-        }
-      );
-    });
-  }
+  if (state.cancelled) return;
 
-  if (transitionCancelled) return;
-
-  // Physically open the Bible.
-  if (bookScene) {
-    try {
-      await bookScene.open();
-    } catch (error) {
-      console.error(
-        "TECH'STAMENT: Bible opening failed.",
-        error
-      );
-    }
-  }
-
-  if (transitionCancelled) return;
-
-  // Allow visitors to see the opened Bible.
-  if (!prefersReducedMotion) {
-    await new Promise(resolve => {
-      gsap.delayedCall(0.9, resolve);
-    });
-  }
-
-  if (transitionCancelled) return;
-
-  // Temporary transition into portfolio content.
-  // Later the contents will appear inside the book.
-  if (!prefersReducedMotion) {
-    await new Promise(resolve => {
-      gsap.to(bookContainer, {
-        autoAlpha: 0,
-        duration: 1,
-        ease: 'power2.inOut',
-        onComplete: resolve
-      });
-    });
-  }
-
-  if (transitionCancelled) return;
-
-  revealPortfolio();
+  await handoff();
 }
 
-// ----------------------------------------------------------
-// 8. PORTFOLIO REVEAL
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   10. THE HANDOFF
+   ----------------------------------------------------------
 
-function revealPortfolio() {
-  if (!portfolio) return;
+   The manuscript is real HTML, but for a moment it is laid over
+   the open pages with a homography, so that it looks printed on
+   the paper. Then it eases out of the book and becomes a flat,
+   straight-on reading surface.
+   ---------------------------------------------------------- */
 
-  hasOpened = true;
-  isOpening = false;
+async function handoff() {
+  const manuscript = state.manuscript;
+  const single = state.book.isSinglePage;
 
-  if (openButton) {
-    openButton.removeAttribute('aria-busy');
-  }
+  /* The camera has just settled over the spread, so the four
+     corners of the page are known exactly. */
+  const corners = state.book.spreadCorners(single);
 
-  portfolio.scrollIntoView({
-    behavior: 'auto',
-    block: 'start'
-  });
+  manuscript.reveal();
+  manuscript.project(corners);
 
-  if (portfolioHeading) {
-    portfolioHeading.setAttribute('tabindex', '-1');
+  /* Let the reader see the manuscript sitting on the page. */
+  await wait(reducedMotion ? 0.01 : 950);
 
-    portfolioHeading.focus({
-      preventScroll: true
-    });
-  }
+  await manuscript.flatten(reducedMotion ? 0.01 : 1.3);
 
-  if (!prefersReducedMotion) {
-    gsap.fromTo(
-      '.portfolio-inner',
-      {
-        autoAlpha: 0,
-        y: 35
-      },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 1.1,
-        ease: 'power3.out'
-      }
-    );
-  }
+  await settleIntoReading();
 }
 
-// ----------------------------------------------------------
-// 9. SKIP INTRO
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   11. THE READING ROOM
+   ---------------------------------------------------------- */
 
-function skipIntroduction(event) {
-  event.preventDefault();
+async function settleIntoReading() {
+  const manuscript = state.manuscript;
 
-  transitionCancelled = true;
+  manuscript.settle();
 
-  if (introTimeline) {
-    introTimeline.kill();
+  if (state.book) {
+    state.book.dim(0.42);
   }
 
-  gsap.killTweensOf([
-    introHeader,
-    introTitle,
-    introActions,
-    introFooter,
-    bookContainer
-  ]);
+  state.sound.play('chime');
 
-  revealPortfolio();
-}
+  await fadeOut(el.intro, 0.7);
 
-// ----------------------------------------------------------
-// 10. SOUND BUTTON
-// ----------------------------------------------------------
+  state.phase = 'reading';
 
-function initializeSoundButton() {
-  if (!soundButton) return;
+  if (el.openButton) el.openButton.removeAttribute('aria-busy');
 
-  // No audio is connected yet, so don't falsely
-  // display SOUND ON.
-  soundButton.disabled = true;
-
-  soundButton.setAttribute(
-    'aria-label',
-    'Sound coming in a future update'
-  );
-
-  soundButton.setAttribute(
-    'aria-pressed',
-    'false'
-  );
-
-  soundButton.title = 'Sound will be added later';
-
-  if (soundLabel) {
-    soundLabel.textContent = 'SOUND OFF';
+  /* The reader should be able to go straight to the contents. */
+  const contents = document.querySelector('#toggle-contents');
+  if (contents) {
+    contents.setAttribute('title', 'Jump to a chapter');
+    contents.focus({ preventScroll: true });
   }
+  el.intro.inert = true;
 }
 
-// ----------------------------------------------------------
-// 11. REGISTER INTERACTIONS
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   12. SKIPPING THE CINEMA
+   ----------------------------------------------------------
+
+   The intro is beautiful and it is also six seconds long. Anyone
+   who would rather read has to be able to say so.
+   ---------------------------------------------------------- */
+
+async function skipToReading() {
+  if (state.phase === 'reading') return;
+  if (state.skipStarted) return;
+
+  state.skipRequested = true;
+  state.cancelled = true;
+
+  /* If the room is still being prepared, the boot sequence picks
+     this up as soon as it is ready. */
+  if (!state.book && !state.bookFailed) return;
+
+  state.skipStarted = true;
+  state.phase = 'opening';
+
+  gsap.killTweensOf([el.actions, el.footer, el.intro]);
+
+  if (state.book) {
+    /* Put the book straight into its open state. */
+    state.book.cancelIntro();
+    state.book.bible.setOpen(1);
+    state.book.lighting.setLevel(1, { pages: 1 });
+    state.book.renderer.toneMappingExposure = 1.15;
+    state.book.director.snap(state.book.spreadShot);
+  }
+
+  await Promise.all([fadeOut(el.actions, 0.25), fadeOut(el.footer, 0.25)]);
+
+  const manuscript = state.manuscript;
+  manuscript.reveal();
+  manuscript.layout();
+
+  await manuscript.flatten(0.01);
+
+  await settleIntoReading();
+}
+
+/* ----------------------------------------------------------
+   13. NO WEBGL
+   ---------------------------------------------------------- */
+
+function showFallback() {
+  // The fallback is actionable immediately; no fading veil may intercept clicks.
+  gsap.killTweensOf(el.loader);
+  el.loader?.remove();
+
+  if (el.fallback) el.fallback.removeAttribute('hidden');
+
+  gsap.set(el.actions, { autoAlpha: 0 });
+  gsap.set(el.footer, { autoAlpha: 0 });
+
+  if (el.openButton) el.openButton.disabled = true;
+}
+
+/* ----------------------------------------------------------
+   14. EVENTS
+   ---------------------------------------------------------- */
 
 function registerEvents() {
-  if (openButton) {
-    openButton.addEventListener(
-      'click',
-      openTestament
-    );
-  }
+  el.openButton?.addEventListener('click', openTestament);
+  el.skipButton?.addEventListener('click', skipToReading);
+  el.fallbackButton?.addEventListener('click', skipToReading);
 
-  skipLinks.forEach(link => {
-    link.addEventListener(
-      'click',
-      skipIntroduction
-    );
+  el.skipLink?.addEventListener('click', (event) => {
+    event.preventDefault();
+    skipToReading();
   });
 }
 
-// ----------------------------------------------------------
-// 12. INITIALIZE THE EXPERIENCE
-// ----------------------------------------------------------
+/* ----------------------------------------------------------
+   15. BOOT
+   ---------------------------------------------------------- */
 
-async function initializeApplication() {
-  prepareIntroduction();
+async function boot() {
+  el.body.classList.remove('is-booting');
 
-  initializeSoundButton();
+  /* The manuscript DOM is built first: it costs nothing, and it
+     means the reader never waits for the pages to exist. */
+  buildManuscript();
+
+  bindSoundToggle({
+    buttons: [el.soundButton, el.soundButtonRead],
+    sound: state.sound,
+  });
+
   registerEvents();
 
-  initializeBook();
+  if (el.openButton) el.openButton.disabled = true;
 
-  // Wait for the browser to paint the initial darkness
-  // before beginning the light reveal.
-  await new Promise(resolve => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(resolve);
-    });
-  });
+  /* The cover is painted with real typefaces, so the fonts come
+     first. */
+  await waitForFonts();
 
-  if (!transitionCancelled) {
-    await playCinematicIntroduction();
-  }
-
-  console.log(
-    "TECH'STAMENT: Cinematic sequence initialized."
-  );
-}
-
-initializeApplication();
-
-// ----------------------------------------------------------
-// 13. CLEANUP
-// ----------------------------------------------------------
-
-window.addEventListener('pagehide', () => {
-  transitionCancelled = true;
-
-  if (introTimeline) {
-    introTimeline.kill();
-  }
-
-  if (bookScene) {
-    bookScene.destroy();
-    bookScene = null;
-  }
-});
-
-
-/* ==========================================================
-   TECH'STAMENT — MANUSCRIPT PAGE NAVIGATION
-
-   Handles:
-   - Next and previous page buttons
-   - GSAP page-turn animations
-   - Current page indicator
-   - Navigation button states
-   ========================================================== */
-
-function initializeManuscriptPages() {
-  // Find the manuscript and its navigation controls.
-  const book = document.querySelector("#testament-book");
-  const pages = Array.from(
-    document.querySelectorAll(".testament-page")
-  );
-
-  const previousButton = document.querySelector("#previous-page");
-  const nextButton = document.querySelector("#next-page");
-  const pageIndicator = document.querySelector("#page-indicator");
-
-  // Do nothing if the manuscript is not on this page.
-  if (
-    !book ||
-    pages.length === 0 ||
-    !previousButton ||
-    !nextButton ||
-    !pageIndicator
-  ) {
+  if (!buildRoom()) {
+    state.bookFailed = true;
+    showFallback();
+    if (state.skipRequested) await skipToReading();
     return;
   }
 
-  // Track the currently visible page.
-  let currentPage = 0;
-
-  // Prevent multiple animations from running together.
-  let isTurning = false;
-
-  // Roman numerals for the page indicator.
-  const romanNumerals = ["I", "II", "III", "IV"];
-
-  // Respect the visitor's reduced-motion preference.
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  );
-
-  // Update the navigation controls.
-  function updatePageControls() {
-    previousButton.disabled = currentPage === 0;
-    nextButton.disabled = currentPage === pages.length - 1;
-
-    const pageNumber =
-      romanNumerals[currentPage] || String(currentPage + 1);
-
-    const totalPages =
-      romanNumerals[pages.length - 1] || String(pages.length);
-
-    pageIndicator.textContent =
-      `PAGE ${pageNumber} OF ${totalPages}`;
+  /* The reader may have given up on the cinema while the room was
+     still being prepared. Honour that now. */
+  if (state.skipRequested) {
+    await skipToReading();
+    return;
   }
 
-  // Display a particular manuscript page.
-  function showPage(index) {
-    pages.forEach((page, pageIndex) => {
-      const isActive = pageIndex === index;
-
-      page.hidden = !isActive;
-      page.setAttribute("aria-hidden", String(!isActive));
-
-      // Remove leftover animation transforms.
-      gsap.set(page, {
-        clearProps: "transform,opacity,transformOrigin"
-      });
-    });
-
-    currentPage = index;
-    updatePageControls();
-  }
-
-  // Animate from the current page to another page.
-  function turnPage(direction) {
-    if (isTurning) return;
-
-    const nextIndex = currentPage + direction;
-
-    // Stop at the beginning or end of the manuscript.
-    if (nextIndex < 0 || nextIndex >= pages.length) {
-      return;
-    }
-
-    // Skip animation if reduced motion is requested.
-    if (reducedMotion.matches) {
-      showPage(nextIndex);
-      return;
-    }
-
-    isTurning = true;
-
-    const outgoingPage = pages[currentPage];
-    const incomingPage = pages[nextIndex];
-
-    // Reveal the next page beneath the current one.
-    incomingPage.hidden = false;
-    incomingPage.setAttribute("aria-hidden", "true");
-
-    gsap.set(incomingPage, {
-      opacity: 1,
-      rotationY: 0,
-      zIndex: 1
-    });
-
-    gsap.set(outgoingPage, {
-      transformOrigin:
-        direction === 1 ? "left center" : "right center",
-      transformPerspective: 1400,
-      backfaceVisibility: "hidden",
-      rotationY: 0,
-      zIndex: 2
-    });
-
-    // Temporarily prevent clicks during the animation.
-    previousButton.disabled = true;
-    nextButton.disabled = true;
-
-    const timeline = gsap.timeline({
-      onComplete: () => {
-        isTurning = false;
-        showPage(nextIndex);
-      }
-    });
-
-    timeline.to(outgoingPage, {
-      rotationY: direction === 1 ? -85 : 85,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power2.inOut"
-    });
-
-    timeline.fromTo(
-      incomingPage,
-      {
-        opacity: 0.65,
-        scale: 0.985
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 0.55,
-        ease: "power2.out"
-      },
-      0.25
-    );
-  }
-
-  // Connect the navigation buttons.
-  nextButton.addEventListener("click", () => {
-    turnPage(1);
+  /* The lamp's glow in the air comes up with the light. */
+  gsap.to(el.glow, {
+    opacity: 1,
+    duration: reducedMotion ? 0.01 : 3.2,
+    ease: 'power2.inOut',
   });
 
-  previousButton.addEventListener("click", () => {
-    turnPage(-1);
-  });
+  hideLoader();
 
-  // Set up the initial title page.
-  showPage(0);
+  /* Let the browser paint the darkness before the light moves. */
+  await nextFrame();
+
+  try {
+    await state.book.playIntro({ onLight: hideLoader });
+  } catch (error) {
+    console.error("TECH'STAMENT: the introduction failed.", error);
+    hideLoader();
+  }
+
+  if (state.cancelled) return;
+
+  revealInvitation();
 }
 
-// Start manuscript navigation when the page is ready.
-if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    initializeManuscriptPages
-  );
-} else {
-  initializeManuscriptPages();
-}
+boot();
 
+/* ----------------------------------------------------------
+   16. CLEANUP
+   ---------------------------------------------------------- */
+
+window.addEventListener('pagehide', (event) => {
+  // Retain live objects when Back/Forward Cache preserves this document.
+  if (event.persisted) return;
+  state.cancelled = true;
+
+  state.manuscript?.dispose();
+  state.book?.dispose();
+  state.sound.dispose();
+});

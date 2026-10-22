@@ -1,35 +1,34 @@
 {
-  "name": "portfolio",
-  "version": "1.0.0",
-  "description": "The Living Sketchbook - a full-stack developer portfolio with an interactive graphite drawing studio.",
-  "main": "motion.js",
+  "name": "techstament",
+  "version": "2.0.0",
+  "description": "TECH'STAMENT - Christ in my journey through code. An interactive 3D Bible portfolio by Xabiso Phendu.",
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "test": "node scripts/check.cjs",
-    "test:browser": "node scripts/browser-check.cjs",
-    "preview": "vite preview",
     "build": "vite build",
-    "dev:legacy": "node scripts/serve.cjs"
+    "preview": "vite preview --port 4173",
+    "test": "node scripts/check.cjs",
+    "test:browser": "node scripts/browser-check.cjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Xabiso-tech/Portfolio.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "portfolio",
+    "three.js",
+    "gsap",
+    "vite"
+  ],
+  "author": "Xabiso Phendu",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Xabiso-tech/Portfolio/issues"
   },
-  "homepage": "https://github.com/Xabiso-tech/Portfolio#readme",
+  "homepage": "https://xabiso-tech.github.io/Portfolio/",
   "dependencies": {
     "gsap": "^3.15.0",
-    "howler": "^2.2.4",
-    "lenis": "^1.3.27",
-    "lottie-web": "^5.13.0",
-    "page-flip": "^2.0.7",
-    "roughjs": "^4.6.6",
     "three": "^0.186.1"
   },
   "devDependencies": {
