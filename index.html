@@ -1,274 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
-  <meta name="theme-color" content="#0a0507" />
-
-  <meta
-    name="description"
-    content="TECH'STAMENT - Christ in my journey through code. The interactive testimony of Xabiso Phendu, a full-stack web developer from Cape Town, South Africa."
-  />
-
-  <meta name="author" content="Xabiso Phendu" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="TECH'STAMENT - Christ in My Journey Through Code" />
-  <meta
-    property="og:description"
-    content="A leather-bound Bible you can open. Inside: the story of a web developer learning to build, and the faith that holds the work together."
-  />
-
-  <title>TECH'STAMENT | Christ in My Journey Through Code</title>
-
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-  <!-- Typefaces: Cinzel for ceremonial headings, Cormorant Garamond for the
-       manuscript body, Inter for small interface labels. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- The stylesheet is imported by src/main.js so Vite can fingerprint it and
-       rewrite the URL for the /Portfolio/ sub-path. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173c38">
+  <meta name="description" content="Explore the work and journey of Xabiso Phendu, a Junior Full-Stack Web Developer from Cape Town.">
+  <title>DEV//ON THE ROAD — Xabiso Phendu</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <script src="assets/js/vendor/gsap.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/home.js" defer></script>
 </head>
+<body class="home-page home-road-page">
+  <a class="skip-link" href="#main">Skip to the road and portfolio</a>
 
-<body class="is-booting">
-
-  <!-- Keyboard users can bypass the cinematic opening entirely. -->
-  <a class="skip-link" href="#manuscript">Skip to the testimony</a>
-
-  <!-- ================================================================
-       THE STAGE
-       Everything about the physical Bible happens here. The canvas is
-       decorative: the same content is available as semantic HTML inside
-       the manuscript, so screen readers never depend on WebGL.
-       ================================================================ -->
-  <div id="stage" class="stage">
-
-    <!-- Three.js renders into this element. It is sized to the whole
-         viewport so no rectangular canvas edge is ever visible. -->
-    <div id="scene" class="scene" aria-hidden="true"></div>
-
-    <!-- Atmospheric depth: a warm pool of light, a vignette and film grain. -->
-    <div class="atmosphere" aria-hidden="true">
-      <div class="atmosphere__glow"></div>
-      <div class="atmosphere__vignette"></div>
-      <div class="atmosphere__grain"></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="DEV on the Road home">
+        <span class="brand-main">DEV<span class="brand-mark">//</span>ON THE ROAD</span>
+        <span class="brand-sub">XABISO PHENDU · DEVELOPER FIELD NOTES</span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-controls="site-navigation" aria-expanded="false">MENU <span aria-hidden="true">☰</span></button>
+      <nav class="site-nav" id="site-navigation" data-site-nav aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="about.html">The Driver</a>
+        <a href="skills.html">Fuel Stops</a>
+        <a href="projects.html">Destinations</a>
+        <a href="roadworks.html">Roadworks</a>
+        <a href="certifications.html">Passport</a>
+        <a href="testimonials.html">Postcards</a>
+        <a href="cv.html">My CV</a>
+        <a href="contact.html">Next Stop</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Branded loading state, visible only while the scene warms up. -->
-    <div id="loader" class="loader" role="status" aria-live="polite">
-      <span class="loader__mark" aria-hidden="true">&#10013;</span>
-      <span class="loader__text">Preparing the light</span>
+  <section class="road-intro" data-road-intro hidden role="dialog" aria-modal="true" aria-labelledby="intro-title" aria-describedby="intro-copy">
+    <div class="intro-night" aria-hidden="true">
+      <div class="intro-windshield">
+        <div class="intro-horizon"></div>
+        <div class="intro-road"></div>
+        <span class="intro-road-dash intro-road-dash-one"></span>
+        <span class="intro-road-dash intro-road-dash-two"></span>
+      </div>
+      <div class="intro-dash">
+        <span class="intro-dash-light"></span><span class="intro-dash-light"></span><span class="intro-dash-light"></span>
+        <span class="intro-wheel"></span>
+      </div>
+      <span class="intro-wordmark">DEV<span>//</span>ON THE ROAD</span>
     </div>
+    <div class="road-intro-panel">
+      <p class="eyebrow">IGNITION // CAPE TOWN, SOUTH AFRICA</p>
+      <h2 id="intro-title">Every journey<br>starts somewhere.</h2>
+      <p id="intro-copy" data-intro-message>Take the driver's seat. Then follow the road into my work.</p>
+      <div class="road-intro-actions">
+        <button class="action-button" type="button" data-intro-continue>Turn the key</button>
+        <button class="intro-skip" type="button" data-intro-skip>Skip the introduction</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- The cinematic introduction. -->
-    <section id="intro" class="intro" aria-label="TECH'STAMENT introduction">
-
-      <header class="intro__header">
-        <a href="#intro" class="brand" aria-label="TECH'STAMENT, home">
-          <span class="brand__mark" aria-hidden="true">&#10013;</span>
-          <span class="brand__name">TECH'STAMENT</span>
-        </a>
-
-        <div class="intro__controls">
-          <button
-            id="sound-toggle"
-            class="control-button"
-            type="button"
-            aria-pressed="false"
-            aria-label="Turn sound on"
-          >
-            <span class="control-button__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="15" height="15" focusable="false">
-                <path
-                  d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="1.3"
-                  stroke-linejoin="round"
-                />
-                <path class="sound-wave" d="M15.4 8.6a4.8 4.8 0 0 1 0 6.8M18 6.2a8.2 8.2 0 0 1 0 11.6"
-                  fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
-              </svg>
-            </span>
-            <span class="control-button__label" data-sound-label>SOUND OFF</span>
-          </button>
-
-          <button id="skip-intro" class="control-button control-button--quiet" type="button">
-            SKIP INTRO
-          </button>
+  <main id="main">
+    <section class="driver-hero" aria-labelledby="driver-title">
+      <div class="driver-copy">
+        <p class="driver-kicker"><span class="driver-status-dot" aria-hidden="true"></span> FIELD NOTES 001 · CAPE TOWN, SOUTH AFRICA</p>
+        <h1 id="driver-title" tabindex="-1">The road to<br><span>what's next.</span></h1>
+        <p class="driver-lede"><strong>I'm Xabiso Phendu, a Junior Full-Stack Web Developer.</strong> I build useful web experiences, learn through the tricky turns, and keep moving forward.</p>
+        <div class="driver-actions">
+          <a class="driver-action driver-action-primary" href="projects.html">Explore my projects <span aria-hidden="true">↗</span></a>
+          <a class="driver-action driver-action-secondary" href="contact.html">Get in touch <span aria-hidden="true">→</span></a>
         </div>
-      </header>
-
-      <!-- The invitation. It stays hidden until the camera has finished
-           revealing the book, so the visitor is never asked to act before
-           the scene has told them what they are looking at. -->
-      <div id="intro-actions" class="intro__actions">
-        <button id="open-testament" class="open-testament" type="button">
-          <span class="open-testament__rule" aria-hidden="true"></span>
-          <span class="open-testament__text">OPEN THE TESTAMENT</span>
-          <span class="open-testament__rule" aria-hidden="true"></span>
-        </button>
-
-        <p class="intro__hint">An interactive testimony awaits within</p>
       </div>
 
-      <footer class="intro__footer">
-        <span>FAITH &bull; PURPOSE &bull; CODE</span>
-        <span class="intro__footer-centre">XABISO PHENDU &middot; CAPE TOWN</span>
-        <span>CHRIST IN MY JOURNEY THROUGH CODE</span>
-      </footer>
+      <div class="driver-view" role="img" aria-label="Illustrated view from inside a car on a tropical road through green hills, heading toward the horizon.">
+        <svg class="driver-landscape" viewBox="0 0 1440 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="driverSky" x2="0" y2="1"><stop stop-color="#a6e7d7"/><stop offset="1" stop-color="#f6d881"/></linearGradient>
+            <linearGradient id="driverRoad" x2="0" y2="1"><stop stop-color="#424d4b"/><stop offset="1" stop-color="#202a2c"/></linearGradient>
+            <linearGradient id="driverGlass" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          </defs>
+          <rect width="1440" height="680" fill="url(#driverSky)"/>
+          <circle cx="1110" cy="145" r="68" fill="#ffd447"/>
+          <path d="M0 300 Q170 210 335 286T650 270T960 278T1240 235T1440 285V680H0Z" fill="#78aa70"/>
+          <path d="M0 360 Q210 280 435 354T850 330T1160 350T1440 300V680H0Z" fill="#3b806b"/>
+          <path d="M0 405 Q235 335 430 398T850 380T1200 402T1440 360V680H0Z" fill="#28675b"/>
+          <g fill="#1b554d">
+            <path d="M70 396q18-92 60-134 42 42 59 134z"/><path d="M42 336q88-22 176 0-84 38-176 0z"/><path d="M1250 380q22-112 68-162 48 50 70 162z"/><path d="M1210 308q108-27 214 1-105 45-214-1z"/>
+            <path d="M270 423q14-68 44-100 32 32 45 100z"/><path d="M1080 410q15-74 48-108 35 35 49 108z"/>
+          </g>
+          <path d="M530 680 676 389Q704 342 720 342q16 0 44 47l146 291Z" fill="url(#driverRoad)"/>
+          <path d="m688 680 22-292q4-34 10-34t10 34l22 292z" fill="#fff5df"/>
+          <path d="m514 680 127-270m285 270L799 410" fill="none" stroke="#f4f0d7" stroke-width="8" opacity=".7"/>
+          <path d="M0 0h1440v18H0z" fill="#173c38" opacity=".8"/>
+          <path d="M40 40h1360v600H40z" fill="none" stroke="#173c38" stroke-width="28" opacity=".75"/>
+          <path d="M40 40q0-26 28-26h1304q28 0 28 26" fill="none" stroke="#f8f4e9" stroke-width="8" opacity=".7"/>
+          <rect x="42" y="42" width="1356" height="600" fill="url(#driverGlass)"/>
+        </svg>
+
+        <div class="driver-scene-label"><span>VIEW FROM THE DRIVER'S SEAT</span><span>ROUTE: LEARN · BUILD · REPEAT</span></div>
+
+        <nav class="road-signs" aria-label="Choose a destination">
+          <a class="road-sign road-sign-projects" href="projects.html"><span>01 · BUILDS</span><strong>Projects</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-skills" href="skills.html"><span>02 · TOOLKIT</span><strong>Skills</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-about" href="about.html"><span>03 · THE DRIVER</span><strong>About</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-roadworks" href="roadworks.html"><span>04 · DETOURS</span><strong>Roadworks</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-certifications" href="certifications.html"><span>05 · MILESTONES</span><strong>Certificates</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-testimonials" href="testimonials.html"><span>06 · CREW NOTES</span><strong>Testimonials</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-cv" href="cv.html"><span>07 · DOCUMENTS</span><strong>My CV</strong><span aria-hidden="true">↗</span></a>
+          <a class="road-sign road-sign-contact" href="contact.html"><span>08 · NEXT STOP</span><strong>Contact</strong><span aria-hidden="true">↗</span></a>
+        </nav>
+
+        <div class="driver-dashboard" aria-hidden="true">
+          <span class="dashboard-brand">DEV//ON THE ROAD</span>
+          <span class="dashboard-gauge"><i></i><b>LEARN</b></span>
+          <span class="dashboard-center"><i></i><i></i><i></i></span>
+          <span class="dashboard-gauge dashboard-gauge-right"><i></i><b>BUILD</b></span>
+          <span class="dashboard-wheel"></span>
+        </div>
+      </div>
+      <p class="driver-caption"><span>FIG. 001</span> The work is the destination. The road is how I get there.</p>
     </section>
 
-    <!-- Shown when WebGL is unavailable or the scene fails to build. -->
-    <div id="fallback" class="fallback" hidden>
-      <div class="fallback__inner">
-        <p class="fallback__mark" aria-hidden="true">&#10013;</p>
-        <h2 class="fallback__title">The book could not be opened in 3D</h2>
-        <p class="fallback__text">
-          Your browser could not start WebGL, so the physical Bible is unavailable.
-          The testimony itself is written below and can be read and turned normally.
-        </p>
-        <button id="fallback-open" class="open-testament" type="button">
-          <span class="open-testament__rule" aria-hidden="true"></span>
-          <span class="open-testament__text">READ THE TESTAMENT</span>
-          <span class="open-testament__rule" aria-hidden="true"></span>
-        </button>
+    <section class="trip-log section-block" aria-labelledby="trip-log-title">
+      <div class="trip-log-heading">
+        <div>
+          <p class="eyebrow">THE ROUTE MAP</p>
+          <h2 id="trip-log-title" class="section-heading">Choose a <span class="orange-text">destination.</span></h2>
+        </div>
+        <p class="trip-log-note">Follow the signs, explore the work, and meet the developer behind it.</p>
       </div>
-    </div>
-  </div>
-
-  <!-- ================================================================
-       THE MANUSCRIPT
-       The interior of the Bible. Real semantic HTML, rendered page by
-       page so the reader can turn leaves.
-       ================================================================ -->
-  <main id="manuscript" class="manuscript" aria-labelledby="manuscript-title" hidden>
-
-    <!-- The darkened room behind the pages. It stays invisible while the
-         manuscript is lying on the open book, so the reader can still see
-         the physical Bible around the pages. -->
-    <div class="manuscript__backdrop" aria-hidden="true"></div>
-
-    <h1 id="manuscript-title" class="visually-hidden">
-      TECH'STAMENT: Christ in My Journey Through Code, by Xabiso Phendu
-    </h1>
-
-    <!-- Reading controls. -->
-    <div class="manuscript__bar">
-      <div class="manuscript__bar-group">
-        <button id="page-prev" class="turn-button" type="button" aria-label="Turn to the previous page">
-          <span aria-hidden="true">&#8592;</span> PREVIOUS
-        </button>
-        <button id="page-next" class="turn-button" type="button" aria-label="Turn to the next page">
-          NEXT <span aria-hidden="true">&#8594;</span>
-        </button>
+      <div class="destination-grid">
+        <a class="destination-card destination-card--blue" href="projects.html"><span class="destination-number">STOP 01 / BUILDS</span><span class="destination-icon" aria-hidden="true">↗</span><h3>THE<br>DESTINATIONS</h3><p>Web projects, real features and the thinking behind the build.</p><span class="destination-link">VIEW PROJECTS →</span></a>
+        <a class="destination-card destination-card--yellow" href="skills.html"><span class="destination-number">STOP 02 / TOOLKIT</span><span class="destination-icon" aria-hidden="true">⛽</span><h3>FUEL<br>STOPS</h3><p>The languages, tools and technologies powering the journey.</p><span class="destination-link">EXPLORE SKILLS →</span></a>
+        <a class="destination-card destination-card--pink" href="roadworks.html"><span class="destination-number">STOP 03 / LESSONS</span><span class="destination-icon" aria-hidden="true">⚠</span><h3>ROADWORKS<br>& DETOURS</h3><p>The bugs and lessons that have made the work better.</p><span class="destination-link">SEE THE DETOURS →</span></a>
+        <a class="destination-card destination-card--orange" href="about.html"><span class="destination-number">STOP 04 / THE DRIVER</span><span class="destination-icon" aria-hidden="true">✳</span><h3>WHO'S<br>DRIVING?</h3><p>Meet Xabiso, the developer behind the keyboard and code.</p><span class="destination-link">MEET THE DRIVER →</span></a>
       </div>
+    </section>
 
-      <div class="manuscript__bar-group manuscript__bar-group--meta">
-        <span id="page-indicator" class="page-indicator" aria-live="polite">Page 1</span>
+    <section class="home-road-note section-block" aria-label="A note from the driver">
+      <p class="eyebrow">A NOTE FROM THE DRIVER</p>
+      <p><strong>One curious turn led to another.</strong> This portfolio follows the projects I've built, the skills I've practised, and the lessons I'm carrying forward.</p>
+      <a href="testimonials.html">Read postcards from the crew ↗</a>
+    </section>
 
-        <button
-          id="toggle-continuous"
-          class="turn-button turn-button--quiet"
-          type="button"
-          aria-pressed="false"
-          aria-label="Read as one continuous column"
-        >
-          CONTINUOUS
-        </button>
-
-        <button id="toggle-contents" class="turn-button turn-button--quiet" type="button" aria-expanded="false" aria-controls="contents-panel">
-          CONTENTS
-        </button>
-
-        <button
-          id="sound-toggle-read"
-          class="turn-button turn-button--quiet"
-          type="button"
-          aria-pressed="false"
-          aria-label="Turn sound on"
-        >
-          <span class="control-button__label" data-sound-label>SOUND OFF</span>
-        </button>
+    <section class="final-postcard section-block" aria-labelledby="postcard-title">
+      <div class="postcard-copy">
+        <p class="eyebrow">THE ROAD AHEAD</p>
+        <h2 id="postcard-title" class="section-heading">The best part?<br><span class="orange-text">We're not done.</span></h2>
+        <p>There's more to a developer than a list of technologies. Explore the work, the decisions, the lessons and the person behind them.</p>
+        <a class="action-link" href="contact.html">Let's talk <span aria-hidden="true">↗</span></a>
       </div>
-    </div>
-
-    <!-- The open spread. Pages are injected here by src/manuscript. -->
-    <div id="spread" class="spread" role="region" aria-label="Manuscript pages" aria-live="off"></div>
-
-    <!-- Table of contents, opened as an overlay on the manuscript. -->
-    <div id="contents-panel" class="contents" hidden>
-      <div class="contents__inner">
-        <p class="contents__label">CONTENTS</p>
-        <ol id="contents-list" class="contents__list"></ol>
-        <button id="contents-close" class="turn-button turn-button--quiet" type="button">CLOSE</button>
-      </div>
-    </div>
+      <div class="postcard-stamp" aria-hidden="true"><span>GREETINGS</span><strong>FROM<br>THE<br>DEV ROAD</strong><span>KEEP BUILDING</span><div class="postcard-cancel">✳ ✳ ✳ ✳ ✳</div></div>
+    </section>
   </main>
 
-  <!-- Without JavaScript the visitor still gets the substance of the work. -->
-  <noscript>
-    <div class="noscript">
-      <h2>TECH'STAMENT &mdash; Christ in My Journey Through Code</h2>
-      <p>
-        Xabiso Phendu is a full-stack web developer from Cape Town, South Africa. He
-        trained at Life Choices Academy, starting with no programming experience, and
-        now builds interfaces, APIs and MySQL-backed applications.
-      </p>
-      <h3>Chapter I &mdash; The Beginning</h3>
-      <p>
-        Life Choices Academy was the start: HTML for structure, CSS for design and
-        JavaScript for behaviour, then Node.js, Express, MySQL and REST APIs. Team
-        projects taught him to work with other developers through Git.
-      </p>
-      <h3>Chapter II &mdash; The Equipping</h3>
-      <p>
-        HTML, CSS, JavaScript, Vue.js, Vite, Node.js, Express.js, REST APIs, MySQL,
-        Git, GitHub and VS Code, supported by real project work.
-      </p>
-      <h3>Chapter III &mdash; The Works</h3>
-      <ul>
-        <li>
-          <strong>WeConnect</strong> &mdash; a business-to-business marketplace for
-          small businesses and suppliers. Xabiso contributed the order, delivery and
-          tracking functionality.
-          <a href="https://weconnect-bir9.onrender.com/landing" rel="noopener noreferrer">Open the marketplace</a>
-        </li>
-        <li>
-          <strong>HR Tech Solutions</strong> &mdash; a collaborative workforce
-          management system built with Node.js, Express, MySQL and REST APIs.
-          <a href="https://nikitamullerr.github.io/HR_System-Group-4/" rel="noopener noreferrer">Open the demo</a>
-        </li>
-        <li>
-          <strong>My Gallery, AutoVault, NovaTech and the Booking Form</strong> &mdash;
-          frontend studies on layout, responsiveness and interaction.
-        </li>
-      </ul>
-      <h3>Chapter IV &mdash; The Illustrated Pages</h3>
-      <p>
-        Drawing is a personal hobby and a side practice, not the professional focus.
-        Twelve original graphite studies are included in the full experience.
-      </p>
-      <h3>Chapter V &mdash; The Commission</h3>
-      <ul>
-        <li><a href="https://github.com/Xabiso-tech" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" rel="noopener noreferrer">LinkedIn</a></li>
-      </ul>
-      <blockquote>
-        <p>&ldquo;And whatsoever ye do, do it heartily, as to the Lord, and not unto men.&rdquo;</p>
-        <cite>Colossians 3:23 &mdash; KJV</cite>
-      </blockquote>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© <span data-current-year>2026</span> Xabiso Phendu · Built with curiosity and code.</p>
+      <span class="footer-stamp">END OF PAGE · NOT THE JOURNEY</span>
+      <p><a href="contact.html">Got a destination in mind? Get in touch ↗</a></p>
     </div>
-  </noscript>
-
-  <script type="module" src="/src/main.js"></script>
+  </footer>
 </body>
 </html>
