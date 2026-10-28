@@ -1,252 +1,196 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect &middot; Xabiso Phendu</title>
-    <meta name="description"
-        content="Contact Xabiso Phendu about junior developer opportunities, internships, project collaborations or web development work. Reach him on LinkedIn or GitHub.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=d0d9e70">
-    <script>document.documentElement.className = "js-motion";</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17233B">
+  <meta name="description" content="Contact Xabiso Phendu, Junior Full-Stack Web Developer, about opportunities, collaborations and technology projects.">
+  <title>The Next Destination | DEV//ON THE ROAD</title>
+
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/main.js" defer></script>
 </head>
 
-<body id="top">
-    <a class="skip-link" href="#main">Skip to content</a>
+<body class="contact-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <canvas id="studio-canvas" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <div class="header-inner">
+<a class="site-logo" href="index.html" aria-label="DEV on the Road home">
+      DEV<span>//</span>ON THE ROAD
+    </a>
 
-    <div class="construction" aria-hidden="true">
-        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path
-                d="M120 120 Q800 84 1480 124 Q1512 500 1476 880 Q800 918 128 876 Q96 500 120 120Z" />
-            <path d="M120 120 L1476 880 M120 880 L1476 120" class="c-hatch" />
-            <path d="M120 500 L1480 500" class="c-hatch" />
-            <path d="M800 100 L800 900" class="c-hatch" />
-            <path d="M60 300 Q800 268 1540 302" class="c-hatch" />
-            <path d="M64 700 Q800 732 1536 698" class="c-hatch" />
-            <circle class="c-circle" cx="800" cy="500" r="380" />
-            <circle class="c-circle" cx="800" cy="500" r="300" />
-            <circle class="c-circle" cx="800" cy="500" r="210" />
-            <path d="M120 96 L120 144 M1560 96 L1560 144 M120 856 L120 904 M1560 856 L1560 904" />
-        </svg>
+    <button class="menu-toggle" type="button"
+      data-menu-toggle aria-expanded="false"
+      aria-controls="primary-navigation">
+      <span class="menu-toggle-label">Menu</span>
+      <span aria-hidden="true">☰</span>
+    </button>
+
+    <nav class="site-nav" id="primary-navigation" data-site-nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Fuel Stops</a>
+      <a href="projects.html">Destinations</a>
+      <a href="roadworks.html">Roadworks</a>
+      <a href="certifications.html">Passport &amp; Achievements</a>
+      <a href="testimonials.html">Crew Postcards</a>
+      <a href="cv.html">My CV</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
     </div>
+  </header>
 
-    <div class="grain" aria-hidden="true"></div>
-    <div class="smudge" aria-hidden="true"></div>
-    <div class="cursor-lead" aria-hidden="true"></div>
-    <div class="cursor-trail" aria-hidden="true"></div>
+  <main id="main-content" class="contact-main">
 
-    <div class="page-wipe" id="page-wipe" aria-hidden="true">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0 0 L100 0 L100 100 L0 100 Z" />
-        </svg>
-    </div>
+    <section class="contact-hero">
+      <div class="contact-hero-copy">
+        <p class="contact-kicker">LAST CALL BEFORE DEPARTURE // CONTACT DESK</p>
+        <h1>THE NEXT<br><span>DESTINATION.</span></h1>
+        <p class="contact-intro">
+          Every great project starts somewhere. Maybe it starts with
+          a conversation, a problem that needs solving, or an idea
+          that refuses to leave your mind.
+        </p>
+        <p class="contact-intro">
+          If you're looking for a developer, exploring a collaboration,
+          or simply want to talk technology, I'd be glad to hear from you.
+        </p>
 
-    <header>
-        <nav>
-            <h1><i class="fa-solid fa-circle-half-stroke"></i> Xabiso Phendu</h1>
-            <ul>
-                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="about.html"><i class="fa-solid fa-book-open"></i> My Story</a></li>
-                <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
-                <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
-                <li><a href="contact.html" aria-current="page"><i class="fa-solid fa-envelope"></i> Connect</a></li>
-            </ul>
-        </nav>
-    </header>
+        <a class="contact-primary-button" href="mailto:xphendu1@gmail.com">
+          Let's start a conversation <span aria-hidden="true">↗</span>
+        </a>
+      </div>
 
-    <main id="main" tabindex="-1">
+      <div class="contact-road-art" aria-label="Decorative road sign illustration">
+        <div class="contact-sun" aria-hidden="true"></div>
+        <div class="contact-sign contact-sign-one">
+          <span>NEW IDEAS</span>
+          <span aria-hidden="true">↗</span>
+        </div>
+        <div class="contact-sign contact-sign-two">
+          <span>GOOD PEOPLE</span>
+          <span aria-hidden="true">→</span>
+        </div>
+        <div class="contact-sign contact-sign-three">
+          <span>BUILD SOMETHING</span>
+          <span aria-hidden="true">↗</span>
+        </div>
+        <div class="contact-road" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p class="contact-road-caption">NEXT STOP: POSSIBILITY</p>
+      </div>
 
-        <div class="contact-hero">
-            <span class="eyebrow" data-reveal>Contact</span>
-            <h2 data-etch>Start a conversation</h2>
-            <p class="contact-tagline" data-reveal>
-                If my work is relevant to what you are building, get in touch about a junior
-                developer opportunity, an internship, a project or a technical conversation.
-            </p>
+      <div class="contact-route-marker">
+        <span class="contact-route-dot"></span>
+        OPEN TO THE RIGHT CONVERSATION
+      </div>
+    </section>
 
-            <div class="mini-quote" data-reveal>
-                <p>Available for thoughtful conversations about web development and practical projects.</p>
-            </div>
+    <section class="contact-options section-block" aria-labelledby="contact-options-title">
+      <div class="contact-section-heading">
+        <p class="contact-kicker">CHOOSE YOUR ROUTE // 01</p>
+        <h2 id="contact-options-title">Where should we connect?</h2>
+        <p>Pick the route that suits you best.</p>
+      </div>
+
+      <div class="contact-card-grid">
+        <article class="contact-card contact-card-email">
+          <span class="contact-card-number">01 / EMAIL</span>
+          <div class="contact-card-icon" aria-hidden="true">✉</div>
+          <h3>Send a message.</h3>
+          <p>
+            For opportunities, project discussions, questions,
+            or a conversation about working together.
+          </p>
+          <a href="mailto:xphendu1@gmail.com" class="contact-card-link">
+            xphendu1@gmail.com <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="contact-card contact-card-phone">
+          <span class="contact-card-number">02 / PHONE</span>
+          <div class="contact-card-icon" aria-hidden="true">☎</div>
+          <h3>Let's talk.</h3>
+          <p>
+            Prefer a direct conversation? You can reach me by
+            phone using the number below.
+          </p>
+          <a href="tel:+27723279384" class="contact-card-link">
+            +27 72 327 9384 <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="contact-card contact-card-work">
+          <span class="contact-card-number">03 / MY WORK</span>
+          <div class="contact-card-icon" aria-hidden="true">⌘</div>
+          <h3>See what I build.</h3>
+          <p>
+            Explore my projects, the problems they address,
+            and the technologies I've worked with.
+          </p>
+          <a href="projects.html" class="contact-card-link">
+            Explore destinations <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </div>
+      <div class="contact-social-links">
+        <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank" rel="noopener noreferrer">LinkedIn profile ↗</a>
+        <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a>
+      </div>
+    </section>
+
+    <section class="contact-invitation section-block" aria-labelledby="invitation-title">
+      <div class="contact-ticket">
+        <div class="contact-ticket-top">
+          <span>CONVERSATION PASS</span>
+          <span>NO RESERVATION REQUIRED</span>
         </div>
 
-        <hr class="sketch-rule" data-reveal>
-
-        <section data-reveal>
-            <span class="eyebrow">Topics</span>
-            <h2 data-etch>What you can reach me about</h2>
-
-            <div class="contact-cards">
-
-                <div class="contact-card">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <h3>Junior opportunities</h3>
-                    <p>
-                        Junior web development roles and internships where I can contribute while
-                        continuing to grow across the stack.
-                    </p>
-                </div>
-
-                <div class="contact-card">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <h3>Projects and collaboration</h3>
-                    <p>
-                        Team projects, implementation work or an opportunity to discuss how my
-                        frontend and backend experience could fit your work.
-                    </p>
-                </div>
-
-                <div class="contact-card">
-                    <i class="fa-solid fa-people-group"></i>
-                    <h3>Technical conversation</h3>
-                    <p>
-                        Questions about my projects, APIs, databases or the decisions behind a
-                        particular feature.
-                    </p>
-                </div>
-
-            </div>
-        </section>
-
-        <hr class="sketch-rule" data-reveal>
-
-        <section data-reveal>
-            <div class="contact-grid">
-
-                <div class="contact-info-card">
-
-                    <h3><i class="fa-solid fa-share-nodes"></i> Contact me</h3>
-
-                    <p>
-                        Send a message on LinkedIn about professional opportunities or collaboration.
-                        GitHub is a good place to discuss code and review project work.
-                    </p>
-
-                    <div class="mini-divider"></div>
-
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin"></i> LinkedIn
-                        </a>
-                        <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i> GitHub
-                        </a>
-                    </div>
-
-                    <div class="mini-divider"></div>
-
-                    <h3><i class="fa-solid fa-code-branch"></i> Live project work</h3>
-
-                    <p>
-                        Explore the applications and their separate admin and public interfaces.
-                    </p>
-
-                    <div class="social-links">
-                        <a href="https://weconnect-bir9.onrender.com/landing" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa-solid fa-handshake"></i> Explore WeConnect
-                        </a>
-                        <a href="https://weconnect-admin4.onrender.com/" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Admin
-                        </a>
-                        <a href="https://nikitamullerr.github.io/HR_System-Group-4/" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa-solid fa-users-gear"></i> Explore HR Tech
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="contact-form-card">
-
-                    <h3><i class="fa-solid fa-message"></i> Start with LinkedIn</h3>
-
-                    <p>
-                        For a role, internship or collaboration, include the opportunity and what
-                        you would like to discuss. For a project question, a link to the relevant
-                        page or feature helps me respond with context.
-                    </p>
-
-                    <p>
-                        This portfolio does not collect messages. Use one of the profiles below to
-                        contact me directly.
-                    </p>
-
-                    <div class="social-links">
-                        <a class="ink-btn" href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/"
-                            target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin"></i> Message on LinkedIn
-                        </a>
-                        <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i> View GitHub
-                        </a>
-                    </div>
-
-                    <div class="sign-off">
-                        <span class="eyebrow" style="margin-bottom: 0.35rem;">Xabiso Phendu</span>
-                        <span class="hand" aria-label="Signed, Xabiso Phendu">Xabiso Phendu</span>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <section class="sketch-frame" data-reveal>
-            <h2 style="font-size: clamp(1.6rem, 4.4vw, 2.4rem);" data-etch>A useful first message</h2>
-
-            <p>
-                A role, project or question and a little context is enough to get the conversation
-                started. I look forward to hearing what you are working on.
-            </p>
-
-            <p class="hand" style="font-size: clamp(1.3rem, 3.6vw, 1.8rem); color: var(--ember); margin-top: 1.8rem;">
-                Thanks for getting in touch.
-            </p>
-        </section>
-
-    </main>
-
-    <footer class="artist-footer">
-        <p class="footer-phrase">
-            The next project<br>
-            starts with a conversation.
-        </p>
-
-        <p class="footer-signature">
-            <span class="hand">Xabiso Phendu</span><br>
-            <span class="mono">Web developer &middot; Cape Town, South Africa</span>
-        </p>
-
-        <div class="footer-links">
-            <a href="about.html">My Story</a>
-            <a href="skills.html">Toolkit</a>
-            <a href="projects.html">Workshop</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Connect</a>
+        <div class="contact-ticket-body">
+          <p class="contact-kicker">YOUR IDEA HAS A SEAT</p>
+          <h2 id="invitation-title">What are we building next?</h2>
+          <p>
+            I'm interested in opportunities that help me keep learning,
+            contribute to a team, and use technology to solve meaningful
+            problems. Tell me what you're working on.
+          </p>
+          <a class="contact-primary-button" href="mailto:xphendu1@gmail.com?subject=Let's%20connect">
+            Start here <span aria-hidden="true">↗</span>
+          </a>
         </div>
 
-        <p class="footer-info">
-            <span>&copy; <span class="year">2026</span> Xabiso Phendu</span>
-            <span class="footer-divider">&bull;</span>
-            <span>Full-Stack Developer in Training</span>
-            <span class="footer-divider">&bull;</span>
-            <a href="#top" class="back-to-top">Back to top &uarr;</a>
-        </p>
-    </footer>
+        <div class="contact-ticket-stub">
+          <span>PASSENGER</span>
+          <strong>X. PHENDU</strong>
+          <span>DESTINATION</span>
+          <strong>WHAT'S NEXT</strong>
+          <div class="contact-ticket-barcode" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
-    <script src="motion.js" defer></script>
+    <section class="contact-signoff">
+      <p class="contact-kicker">UNTIL THE NEXT MILE</p>
+      <h2>Good things can start with “hello.”</h2>
+      <p>Thanks for stopping by. I hope we get to connect.</p>
+      <a href="index.html" class="contact-home-link">← Back to the beginning</a>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>DEV<span>//</span>ON THE ROAD</p>
+    <p>Built with curiosity, persistence, and a willingness to take the next turn.</p>
+    <p>© <span data-current-year></span> Xabiso Phendu</p>
+  </footer>
 </body>
-
 </html>
+
+
+

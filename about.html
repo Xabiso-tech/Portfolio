@@ -1,343 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Story &middot; Xabiso Phendu</title>
-    <meta name="description"
-        content="Xabiso Phendu's development journey from Life Choices Academy to frontend, backend, databases and full-stack web application projects.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=d0d9e70">
-    <script>document.documentElement.className = "js-motion";</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8e8">
+  <meta name="description" content="Meet Xabiso Phendu, a Junior Full-Stack Web Developer whose journey into coding is shaped by curiosity, perseverance, faith, and a desire to build technology with purpose.">
+  <title>The Driver | DEV//ON THE ROAD — Xabiso Phendu</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/main.js" defer></script>
 </head>
+<body class="about-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-<body id="top">
-    <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-brand" href="index.html" aria-label="DEV on the Road home">
+        <span class="brand-mark">D//R</span>
+        <span>DEV<span class="brand-divider">//</span>ON THE ROAD</span>
+      </a>
 
-    <canvas id="studio-canvas" aria-hidden="true"></canvas>
+      <button class="menu-toggle" type="button" aria-expanded="false"
+        aria-controls="site-navigation" data-menu-toggle>
+        <span class="menu-toggle-label">Menu</span>
+        <span aria-hidden="true">☰</span>
+      </button>
 
-    <div class="construction" aria-hidden="true">
-        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path
-                d="M120 120 Q800 84 1480 124 Q1512 500 1476 880 Q800 918 128 876 Q96 500 120 120Z" />
-            <path d="M120 120 L1476 880 M120 880 L1476 120" class="c-hatch" />
-            <path d="M120 500 L1480 500" class="c-hatch" />
-            <path d="M800 100 L800 900" class="c-hatch" />
-            <path d="M60 300 Q800 268 1540 302" class="c-hatch" />
-            <path d="M64 700 Q800 732 1536 698" class="c-hatch" />
-            <circle class="c-circle" cx="800" cy="500" r="380" />
-            <circle class="c-circle" cx="800" cy="500" r="300" />
-            <circle class="c-circle" cx="800" cy="500" r="210" />
-            <path d="M120 96 L120 144 M1560 96 L1560 144 M120 856 L120 904 M1560 856 L1560 904" />
-        </svg>
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation" data-site-nav>
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">The Driver</a>
+        <a href="skills.html">Fuel Stops</a>
+        <a href="projects.html">Destinations</a>
+        <a href="roadworks.html">Roadworks</a>
+        <a href="certifications.html">Passport</a>
+        <a href="testimonials.html">Postcards</a>
+        <a href="cv.html">My CV</a>
+        <a href="contact.html">Next Stop</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="grain" aria-hidden="true"></div>
-    <div class="smudge" aria-hidden="true"></div>
-    <div class="cursor-lead" aria-hidden="true"></div>
-    <div class="cursor-trail" aria-hidden="true"></div>
+  <main id="main-content" class="about-main">
+    <section class="about-opening section-block">
+      <p class="eyebrow"><span aria-hidden="true">✳</span> LOGBOOK ENTRY 001 · THE DRIVER</p>
+      <h1 class="page-title about-page-title">
+        The road wasn't straight.<br>
+        <span>It was still leading somewhere.</span>
+      </h1>
+      <p class="intro-copy about-lede">
+        I'm Xabiso Phendu — a Junior Full-Stack Web Developer, curious problem-solver,
+        and someone who believes the journey matters as much as the destination.
+      </p>
+      <div class="about-route-label" aria-label="Journey so far">
+        <span>UNCERTAINTY</span>
+        <span class="route-dots" aria-hidden="true">••••••••</span>
+        <span>DISCOVERY</span>
+        <span class="route-dots" aria-hidden="true">••••••••</span>
+        <span>STILL MOVING</span>
+      </div>
+    </section>
 
-    <div class="page-wipe" id="page-wipe" aria-hidden="true">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0 0 L100 0 L100 100 L0 100 Z" />
-        </svg>
-    </div>
+    <section class="licence-section section-block" aria-labelledby="licence-heading">
+      <div class="section-heading">
+        <p class="eyebrow">KEEP THIS CARD HANDY</p>
+        <h2 id="licence-heading">Driver's licence</h2>
+        <p>A quick introduction to who's behind the wheel.</p>
+      </div>
 
-    <header>
-        <nav>
-            <h1><i class="fa-solid fa-circle-half-stroke"></i> Xabiso Phendu</h1>
-            <ul>
-                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="about.html" aria-current="page"><i class="fa-solid fa-book-open"></i> My Story</a></li>
-                <li><a href="skills.html"><i class="fa-solid fa-screwdriver-wrench"></i> Toolkit</a></li>
-                <li><a href="projects.html"><i class="fa-solid fa-palette"></i> Workshop</a></li>
-                <li class="nav-gallery"><a href="gallery.html" aria-label="Workshop gallery"><i class="fa-regular fa-images"></i> Gallery</a></li>
-                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Connect</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main id="main" tabindex="-1">
-
-        <div class="exhibit-hero">
-            <span class="eyebrow" data-reveal>The long version</span>
-            <h2 data-etch>My development journey</h2>
-            <p class="toolkit-intro" data-reveal>
-                I joined Life Choices Academy with little coding experience. Structured lessons,
-                practice and project work took me from frontend fundamentals into backend and
-                full-stack development.
-            </p>
+      <article class="driver-licence">
+        <div class="licence-topline">
+          <span class="licence-country">PERSONAL TRAVEL DOCUMENT</span>
+          <span class="licence-stamp">VALID FOR<br>THE JOURNEY</span>
         </div>
 
-        <section class="story-opening" data-reveal>
-            <div class="plate story-portrait" data-plate style="--plate-ratio: 755 / 696; --plate-tilt: -0.7deg">
-                <div class="plate-stage">
-                    <img class="plate-img" src="images/1000125110.jpg" width="755" height="696"
-                        alt="Portrait of Xabiso Phendu." decoding="async">
-                </div>
-                <span class="plate-note is-left">Xabiso Phendu &mdash; developer</span>
-            </div>
+        <div class="licence-main">
+          <div class="licence-avatar licence-avatar-photo">
+            <img
+            src="assets/images/Xabiso-profile.jpg"
+            alt="Portrait of Xabiso Phendu"
+            >
+            <small>THE DRIVER</small>
+          </div>
 
-            <div class="story-profile">
-                <h2 data-etch>Starting at Life Choices Academy</h2>
-                <p class="lede">
-                    I began with little knowledge of coding. The Academy gave me a structured place
-                    to learn, practise and build alongside other people.
-                </p>
-                <div class="card story-facts">
-                    <h3>Quick profile</h3>
-                    <dl>
-                        <div class="skill-row">
-                            <dt>Name</dt>
-                            <dd><span>Xabiso Phendu</span></dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Where</dt>
-                            <dd><span>Khayelitsha, Cape Town</span></dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Focus</dt>
-                            <dd><span>Full-stack web applications</span></dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Learning through</dt>
-                            <dd><span>Life Choices Academy</span></dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-        </section>
-
-        <hr class="sketch-rule" data-reveal>
-
-        <section data-reveal>
-            <span class="eyebrow">01 &mdash; Foundation</span>
-            <h2 data-etch>Learning the frontend</h2>
-
-            <p>
-                The first step was understanding how a website is structured and presented. I
-                learned semantic HTML, CSS layout and responsive design, then used JavaScript to
-                make pages respond to user input and work with data.
-            </p>
-
-            <p>
-                Building small pages helped me connect markup, styling and browser behavior rather
-                than treat them as separate topics. I also began using Git and GitHub to keep track
-                of changes and collaborate on shared work.
-            </p>
-        </section>
-
-        <section data-reveal>
-            <span class="eyebrow">02 &mdash; Broader tools</span>
-            <h2 data-etch>Programming and data</h2>
-
-            <p>
-                The curriculum expanded into Python and PHP, then SQL and MySQL. I learned to work
-                with conditionals, functions and input validation, and to model data, query related
-                records and handle invalid input deliberately.
-            </p>
-
-            <p>
-                I also worked with Vue and Bootstrap, learning how components and frameworks can
-                support an interface while leaving the underlying structure and behavior my
-                responsibility.
-            </p>
-        </section>
-
-        <section data-reveal>
-            <span class="eyebrow">03 &mdash; Experimentation</span>
-            <h2 data-etch>Applying the fundamentals</h2>
-
-            <p>
-                The <a href="projects.html">Workshop</a> brings together independent studies and
-                team applications. The gallery and product sites let me practise layout,
-                responsive behavior and interaction; the booking form focused on labels, input
-                types and browser validation.
-            </p>
-
-            <p>
-                Working through defects taught me to reproduce a problem, inspect the relevant
-                markup or code, and verify a fix in context. That process continues to shape how I
-                approach new features.
-            </p>
-        </section>
-
-        <section data-reveal>
-            <span class="eyebrow">04 &mdash; Backend development</span>
-            <h2 data-etch>Working across the stack</h2>
-
-            <p>
-                On a four-person HR system project, I built the employee and performance review
-                backend using Express and MySQL, then connected the corresponding frontend pages to
-                those routes. This introduced me to controllers, models, parameterized queries and
-                JWT-protected endpoints in a shared codebase.
-            </p>
-
-            <p>
-                In WeConnect, a B2B marketplace, I worked on orders, payments and delivery tracking.
-                My contribution included backend routes and queries, location setup, and Vue pages
-                connected to the API, including a Leaflet map for the latest courier position.
-            </p>
-
-            <p>
-                These projects made the relationship between interface, API and database concrete.
-                A feature had to work across those boundaries and fit the team's existing structure.
-            </p>
-
-            <p>
-                I am continuing to develop as a full-stack web developer, with more depth to build
-                in backend design, databases and application architecture.
-            </p>
-        </section>
-
-        <section data-reveal>
-            <span class="eyebrow">05 &mdash; Professional development</span>
-            <h2 data-etch>Working well with others</h2>
-
-            <p>
-                Life Choices Academy also included personal-development training. Sessions with
-                Coach Matika covered leadership principles, communication, transformation and
-                coaching. That work complemented the technical training and helped me think more
-                deliberately about collaboration and professional practice.
-            </p>
-        </section>
-
-        <hr class="sketch-rule" data-reveal>
-
-        <section data-reveal>
-            <span class="eyebrow">Outside development</span>
-            <h2 data-etch>Personal interests</h2>
-
-            <p>
-                Drawing is a hobby and occasional side work; it informs the visual style of this site
-                without defining my profession.
-            </p>
-
-            <ul class="sketch-notes">
-                <li>Church, every Sunday</li>
-                <li>Chess</li>
-                <li>Reading and library visits</li>
-                <li>Physical activity</li>
-            </ul>
-        </section>
-
-        <section class="journey-heading" data-reveal>
-            <span class="eyebrow">From learning to application</span>
-            <h2 data-etch>Technical progression</h2>
-
-            <div class="ruler">
-                <div class="timeline-item">
-                    <strong>Life Choices Academy</strong>
-                    <p>Started with little coding knowledge and a structured program of technical
-                        and personal development.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <strong>Frontend foundations</strong>
-                    <p>HTML, CSS, JavaScript, responsive layouts and browser interaction.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <strong>Programming and databases</strong>
-                    <p>Python, PHP, SQL and MySQL, applied to input handling and data-driven features.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <strong>Backend development</strong>
-                    <p>Node.js, Express APIs, controllers, models and authentication in team projects.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <strong>Modern web applications</strong>
-                    <p>Vue, Bootstrap, API integration and responsive interfaces backed by databases.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <strong>Practical application</strong>
-                    <p>HR Tech and WeConnect work connecting frontend features to backend services.</p>
-                </div>
-
-                <div class="timeline-item is-now">
-                    <strong>Current direction</strong>
-                    <p>Continuing to grow as a full-stack developer through project work and practice.</p>
-                </div>
-            </div>
-        </section>
-
-        <section data-reveal>
-            <span class="eyebrow">Current direction</span>
-            <h2 data-etch>Developing across the stack</h2>
-
-            <p>
-                I am building on my frontend experience while deepening my understanding of backend
-                systems, data design and deployment. My goal is to contribute across the lifecycle
-                of practical web applications.
-            </p>
-
-            <p>
-                The <a href="projects.html">Workshop</a> shows the projects and team contributions
-                behind that direction.
-            </p>
-        </section>
-
-        <section class="socials" data-reveal>
-            <h3 class="social-title">
-                <i class="fa-solid fa-compass"></i> See the work
-            </h3>
-
-            <p class="social-label">
-                Code and project history on GitHub, with professional updates on LinkedIn.
-            </p>
-
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/xabiso-phendu-ab6347414/" target="_blank"
-                    rel="noopener noreferrer">
-                    <i class="fa-brands fa-linkedin-in"></i> LinkedIn
-                </a>
-                <a href="https://github.com/Xabiso-tech" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-github"></i> GitHub
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="artist-footer">
-        <p class="footer-phrase">
-            Learning through projects.<br>
-            Building across the stack.
-        </p>
-
-        <p class="footer-signature">
-            <span class="hand">Xabiso Phendu</span><br>
-            <span class="mono">Web developer &middot; Cape Town, South Africa</span>
-        </p>
-
-        <div class="footer-links">
-            <a href="about.html">My Story</a>
-            <a href="skills.html">Toolkit</a>
-            <a href="projects.html">Workshop</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Connect</a>
+          <div class="licence-identity">
+            <p class="licence-field-label">NAME ON THE MAP</p>
+            <h3>Xabiso<br>Phendu</h3>
+            <p class="licence-role">JUNIOR FULL-STACK WEB DEVELOPER</p>
+          </div>
         </div>
 
-        <p class="footer-info">
-            <span>&copy; <span class="year">2026</span> Xabiso Phendu</span>
-            <span class="footer-divider">&bull;</span>
-            <span>Full-Stack Developer in Training</span>
-            <span class="footer-divider">&bull;</span>
-            <a href="#top" class="back-to-top">Back to top &uarr;</a>
-        </p>
-    </footer>
+        <div class="licence-details">
+          <div>
+            <span class="licence-field-label">KNOWN FOR</span>
+            <p>Curiosity · Attention to detail · Teamwork</p>
+          </div>
+          <div>
+            <span class="licence-field-label">DRIVING STYLE</span>
+            <p>Listen first. Ask questions. Keep learning.</p>
+          </div>
+          <div>
+            <span class="licence-field-label">CURRENT ROUTE</span>
+            <p>Building skills through real development work</p>
+          </div>
+          <div>
+            <span class="licence-field-label">NEXT DESTINATION</span>
+            <p>Purposeful products, stronger skills, technical leadership</p>
+          </div>
+        </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
-    <script src="motion.js" defer></script>
+        <div class="licence-bottom">
+          <span>ISSUED BY: EXPERIENCE</span>
+          <span>RENEWED THROUGH: PERSEVERANCE</span>
+          <span class="licence-barcode" aria-hidden="true">▥ ▥ ▥ ▥ ▥ ▥ ▥</span>
+        </div>
+      </article>
+
+      <p class="licence-note">
+        Not an official licence, obviously. Just a snapshot of the developer
+        I'm becoming — and the direction I'm choosing to travel.
+      </p>
+    </section>
+
+    <section class="about-story section-block" aria-labelledby="origin-heading">
+      <div class="story-marker" aria-hidden="true">
+        <span>STOP</span>
+        <strong>01</strong>
+      </div>
+      <div class="story-copy">
+        <p class="eyebrow">THE DEPARTURE POINT</p>
+        <h2 id="origin-heading">When the expected route didn't open</h2>
+        <p>
+          For a while, my future felt tied to the conventional careers I had
+          grown up hearing about — becoming a doctor, teacher, or lawyer.
+          But I couldn't get into university, and repeated attempts to pass
+          Mathematics and Physical Sciences didn't work out the way I hoped.
+          I found myself unemployed, unsure of what my next step would be.
+        </p>
+        <p>
+          Before Life Choices Academy, I knew coding existed, but I didn't
+          really understand what it involved. It wasn't a lifelong plan or
+          some perfectly mapped-out destination. It was a road I hadn't
+          properly explored yet.
+        </p>
+        <div class="scrapbook-note note-orange">
+          <span class="note-pin" aria-hidden="true">✳</span>
+          <strong>ROUTE UPDATE</strong>
+          <p>Sometimes a closed road makes you look for a different way forward.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-story about-story-reverse section-block" aria-labelledby="spark-heading">
+      <div class="story-marker story-marker-blue" aria-hidden="true">
+        <span>STOP</span>
+        <strong>02</strong>
+      </div>
+      <div class="story-copy">
+        <p class="eyebrow">THE FIRST SPARK</p>
+        <h2 id="spark-heading">Wait… coding is actually fun?</h2>
+        <p>
+          After applying to Life Choices Academy, I needed to prepare for the
+          assessment. I downloaded a Python learning app that taught through
+          quizzes and questions, and I started working my way through them.
+        </p>
+        <p>
+          Something clicked. Coding felt like playing a game: try something,
+          work through a challenge, learn from the result, and move on to the
+          next one. What had been unfamiliar became something I genuinely
+          wanted to explore.
+        </p>
+        <div class="code-ticket" aria-label="A reminder of the first spark">
+          <div class="ticket-heading">FIRST SPARK · PYTHON</div>
+          <div class="ticket-body">
+            <span class="ticket-symbol" aria-hidden="true">▶</span>
+            <div>
+              <strong>Curiosity unlocked.</strong>
+              <p>One question at a time. One new possibility at a time.</p>
+            </div>
+          </div>
+          <div class="ticket-footer">
+            <span>ADMIT ONE</span><span>KEEP EXPLORING</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-story section-block" aria-labelledby="detour-heading">
+      <div class="story-marker story-marker-yellow" aria-hidden="true">
+        <span>STOP</span>
+        <strong>03</strong>
+      </div>
+      <div class="story-copy">
+        <p class="eyebrow">ROADWORKS & REAL LESSONS</p>
+        <h2 id="detour-heading">The day GitHub taught me to slow down</h2>
+        <p>
+          One mistake made the importance of version control very real.
+          While trying to edit my work, I accidentally deleted our team's
+          work on GitHub because I was working directly on the <code>main</code>
+          branch instead of my own branch.
+        </p>
+        <p>
+          I asked my team leader for help, and she helped me fix the mistake.
+          It was stressful, but it taught me something I couldn't afford to
+          treat casually: branches help people work separately, protect shared
+          work, and bring changes together more safely.
+        </p>
+        <p>
+          I learned to pay closer attention to where I'm working, understand
+          the tools before using them, and ask for help when I need it.
+          Perseverance doesn't mean never making mistakes. It means learning
+          from them and continuing forward.
+        </p>
+        <div class="road-sign-note">
+          <span class="road-sign-icon" aria-hidden="true">!</span>
+          <div>
+            <strong>ROAD SIGN: CHECK YOUR BRANCH</strong>
+            <p>Before changing shared work, know where you are and what you're changing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-values section-block" aria-labelledby="values-heading">
+      <div class="section-heading">
+        <p class="eyebrow">WHAT TRAVELS WITH ME</p>
+        <h2 id="values-heading">More than what's in my toolkit</h2>
+        <p>The person behind the code influences the things they choose to build.</p>
+      </div>
+
+      <div class="values-grid">
+        <article class="value-card value-card-orange">
+          <span class="value-icon" aria-hidden="true">?</span>
+          <h3>Curiosity with intention</h3>
+          <p>
+            I like understanding how things work. I listen, ask questions,
+            notice details, and want to understand the problem before rushing
+            toward an answer.
+          </p>
+        </article>
+
+        <article class="value-card value-card-blue">
+          <span class="value-icon" aria-hidden="true">↗</span>
+          <h3>A team player with leadership ambitions</h3>
+          <p>
+            I value collaboration and learning from others. My longer-term
+            ambition is to grow into an independent technical leader who can
+            innovate and build technology products of my own.
+          </p>
+        </article>
+
+        <article class="value-card value-card-pink">
+          <span class="value-icon" aria-hidden="true">♡</span>
+          <h3>Faith that shapes my direction</h3>
+          <p>
+            My relationship with Christ is an intentional part of my life.
+            Serving through church events and evangelising activities is one
+            way I seek to live out that faith.
+          </p>
+        </article>
+
+        <article class="value-card value-card-turquoise">
+          <span class="value-icon" aria-hidden="true">✳</span>
+          <h3>Concern for people</h3>
+          <p>
+            I care about the realities people face in South Africa, including
+            gender-based violence, crime, homelessness, and the experiences
+            of children living on the streets. I'm becoming more intentional
+            about standing with people who are vulnerable or oppressed.
+          </p>
+        </article>
+      </div>
+
+      <div class="outside-code-note">
+        <div class="outside-code-label">OFF THE CLOCK</div>
+        <p>
+          You'll also find me playing cards, chess, or checkers, or having
+          the kind of deep conversation where you leave knowing someone
+          a little better than before.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-destination section-block" aria-labelledby="destination-heading">
+      <div class="destination-paper">
+        <p class="eyebrow">THE NEXT DESTINATION · NOT THE FINAL STOP</p>
+        <h2 id="destination-heading">Build better. Lead thoughtfully. Make it matter.</h2>
+        <p>
+          I'm working to polish and sharpen my development skills, grow my
+          understanding of technology, and become the kind of leader who can
+          turn ideas into useful products. In the long run, I want to build
+          technology that helps address problems I see affecting people in
+          South Africa.
+        </p>
+        <p>
+          I'm not claiming to have arrived. I'm building the skills, judgment,
+          and experience to take on bigger challenges — and I'm intentional
+          about where I want the journey to lead.
+        </p>
+
+        <blockquote class="scripture-stamp">
+          <span class="scripture-stamp-label">A VERSE FOR THE JOURNEY</span>
+          <p>Pressing forward toward what lies ahead.</p>
+          <cite>Philippians 3:13–14</cite>
+        </blockquote>
+
+        <div class="destination-actions">
+          <a class="button button-primary" href="projects.html">Explore what I build <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="contact.html">Let's talk about the next stop <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <p class="destination-footnote">CURRENT STATUS: STILL LEARNING. STILL BUILDING. STILL MOVING.</p>
+    </section>
+
+    <nav class="page-navigation" aria-label="About page navigation">
+      <a href="index.html"><span aria-hidden="true">←</span> Back to the cover</a>
+      <a href="skills.html">Next stop: Fuel Stops <span aria-hidden="true">→</span></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <p>DEV<span aria-hidden="true">//</span>ON THE ROAD · XABISO PHENDU</p>
+    <p>Made with curiosity, perseverance, and purpose.</p>
+    <p>© <span data-current-year></span> Xabiso Phendu</p>
+  </footer>
 </body>
-
 </html>
