@@ -11,7 +11,7 @@
   <script src="assets/js/main.js" defer></script>
 </head>
 
-<body>
+<body class="postcards-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -20,7 +20,7 @@
 
     <button class="menu-toggle" type="button"
       aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
-      Menu <span aria-hidden="true">ï¼‹</span>
+      Menu <span aria-hidden="true">☰</span>
     </button>
 
     <nav class="site-nav" id="site-navigation" data-site-nav aria-label="Main navigation">
@@ -29,7 +29,7 @@
       <a href="skills.html">Fuel Stops</a>
       <a href="projects.html">Destinations</a>
       <a href="roadworks.html">Roadworks</a>
-      <a href="certifications.html">Passport</a>
+      <a href="certifications.html">Certifications</a>
       <a href="testimonials.html" aria-current="page">Postcards</a>
       <a href="cv.html">My CV</a>
       <a href="contact.html">Next Stop</a>
@@ -40,52 +40,21 @@
   <main id="main-content">
 
     <!-- HERO: the arrival board for the crew's postcards -->
-    <section class="section-block postcards-hero">
-      <p class="eyebrow">MAIL CALL! · DELIVERED FROM THE ROAD</p>
-
-      <h1 class="page-title">
-        POSTCARDS<br>
-        <span>FROM THE CREW.</span>
-      </h1>
-
-      <p class="intro-copy">
-        A journey is shaped by more than the person behind the wheel.
-        It's shaped by the people who share ideas, tackle challenges,
-        offer encouragement and make the miles worthwhile.
-      </p>
-
-      <p class="postcards-intro-note">These are real words from people I've met through Life Choices Academy and collaborative work. Some speak to teamwork; others reflect encouragement or good conversation. Each postcard keeps its original context.</p>
-
-      <div class="postcards-mail-stamp" aria-label="Postage stamp: Good people, good journeys">
-        <span class="mail-stamp-top">GOOD PEOPLE</span>
-        <span class="mail-stamp-icon" aria-hidden="true">✳</span>
-        <span class="mail-stamp-bottom">GOOD JOURNEYS</span>
+    <section class="section-block postcards-scenic-hero" aria-labelledby="postcards-title">
+      <div class="postcards-hero-copy"><p class="eyebrow">THE JOURNEY SO FAR · GOOD PEOPLE, GOOD MILES</p><h1 class="page-title" id="postcards-title">POSTCARDS<br><span>FROM THE CREW.</span></h1><p class="postcards-hero-lede">Greetings from the journey. These are genuine reflections from colleagues who have shared part of my professional road. Their words are worth keeping as I travel on.</p><a class="postcards-hero-link" href="#crew-postcards">Open the mailbag <span aria-hidden="true">↓</span></a><span class="postcards-mile-tag" aria-hidden="true">MILE<br><strong>001</strong></span></div>
+      <div class="postcards-hero-art" role="img" aria-label="Illustrated postcard with a winding road, hills, a bright sun, and a postmark reading Good people, good journeys">
+        <svg viewBox="0 0 640 400" aria-hidden="true" focusable="false"><rect width="640" height="400" fill="#a9e8dc"/><circle cx="500" cy="86" r="48" fill="#ffd447" stroke="#252321" stroke-width="5"/><path d="M0 223 122 92l95 116 111-142 99 148 76-91 137 122v155H0Z" fill="#8591b7" stroke="#252321" stroke-width="5" stroke-linejoin="round"/><path d="m81 136 41-44 39 48-23-10-19 11-17-7-12 12Zm202-4 45-66 47 72-25-11-20 14-20-12-16 12Zm180 29 40-38 28 38-18-9-18 9-13-8Z" fill="#fff8e8" stroke="#252321" stroke-width="4"/><path d="M0 246q127-88 246-6t238-7q80-49 156 5v162H0Z" fill="#76b97b" stroke="#252321" stroke-width="5"/><path d="M-40 355q110-90 224-35t186 4q86-68 182-45t132-30" fill="none" stroke="#292b31" stroke-width="76" stroke-linecap="round"/><path class="postcard-hero-route" d="M-40 355q110-90 224-35t186 4q86-68 182-45t132-30" fill="none" stroke="#fff8e8" stroke-width="7" stroke-dasharray="13 19" stroke-linecap="round"/><g transform="translate(105 295)"><g class="postcard-hero-car"><path d="m0 25 15-18q5-6 15-6h37q11 0 19 10l10 14 11 4v17H-5V31Z" fill="#ff6338" stroke="#252321" stroke-width="4"/><path d="m29 5-12 17h29V4H30Zm24-1v18h33L77 9q-4-5-10-5Z" fill="#d9faf4" stroke="#252321" stroke-width="3"/><circle cx="17" cy="46" r="9" fill="#252321"/><circle cx="84" cy="46" r="9" fill="#252321"/></g></g><g class="postcards-hero-stamp"><circle cx="534" cy="275" r="64" fill="#ff8fbc" stroke="#252321" stroke-width="4" stroke-dasharray="7 5"/><text x="534" y="266" text-anchor="middle" fill="#252321" font-family="Courier New" font-size="12" font-weight="900">GOOD PEOPLE</text><text x="534" y="285" text-anchor="middle" fill="#252321" font-family="Courier New" font-size="12" font-weight="900">GOOD JOURNEYS</text></g></svg>
+        <span class="postcards-hero-note">Keep the good words close.</span><span class="postcards-hero-route-label">ROUTE 001<br>CREW MAIL</span>
       </div>
-
-      <div class="postcards-route" aria-label="Postcard delivery route">
-        <span>IDEAS</span>
-        <span aria-hidden="true">→</span>
-        <span>TEAMWORK</span>
-        <span aria-hidden="true">→</span>
-        <span>GROWTH</span>
-        <span aria-hidden="true">→</span>
-        <span>WHAT'S NEXT?</span>
-      </div>
+      <div class="postcards-route" aria-label="Story route: The journey so far, messages from the crew, the road ahead, Godspeed"><span>THE JOURNEY SO FAR</span><span aria-hidden="true">→</span><span>MESSAGES FROM THE CREW</span><span aria-hidden="true">→</span><span>THE ROAD AHEAD</span><span aria-hidden="true">→</span><span>GODSPEED</span></div>
     </section>
 <!-- THE CREW'S POSTCARD COLLECTION -->
-    <section class="section-block" aria-labelledby="crew-heading">
-      <p class="eyebrow">THE MAILBAG IS OPEN</p>
-      <h2 id="crew-heading">Seven voices. Different perspectives. One journey.</h2>
-
-      <p class="postcards-section-intro">
-        From curiosity and commitment to positive energy and good
-        conversations, here's what members of the crew had to say.
-      </p>
-
+    <section class="section-block postcard-collection" id="crew-postcards" aria-labelledby="crew-heading">
+      <div class="postcard-collection-heading"><div><p class="eyebrow">NOTES FROM THE CREW · MAILBAG OPEN</p><h2 id="crew-heading">Seven voices.<br><span>Different stretches of the road.</span></h2><p class="postcards-section-intro">Each postcard keeps its sender’s words and context. These are the people who made the miles memorable.</p></div><div class="postcard-collection-sticker" aria-hidden="true"><span>✳</span><strong>MEMORIES<br>COLLECTED</strong><small>GOOD PEOPLE AHEAD</small></div></div>
       <div class="postcards-grid">
 
         <!-- POSTCARD 01 -->
-        <article class="crew-postcard postcard-orange">
+        <article tabindex="0" class="crew-postcard postcard-orange">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 01</span>
             <span class="postcard-mini-stamp" aria-hidden="true">✳</span>
@@ -114,7 +83,7 @@
         </article>
 
         <!-- POSTCARD 02 -->
-        <article class="crew-postcard postcard-blue">
+        <article tabindex="0" class="crew-postcard postcard-blue">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 02</span>
             <span class="postcard-mini-stamp" aria-hidden="true">↗</span>
@@ -142,7 +111,7 @@
         </article>
 
         <!-- POSTCARD 03 -->
-        <article class="crew-postcard postcard-pink">
+        <article tabindex="0" class="crew-postcard postcard-pink">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 03</span>
             <span class="postcard-mini-stamp" aria-hidden="true">✦</span>
@@ -169,7 +138,7 @@
         </article>
 
         <!-- POSTCARD 04 -->
-        <article class="crew-postcard postcard-yellow">
+        <article tabindex="0" class="crew-postcard postcard-yellow">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 04</span>
             <span class="postcard-mini-stamp" aria-hidden="true">♡</span>
@@ -198,7 +167,7 @@
         </article>
 
         <!-- POSTCARD 05 -->
-        <article class="crew-postcard postcard-green">
+        <article tabindex="0" class="crew-postcard postcard-green">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 05</span>
             <span class="postcard-mini-stamp" aria-hidden="true">☀</span>
@@ -225,7 +194,7 @@
         </article>
 
         <!-- POSTCARD 06 -->
-        <article class="crew-postcard postcard-lilac">
+        <article tabindex="0" class="crew-postcard postcard-lilac">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 06</span>
             <span class="postcard-mini-stamp" aria-hidden="true">☏</span>
@@ -252,7 +221,7 @@
         </article>
 
         <!-- POSTCARD 07 -->
-        <article class="crew-postcard postcard-asphalt">
+        <article tabindex="0" class="crew-postcard postcard-asphalt">
           <div class="crew-postcard-header">
             <span class="postcard-index">POSTCARD 07</span>
             <span class="postcard-mini-stamp" aria-hidden="true">★</span>
@@ -283,8 +252,7 @@
             <strong>Nikita Muller</strong>
           </footer>
         </article>
-
-      </div>
+</div><div class="postcards-route-sign" aria-hidden="true"><span>THE ROAD AHEAD</span><strong>More good miles to come →</strong></div>
     </section>
 
     <!-- WHAT THE CREW'S WORDS HAVE IN COMMON -->
@@ -311,13 +279,13 @@
         </div>
 
         <div class="crew-signal signal-pink">
-          <span aria-hidden="true">✦</span>
+          <span aria-hidden="true">âœ¦</span>
           <h3>Commitment</h3>
           <p>Hard work, dedication and enthusiasm for taking on challenges.</p>
         </div>
 
         <div class="crew-signal signal-yellow">
-          <span aria-hidden="true">☀</span>
+          <span aria-hidden="true">â˜€</span>
           <h3>Positive energy</h3>
           <p>A positive mindset and conversations that make connections easier.</p>
         </div>
@@ -330,28 +298,9 @@
     </section>
 
     <!-- CLOSING -->
-    <section class="postcards-closing">
-      <p class="eyebrow">END OF THIS MAIL RUN · NOT THE END OF THE JOURNEY</p>
-
-      <h2>Good people leave a mark on the map.</h2>
-
-      <p>
-        I'm grateful for the people who have shared ideas, lessons,
-        challenges and conversations with me along the way. There's still
-        more to learn, more to build and more road ahead.
-      </p>
-
-      <div class="postcards-closing-actions">
-        <a class="action-link" href="projects.html">
-          Explore the work <span aria-hidden="true">↗</span>
-        </a>
-
-        <a class="action-link" href="contact.html">
-          Send the next postcard <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-
-      <p class="postcards-closing-signoff">Until the next stop — Xabiso.</p>
+    <section class="section-block godspeed-postcard" aria-labelledby="godspeed-title">
+      <div class="godspeed-scenery" role="img" aria-label="A small car travels along an open road toward a sunset and destination flag"><svg viewBox="0 0 640 420" aria-hidden="true" focusable="false"><defs><linearGradient id="godspeed-sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffb56b"/><stop offset="1" stop-color="#ffdca0"/></linearGradient></defs><rect width="640" height="420" fill="url(#godspeed-sky)"/><circle cx="470" cy="132" r="66" fill="#fff0b5" stroke="#252321" stroke-width="4"/><path d="M0 254 125 148l94 89 92-112 107 133 83-91 139 111v142H0Z" fill="#727e9f" stroke="#252321" stroke-width="5"/><path d="M0 284q115-91 235-19t222-16q98-68 183-5v176H0Z" fill="#6ca77a" stroke="#252321" stroke-width="5"/><path d="M-25 431q129-130 252-111t158-93q32-69 112-99" fill="none" stroke="#292b31" stroke-width="105" stroke-linecap="round"/><path class="godspeed-road-line" d="M-25 431q129-130 252-111t158-93q32-69 112-99" fill="none" stroke="#fff8e8" stroke-width="8" stroke-dasharray="15 21" stroke-linecap="round"/><g transform="translate(100 320)"><g class="godspeed-car"><path d="m0 24 14-17q5-6 15-6h35q11 0 18 10l10 13 10 4v17H-5V30Z" fill="#ff6338" stroke="#252321" stroke-width="4"/><path d="m29 5-11 16h28V4H30Zm24-1v17h31L77 9q-4-5-10-5Z" fill="#d9faf4" stroke="#252321" stroke-width="3"/><circle cx="16" cy="45" r="9" fill="#252321"/><circle cx="80" cy="45" r="9" fill="#252321"/></g></g><path d="M566 42v104" stroke="#252321" stroke-width="7"/><path d="M572 47h53l-13 22h-40Z" fill="#43d9c5" stroke="#252321" stroke-width="4"/><text x="579" y="63" fill="#252321" font-family="Courier New" font-size="10" font-weight="900">NEXT</text></svg><span class="godspeed-scenery-caption">THE NEXT CHAPTER</span></div>
+      <article class="godspeed-message"><p class="eyebrow">THE LAST POSTCARD · A WISH FOR THE ROAD AHEAD</p><h2 id="godspeed-title">GODSPEED,<br><span>XABISO.</span></h2><blockquote>May the road ahead open to new opportunities, meaningful work, and people who make the journey worthwhile. May you have courage when the road is uncertain, wisdom at every crossroads, and strength for every new challenge. May you travel safely, grow through every experience, and never lose sight of the purpose that brought you this far. Here’s to the roads still waiting to be discovered, the lives you’ll touch along the way, and the good that lies ahead. Godspeed, Xabiso. May your journey be blessed.</blockquote><span class="godspeed-signoff">With hope for all that’s still ahead.</span><div class="postcards-closing-actions"><a class="action-link" href="projects.html">Explore the work <span aria-hidden="true">↗</span></a><a class="action-link action-link--yellow" href="contact.html">Send the next postcard <span aria-hidden="true">↗</span></a></div><span class="godspeed-postmark" aria-hidden="true">JOURNEY<br>BEGINS HERE</span></article>
     </section>
 
   </main>
@@ -363,5 +312,3 @@
   </footer>
 </body>
 </html>
-
-
